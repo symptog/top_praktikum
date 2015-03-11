@@ -1,8 +1,7 @@
 import processing.core.*;
 import vialab.SMT.*;
 
-
-class UserArea extends Zone {
+public class UserArea extends Zone {
     private Integer col;
     PShape text = null, s = null;
 
