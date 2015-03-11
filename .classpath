@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="src" path="/top_praktikum/resources"/>
-	<classpathentry kind="src" path="/top_praktikum/config"/>
-	<classpathentry kind="src" path="/top_praktikum/src"/>
+	<classpathentry kind="src" path="resources"/>
+	<classpathentry kind="src" path="config"/>
+	<classpathentry kind="src" path="src"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.USER_LIBRARY/gluegen-rt"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.USER_LIBRARY/jbox2d-library-2.1.2.2-jar-with-dependencies"/>
-	<classpathentry kind="output" path="bin"/>
+	<classpathentry kind="output" path="production/top_praktikum"/>
 </classpath>

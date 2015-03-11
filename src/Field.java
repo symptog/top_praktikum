@@ -1,3 +1,4 @@
+import UserArea.UserArea;
 import processing.core.*;
 import vialab.SMT.*;
 
@@ -122,6 +123,7 @@ public class Field extends PApplet {
 		System.out.println(String.format( "fps: %.0f", this.frameRate));
 		this.blocks.display();
 		this.b1.display();
+        this.b1.moveUp();
 	}
 
 
