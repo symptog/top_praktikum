@@ -49,14 +49,7 @@ public class UserArea extends Zone {
         }
 
         if (active) {
-            background(128,128,128);//legt Hintergrundfarbe fest - wenn nur einmal gezeichnet, dann läuft der Bildschirm voll
-            stroke(0,0,0);//legt Randfarbe nachfolgender Formen fest
-            fill(255,255,255);//legt Füllfarbe nachfolgender Formen fest
-            ellipse(this.getWidth()/2, this.getHeight()/2, this.getHeight()/3*2, this.getHeight()/3*2);//Position, Position, Breite, Höhe
-            int kreuz = (int) java.lang.Math.floor( java.lang.Math.sqrt(((this.getHeight()/3*2)/2)*(this.getHeight()/3)/2 ));
-            line(this.getWidth()/2-kreuz, this.getHeight()/2-kreuz,this.getWidth()/2+kreuz, this.getHeight()/2+kreuz);//StartPosition, StartPosition, EndPosition, EndPosition
-            line(this.getWidth()/2-kreuz, this.getHeight()/2+kreuz,this.getWidth()/2+kreuz, this.getHeight()/2-kreuz);
-            ellipse(this.getWidth()/2, this.getHeight()/2, this.getHeight()/4*0.75f, this.getHeight()/4*0.75f);
+            kreuz(this.getWidth()/3*2, this.getHeight()/2, this.getHeight(), this.getHeight());
         }
     }
 
@@ -64,10 +57,10 @@ public class UserArea extends Zone {
     @Override
     public void touch() {
         this.active = true;
-        if (trackball != null) {
-            this.trackball = new Trackball(this.getWidth() / 2, this.getHeight() / 2, this.getHeight() / 3 * 2, this.getHeight() / 3 * 2);
-            this.add(trackball);
+        if (trackball == null) {
+            this.trackball = new Trackball((this.getWidth() / 3*2)-(this.getHeight() / 5), (this.getHeight() / 2)-(this.getHeight() / 5), this.getHeight() / 3 * 2, this.getHeight() / 3 * 2);
         }
+        this.add(trackball);
     } //touch down method
     @Override
     public void touchDown(Touch touch){} //touch up method
@@ -75,5 +68,17 @@ public class UserArea extends Zone {
     public void touchUp(Touch touch){} //touch moved method
     @Override
     public void touchMoved(Touch touch){}
+
+    private void kreuz(int x, int y, int width, int height) {
+        background(128,128,128);//legt Hintergrundfarbe fest - wenn nur einmal gezeichnet, dann läuft der Bildschirm voll
+        stroke(0,0,0);//legt Randfarbe nachfolgender Formen fest
+        fill(255,255,255);//legt Füllfarbe nachfolgender Formen fest
+        ellipseMode(CENTER);
+        ellipse(x, y, height/5*4, height/5*4);//Position, Position, Breite, Höhe
+        int kreuz = (int) java.lang.Math.floor( java.lang.Math.sqrt((height/5*4)/2*(height/5*4))/2);
+        line(x-kreuz, y-kreuz,x+kreuz, y+kreuz);//StartPosition, StartPosition, EndPosition, EndPosition
+        line(x-kreuz, y+kreuz,x+kreuz, y-kreuz);
+        ellipse(x, y, height/4*0.75f, height/4*0.75f);
+    }
 
 }
