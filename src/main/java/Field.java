@@ -119,7 +119,7 @@ public class Field extends PApplet {
 
 	public void draw() {
 		background(255);
-		System.out.println(String.format( "fps: %.0f", this.frameRate));
+		//System.out.println(String.format( "fps: %.0f", this.frameRate));
 		this.blocks.display();
 		this.b1.display();
         this.b1.moveUp();

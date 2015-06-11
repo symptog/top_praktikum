@@ -1,10 +1,7 @@
 package UserArea;
 
-import org.jbox2d.collision.shapes.Shape;
 import processing.core.*;
 import vialab.SMT.*;
-
-import java.lang.reflect.Field;
 
 public class UserArea extends Zone {
     private Integer col;
@@ -13,6 +10,10 @@ public class UserArea extends Zone {
     private Zone trackball = null;
     private float crossWidth;
     private float crossHeight;
+    private int maxpos;
+    private PVector touchpoint;
+    private Integer org_x;
+    private Integer org_y;
 
     public float getCrossWidth() {
         return crossWidth;
@@ -31,49 +32,42 @@ public class UserArea extends Zone {
 
     @Override
     public void draw() {
-        /* Wenn null, dann Rendern
-         * Verhindert, dass die Fläche mit jedem Frame neu erstellt wird
-         */
-        if (s == null) {
-            System.out.println("s ist null");
-            s = createShape();
-            s.beginShape();
-            s.stroke(this.col);
-            s.strokeWeight(2);
-            s.fill(255);
-            s.vertex(0, 0, 0, 0);
-            s.vertex(this.getWidth(), 0, 1, 0);
-            s.vertex(this.getWidth(), this.getHeight(), 1, 1);
-            s.vertex(0, this.getHeight(), 0, 1);
-            s.endShape(CLOSE);
-        }
-        if (text == null && !active) {
-            System.out.println("text ist null");
-            //text = loadShape(getClass().getResource("svg/test.svg").getFile());
-            //text.setFill(this.col);
-            //text.scale(0.7f);
+
+        int joystickdm = this.getHeight()/2;
+        maxpos = (int)this.getCrossHeight() - joystickdm;
+
+        kreuz((this.getWidth() / 4*3), (this.getHeight() / 2));
+
+        if(trackball != null) {
+            this.touchpoint = new PVector(trackball.getX(), trackball.getY());
+            System.out.print("x: " + trackball.getX() + " ");
+            System.out.print("y: " + trackball.getY() + "\n");
+
+            if(this.org_x == null) {
+                this.org_x = trackball.getX();
+            }
+            if(this.org_y == null) {
+                this.org_y = trackball.getY();
+            }
+            // Todo: in den grenzen bleiben, mittelpunkt der box benutzen, nicht die ecke (radius addieren)
+            if (touchpoint.dist(new PVector(this.org_x, this.org_y)) > maxpos) {
+                PVector v = new PVector(0 - touchpoint.x, 0 - touchpoint.y);
+                v.normalize();
+                trackball.setX(0 - v.x * maxpos);
+                trackball.setY(0 - v.y * maxpos);
+            }
+
         }
 
-        shape(s);
-        beginShape(POLYGON);
-        shapeMode(CENTER);
-        if (!active) {
-            //shape(text, this.getWidth() / 2, this.getHeight() / 2);
-        }
-
-        if (active) {
-            kreuz(this.getWidth()/3*2, this.getHeight()/2);
-        }
     }
 
     //touch method
     @Override
     public void touch() {
-        this.active = true;
         if (trackball == null) {
-            this.trackball = new Trackball((this.getWidth() / 3*2)-(this.getHeight() / 5), (this.getHeight() / 2)-(this.getHeight() / 5), this.getHeight() / 3 * 2, this.getHeight() / 3 * 2);
+            this.trackball = new Trackball((this.getWidth() / 4*3)-(int)this.getCrossHeight()/4, (this.getHeight() / 2)-(int)this.getCrossHeight()/4, (int)this.getCrossHeight()/2, (int)this.getCrossHeight()/2);
+            this.add(trackball);
         }
-        this.add(trackball);
     } //touch down method
     @Override
     public void touchDown(Touch touch){} //touch up method
