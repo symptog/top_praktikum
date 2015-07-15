@@ -1,3 +1,5 @@
+package Bomberman;
+
 import processing.core.PImage;
 
 public class Blocks {
@@ -16,9 +18,9 @@ public class Blocks {
         this.horizontal_blocks = p.getHorizontal_blocks();
         this.vertical_blocks = p.getVertical_blocks();
         this.blocks = new Block[horizontal_blocks][vertical_blocks];
-        this.block = p.loadImage(getClass().getResource(p.getProp("block_img")).toString());
-        this.static_block = p.loadImage(getClass().getResource(p.getProp("static_block_img")).toString());
-        this.block_item = p.loadImage(getClass().getResource(p.getProp("item_img")).toString());
+        this.block = p.loadImage(getClass().getResource('/' + p.getProp("block_img")).toString());
+        this.static_block = p.loadImage(getClass().getResource('/'+p.getProp("static_block_img")).toString());
+        this.block_item = p.loadImage(getClass().getResource('/'+p.getProp("item_img")).toString());
     }
 
     public Block getBlocks(Integer x, Integer y) {

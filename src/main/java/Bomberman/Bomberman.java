@@ -1,3 +1,5 @@
+package Bomberman;
+
 import processing.core.PImage;
 import processing.core.PShape;
 
@@ -30,7 +32,7 @@ public class Bomberman {
     }
 
     public void render() {
-        img = p.loadImage(getClass().getResource("img/" + id + ".png").toString());
+        img = p.loadImage(getClass().getResource("/img/" + id + ".png").toString());
         man = p.createShape();
         man.beginShape();
         man.noStroke();
@@ -55,7 +57,7 @@ public class Bomberman {
     }
     public void display() {
         updateBlock();
-        p.shape(this.man, this.x, this.y);
+        p.shape(this.man, this.x, this.y, );
     }
 
     public void moveLeft() {
@@ -78,7 +80,10 @@ public class Bomberman {
                 this.y += 1;
         }
     }
-    public void dropBomb() {}
+    public void dropBomb() {
+        Block bomb_block = p.getBlock(blockX, blockY);
+        bomb_block.setType(Items.BOMBE);
+    }
     public void die() {}
 
     private void updateBlock() {

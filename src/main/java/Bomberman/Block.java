@@ -1,5 +1,6 @@
+package Bomberman;
+
 import processing.core.*;
-import vialab.SMT.*;
 
 public class Block {
     private Float posX, posY; // Position
@@ -13,7 +14,7 @@ public class Block {
     private Blocks b;
 
     Block(Field p, Blocks b, float x, float y) {
-        this.posX = x;
+        this.posX = x;        block = p.createShape();
         this.posY = y;
         this.p = p;
         this.b = b;
@@ -33,6 +34,7 @@ public class Block {
 
     public void setType(Integer type) {
         this.type = type;
+        this.render();
     }
 
     public Boolean getCovered() {

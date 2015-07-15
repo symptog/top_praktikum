@@ -1,8 +1,9 @@
-import UserArea.UserArea;
+package Bomberman;
+
+import Bomberman.UserArea.UserArea;
 import processing.core.*;
 import vialab.SMT.*;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -24,7 +25,8 @@ public class Field extends PApplet {
 		InputStream input = null;
 
 		try {
-			input = getClass().getResourceAsStream("config.properties");
+			input = getClass().getResourceAsStream("/config.properties");
+			System.out.print(input);
 
 			this.prop = new Properties();
 			this.prop.load(input);
@@ -93,18 +95,18 @@ public class Field extends PApplet {
 		this.blocks = new Blocks(this);
 		this.blocks.render();
 
-		Zone z1 = new UserArea(0, 0, panel_width, panel_height,color(255, 48, 48));
+		Zone z1 = new UserArea(0, 0, panel_width, panel_height,color(255, 48, 48), null);
 		z1.translate(x_offset,0);
 		z1.rotateAbout(PI,CENTER);
 
-		Zone z2 = new UserArea(0, 0, panel_width, panel_height, color(255, 140, 0));
+		Zone z2 = new UserArea(0, 0, panel_width, panel_height, color(255, 140, 0), null);
 		z2.translate(width-panel_width-x_offset,0);
 		z2.rotateAbout(PI,CENTER);
 
-		Zone z3 = new UserArea(0, 0, panel_width, panel_height, color(30, 144, 255));
+		Zone z3 = new UserArea(0, 0, panel_width, panel_height, color(30, 144, 255), null);
 		z3.translate(x_offset, height-panel_height);
 
-		Zone z4 = new UserArea(0, 0, panel_width, panel_height, color(139, 0, 139));
+		Zone z4 = new UserArea(0, 0, panel_width, panel_height, color(139, 0, 139), new Bomberman(this, "red", horizontal_blocks-1, vertical_blocks-1, false));
 		z4.translate(width-panel_width-x_offset, height-panel_height);
 
 		SMT.add(z1);
@@ -112,17 +114,12 @@ public class Field extends PApplet {
 		SMT.add(z3);
 		SMT.add(z4);
 
-		b1 = new Bomberman(this, "red", horizontal_blocks-1, vertical_blocks-1, false);
-		b1.render();
-
 	}
 
 	public void draw() {
 		background(255);
 		//System.out.println(String.format( "fps: %.0f", this.frameRate));
 		this.blocks.display();
-		this.b1.display();
-        this.b1.moveUp();
 	}
 
 
