@@ -16,9 +16,9 @@ public class UserArea extends Zone {
     private float crossHeight;
     private int maxpos;
     private PVector touchpoint, v;
-    private Integer org_x;
-    private Integer org_y;
-    private float abstand;
+    private Integer org_x, org_y;
+    private Float zero_x, zero_y ;
+    private float abstand, rel_x, rel_y, last_rel_x, last_rel_y;
     protected Bomberman bomberman;
     private boolean init = false;
 
@@ -47,9 +47,6 @@ public class UserArea extends Zone {
         kreuz((this.getWidth()/4*3), (this.getHeight()/2));
 
         if(this.init) {
-            if(bomberman != null) {
-                bomberman.display();
-            }
             this.touchpoint = new PVector(trackball.getX(), trackball.getY());  //get liefert globale Werte
 
             if(this.org_x == null) {            //Startposition des Trackballs speichern
@@ -67,14 +64,28 @@ public class UserArea extends Zone {
                 this.v.normalize();
                 trackball.setX((this.getWidth() / 4 * 3) - (int)this.getCrossHeight()/4 + v.x * maxpos);       //Trackball lokal setzen
                 trackball.setY((this.getHeight() / 2) - (int)this.getCrossHeight()/4 + v.y * maxpos);
-                //System.out.print("+x: " + v.x*maxpos + " +y: " + v.y*maxpos + "\n");
+                //System.out.print("+x: " + v.x + " +y: " + v.y + "\n");
             }
-            /*else{
-                trackball.setX(0);
-                trackball.setY(0);
-            }*/
-            //System.out.print("x: " + trackball.getX() + " y: " + trackball.getY() + " org_x: " + org_x + " org_y: " + org_y + " dist: " + abstand +"\n");
-
+            touchpoint.rotate(45.0f);
+            if (this.zero_x == null)
+                this.zero_x = touchpoint.x;
+            if (this.zero_y == null)
+                this.zero_y = touchpoint.y;
+            last_rel_x = rel_x;
+            rel_x = touchpoint.x-this.zero_x;
+            last_rel_y = rel_y;
+            rel_y = touchpoint.y-this.zero_y;
+            if (last_rel_x != rel_x || last_rel_y != rel_y) {
+                //System.out.print("+x: " + rel_x + " +y: " + rel_y + "\n");
+                if (rel_x < 0 && rel_y < 0)
+                    bomberman.moveLeft();
+                else if (rel_x > 0 && rel_y < 0)
+                    bomberman.moveUp();
+                else if (rel_x > 0 && rel_y > 0)
+                    bomberman.moveRight();
+                else if (rel_x < 0 && rel_y > 0)
+                    bomberman.moveDown();
+            }
         }
 
     }
@@ -85,11 +96,9 @@ public class UserArea extends Zone {
         if (!this.init) {
             this.trackball = new Trackball((this.getWidth() / 4*3)-(int)this.getCrossHeight()/4, (this.getHeight() / 2)-(int)this.getCrossHeight()/4, (int)this.getCrossHeight()/2, (int)this.getCrossHeight()/2);  //lokal
             this.add(trackball);
-            this.bombbutton = new Bombbutton(this, (this.getWidth() / 4), (this.getHeight() / 2), (int)this.getCrossHeight()/2, (int)this.getCrossHeight()/2);
+            this.bombbutton = new Bombbutton(this, (this.getWidth() / 4), (this.getHeight() / 2), (int)this.getCrossHeight()*3/4, (int)this.getCrossHeight()*3/4);
             this.add(bombbutton);
-            if (bomberman!=null) {
-                bomberman.render();
-            }
+            this.bomberman.render();
             this.init = true;
         }
 

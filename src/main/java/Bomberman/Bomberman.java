@@ -57,7 +57,7 @@ public class Bomberman {
     }
     public void display() {
         updateBlock();
-        p.shape(this.man, this.x, this.y, );
+        p.shape(this.man, this.x, this.y );
     }
 
     public void moveLeft() {

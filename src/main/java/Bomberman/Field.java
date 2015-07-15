@@ -95,18 +95,26 @@ public class Field extends PApplet {
 		this.blocks = new Blocks(this);
 		this.blocks.render();
 
-		Zone z1 = new UserArea(0, 0, panel_width, panel_height,color(255, 48, 48), null);
+		b1 = new Bomberman(this, "blue", 0, 0, true);
+		b1.render();
+		Zone z1 = new UserArea(0, 0, panel_width, panel_height,color(255, 48, 48), b1);
 		z1.translate(x_offset,0);
 		z1.rotateAbout(PI,CENTER);
 
-		Zone z2 = new UserArea(0, 0, panel_width, panel_height, color(255, 140, 0), null);
+		b2 = new Bomberman(this, "blue", horizontal_blocks-1, 0, true);
+		b2.render();
+		Zone z2 = new UserArea(0, 0, panel_width, panel_height, color(255, 140, 0), b2);
 		z2.translate(width-panel_width-x_offset,0);
 		z2.rotateAbout(PI,CENTER);
 
-		Zone z3 = new UserArea(0, 0, panel_width, panel_height, color(30, 144, 255), null);
+		b3 = new Bomberman(this, "blue", 0, vertical_blocks-1, false);
+		b3.render();
+		Zone z3 = new UserArea(0, 0, panel_width, panel_height, color(30, 144, 255), b3);
 		z3.translate(x_offset, height-panel_height);
 
-		Zone z4 = new UserArea(0, 0, panel_width, panel_height, color(139, 0, 139), new Bomberman(this, "red", horizontal_blocks-1, vertical_blocks-1, false));
+		b4 = new Bomberman(this, "red", horizontal_blocks-1, vertical_blocks-1, false);
+		b4.render();
+		Zone z4 = new UserArea(0, 0, panel_width, panel_height, color(139, 0, 139), b4);
 		z4.translate(width-panel_width-x_offset, height-panel_height);
 
 		SMT.add(z1);
@@ -120,6 +128,10 @@ public class Field extends PApplet {
 		background(255);
 		//System.out.println(String.format( "fps: %.0f", this.frameRate));
 		this.blocks.display();
+		b1.display();
+		b2.display();
+		b3.display();
+		b4.display();
 	}
 
 

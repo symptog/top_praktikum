@@ -4,8 +4,12 @@ import vialab.SMT.*;
 
 public class Trackball extends Zone {
 
+    private int origin_x, origin_y;
+
     public Trackball(int i, int i1, int i2, int i3) {
         super(i, i1, i2, i3);
+        this.origin_x = i;
+        this.origin_y = i1;
     }
 
     @Override
@@ -24,8 +28,8 @@ public class Trackball extends Zone {
     public void touchDown(Touch touch){} //nur der Moment des Touches
     @Override
     public void touchUp(Touch touch){
-        //setX(origin_x);
-        //setY(origin_y);
+        setX(origin_x);
+        setY(origin_y);
     } //touch moved method
     /*
     @Override
