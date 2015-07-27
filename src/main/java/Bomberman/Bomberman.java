@@ -9,8 +9,19 @@ public class Bomberman {
     private Float x, y;
     private Field p;
     private Boolean inverted = false;
+    private Float speed = 1.0f;
     PImage img;
     PShape man;
+
+    private static final int UP1 = 11;
+    private static final int UP2 = 12;
+    private static final int DOWN1 = 21;
+    private static final int DOWN2 = 22;
+    private static final int LEFT1 = 31;
+    private static final int LEFT2 = 32;
+    private static final int RIGHT1 = 41;
+    private static final int RIGHT2 = 42;
+
 
     public Bomberman(Field p, String id, Integer blockX, Integer blockY) {
         this.p = p;
@@ -27,12 +38,53 @@ public class Bomberman {
         this.inverted = inverted;
     }
 
+    public Float getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(Float speed) {
+        this.speed = speed;
+    }
+
     public void setInverted(Boolean inverted) {
         this.inverted = inverted;
     }
 
+
     public void render() {
-        img = p.loadImage(getClass().getResource("/img/" + id + ".png").toString());
+        render(0);
+    }
+
+    public void render(int direction) {
+        switch (direction) {
+            case UP1:
+                img = p.getImage(id + "_oben_2.png");
+                break;
+            case UP2:
+                img = p.getImage(id + "_oben_3.png");
+                break;
+            case DOWN1:
+                img = p.getImage(id + "_unten_3.png");
+                break;
+            case DOWN2:
+                img = p.getImage(id + "_unten_3.png");
+                break;
+            case LEFT1:
+                img = p.getImage(id + "_links_1.png");
+                break;
+            case LEFT2:
+                img = p.getImage(id + "_links_2.png");
+                break;
+            case RIGHT1:
+                img = p.getImage(id + "_rechts_1.png");
+                break;
+            case RIGHT2:
+                img = p.getImage(id + "_rechts_2.png");
+                break;
+            default:
+                img = p.getImage(id + ".png");
+                break;
+        }
         man = p.createShape();
         man.beginShape();
         man.noStroke();
@@ -55,6 +107,7 @@ public class Bomberman {
         this.y = p.getBlock(blockX, blockY).getPosY();
 
     }
+
     public void display() {
         updateBlock();
         p.shape(this.man, this.x, this.y );

@@ -14,7 +14,8 @@ public class Block {
     private Blocks b;
 
     Block(Field p, Blocks b, float x, float y) {
-        this.posX = x;        block = p.createShape();
+        block = p.createShape();
+        this.posX = x;
         this.posY = y;
         this.p = p;
         this.b = b;

@@ -75,7 +75,7 @@ public class UserArea extends Zone {
             rel_x = touchpoint.x-this.zero_x;
             last_rel_y = rel_y;
             rel_y = touchpoint.y-this.zero_y;
-            if (last_rel_x != rel_x || last_rel_y != rel_y) {
+            //if (last_rel_x != rel_x || last_rel_y != rel_y) {
                 //System.out.print("+x: " + rel_x + " +y: " + rel_y + "\n");
                 if (rel_x < 0 && rel_y < 0)
                     bomberman.moveLeft();
@@ -85,7 +85,7 @@ public class UserArea extends Zone {
                     bomberman.moveRight();
                 else if (rel_x < 0 && rel_y > 0)
                     bomberman.moveDown();
-            }
+            //}
         }
 
     }
