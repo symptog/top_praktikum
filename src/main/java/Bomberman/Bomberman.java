@@ -11,17 +11,16 @@ public class Bomberman {
     private Boolean inverted = false;
     private Float speed = 1.0f;
     PImage img;
-    PShape man;
+    private Float count_left = 60.0f, count_right = 60.0f, count_up = 60.0f, count_down = 60.0f;
 
-    private static final int UP1 = 11;
-    private static final int UP2 = 12;
-    private static final int DOWN1 = 21;
-    private static final int DOWN2 = 22;
-    private static final int LEFT1 = 31;
-    private static final int LEFT2 = 32;
-    private static final int RIGHT1 = 41;
-    private static final int RIGHT2 = 42;
-
+    public static final int UP1 = 11;
+    public static final int UP2 = 12;
+    public static final int DOWN1 = 21;
+    public static final int DOWN2 = 22;
+    public static final int LEFT1 = 31;
+    public static final int LEFT2 = 32;
+    public static final int RIGHT1 = 41;
+    public static final int RIGHT2 = 42;
 
     public Bomberman(Field p, String id, Integer blockX, Integer blockY) {
         this.p = p;
@@ -51,11 +50,11 @@ public class Bomberman {
     }
 
 
-    public void render() {
-        render(0);
+    public PShape render() {
+        return render(0);
     }
 
-    public void render(int direction) {
+    public PShape render(int direction) {
         switch (direction) {
             case UP1:
                 img = p.getImage(id + "_oben_2.png");
@@ -85,52 +84,99 @@ public class Bomberman {
                 img = p.getImage(id + ".png");
                 break;
         }
-        man = p.createShape();
-        man.beginShape();
-        man.noStroke();
-        man.fill(255);
-        man.texture(img);
-        man.textureMode(PShape.NORMAL);
-        man.vertex(0, 0, 0, 0);
-        man.vertex(p.getBlock_size(), 0, 1, 0);
-        man.vertex(p.getBlock_size(), p.getBlock_size(), 1, 1);
-        man.vertex(0, p.getBlock_size(), 0, 1);
-        man.endShape(PShape.CLOSE);
+        PShape shape = p.createShape();
+        shape.beginShape();
+        shape.noStroke();
+        shape.fill(255);
+        shape.texture(img);
+        shape.textureMode(PShape.NORMAL);
+        shape.vertex(0, 0, 0, 0);
+        shape.vertex(p.getBlock_size(), 0, 1, 0);
+        shape.vertex(p.getBlock_size(), p.getBlock_size(), 1, 1);
+        shape.vertex(0, p.getBlock_size(), 0, 1);
+        shape.endShape(PShape.CLOSE);
         if (inverted) {
             p.pushMatrix();
-            man.rotateX(p.PI);
-            man.translate(0, -p.getBlock_size());
+            shape.rotateX(p.PI);
+            shape.translate(0, -p.getBlock_size());
             p.popMatrix();
         }
 
         this.x = p.getBlock(blockX, blockY).getPosX();
         this.y = p.getBlock(blockX, blockY).getPosY();
 
+        return shape;
+
     }
 
     public void display() {
         updateBlock();
-        p.shape(this.man, this.x, this.y );
+        p.shape(this.render(), this.x, this.y );
+    }
+
+    public void displaydirection(int direction) {
+        updateBlock();
+        p.shape(this.render(direction), this.x, this.y);
     }
 
     public void moveLeft() {
         if (blockX > 0 && p.getBlock(blockX, blockY).isWalkable() && x >= p.getBlock(blockX, blockY).getPosX()) {
-                this.x -= 1;
+            if (this.count_left < 25) {
+                this.displaydirection(LEFT1);
+                this.count_left += this.speed;
+            }
+            if (this.count_left >= 25) {
+                displaydirection(LEFT2);
+                this.count_left += this.speed;
+                if (this.count_left >= 50)
+                    this.count_left = 0.0f;
+            }
+            this.x -= this.speed;
         }
     }
     public void moveRight() {
         if (blockX < p.getHorizontal_blocks()-1 && p.getBlock(blockX+1, blockY).isWalkable() && x <= p.getBlock(blockX, blockY).getPosX()+p.getBlock_size()) {
-                this.x += 1;
+            if (this.count_right < 25) {
+                this.displaydirection(LEFT1);
+                this.count_right += this.speed;
+            }
+            if (this.count_right >= 25) {
+                displaydirection(LEFT2);
+                this.count_right += this.speed;
+                if (this.count_right >= 50)
+                    this.count_right = 0.0f;
+            }
+            this.x += this.speed;
         }
     }
     public void moveUp() {
         if (blockY > 0 && p.getBlock(blockX, blockY).isWalkable() && y >= p.getBlock(blockX, blockY).getPosY()) {
-                this.y -= 1;
+            if (this.count_up < 25) {
+                this.displaydirection(LEFT1);
+                this.count_up += this.speed;
+            }
+            if (this.count_up >= 25) {
+                displaydirection(LEFT2);
+                this.count_up += this.speed;
+                if (this.count_up >= 50)
+                    this.count_up = 0.0f;
+            }            
+            this.y -= speed;
         }
     }
     public void moveDown() {
         if (blockY < p.getVertical_blocks()-1 && p.getBlock(blockX, blockY+1).isWalkable() && y <= p.getBlock(blockX, blockY).getPosY()+p.getBlock_size()) {
-                this.y += 1;
+            if (this.count_down < 25) {
+                this.displaydirection(LEFT1);
+                this.count_down += this.speed;
+            }
+            if (this.count_down >= 25) {
+                displaydirection(LEFT2);
+                this.count_down += this.speed;
+                if (this.count_down >= 50)
+                    this.count_down = 0.0f;
+            }   
+            this.y += 1;
         }
     }
     public void dropBomb() {
