@@ -51,6 +51,10 @@ public class Blocks {
             }
         }
 
+        for (int i = 0; i < horizontal_blocks; i++) {
+            this.blocks[i][0].setType(Items.EMPTY);
+        }
+
         this.blocks[6][6].setType(Items.BOMBE);
         this.blocks[6][6].setCovered(true);
 
@@ -79,7 +83,7 @@ public class Blocks {
 
     }
 
-    public void display() {
+    public void draw() {
         for (int i = 0; i < horizontal_blocks; i = i + 1) {
             for (int j = 0; j < vertical_blocks; j = j + 1) {
                 this.blocks[i][j].display();

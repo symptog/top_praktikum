@@ -3,24 +3,33 @@ package Bomberman;
 import processing.core.PImage;
 import processing.core.PShape;
 
+import java.util.concurrent.ConcurrentHashMap;
+
 public class Bomberman {
     private String id;
     private Integer blockX, blockY;
     private Float x, y;
     private Field p;
     private Boolean inverted = false;
-    private Float speed = 1.0f;
+    public Float speed = 1.0f;
     PImage img;
-    private Float count_left = 60.0f, count_right = 60.0f, count_up = 60.0f, count_down = 60.0f;
+    public Float count = 60.0f;
 
+    public static final int STOP = 0;
+    public static final int UP = 10;
     public static final int UP1 = 11;
     public static final int UP2 = 12;
+    public static final int DOWN = 20;
     public static final int DOWN1 = 21;
     public static final int DOWN2 = 22;
+    public static final int LEFT = 30;
     public static final int LEFT1 = 31;
     public static final int LEFT2 = 32;
+    public static final int RIGHT = 40;
     public static final int RIGHT1 = 41;
     public static final int RIGHT2 = 42;
+    private int direction = STOP;
+    private ConcurrentHashMap<Integer, PShape> bman = new ConcurrentHashMap<Integer, PShape>();
 
     public Bomberman(Field p, String id, Integer blockX, Integer blockY) {
         this.p = p;
@@ -35,6 +44,16 @@ public class Bomberman {
         this.blockX = blockX;
         this.blockY = blockY;
         this.inverted = inverted;
+        this.x = p.getBlock(blockX, blockY).getPosX();
+        this.y = p.getBlock(blockX, blockY).getPosY();
+    }
+
+    public int getDirection() {
+        return direction;
+    }
+
+    public void setDirection(int direction) {
+        this.direction = direction;
     }
 
     public Float getSpeed() {
@@ -49,61 +68,63 @@ public class Bomberman {
         this.inverted = inverted;
     }
 
-
     public PShape render() {
         return render(0);
     }
 
     public PShape render(int direction) {
-        switch (direction) {
-            case UP1:
-                img = p.getImage(id + "_oben_2.png");
-                break;
-            case UP2:
-                img = p.getImage(id + "_oben_3.png");
-                break;
-            case DOWN1:
-                img = p.getImage(id + "_unten_3.png");
-                break;
-            case DOWN2:
-                img = p.getImage(id + "_unten_3.png");
-                break;
-            case LEFT1:
-                img = p.getImage(id + "_links_1.png");
-                break;
-            case LEFT2:
-                img = p.getImage(id + "_links_2.png");
-                break;
-            case RIGHT1:
-                img = p.getImage(id + "_rechts_1.png");
-                break;
-            case RIGHT2:
-                img = p.getImage(id + "_rechts_2.png");
-                break;
-            default:
-                img = p.getImage(id + ".png");
-                break;
+        PShape shape = null;
+        shape = bman.get(direction);
+        if(shape==null) {
+            switch (direction) {
+                case UP1:
+                    img = p.getImage(id + "_oben_2.png");
+                    break;
+                case UP2:
+                    img = p.getImage(id + "_oben_3.png");
+                    break;
+                case DOWN1:
+                    img = p.getImage(id + "_unten_2.png");
+                    break;
+                case DOWN2:
+                    img = p.getImage(id + "_unten_3.png");
+                    break;
+                case LEFT1:
+                    img = p.getImage(id + "_links_1.png");
+                    break;
+                case LEFT2:
+                    img = p.getImage(id + "_links_2.png");
+                    break;
+                case RIGHT1:
+                    img = p.getImage(id + "_rechts_1.png");
+                    break;
+                case RIGHT2:
+                    img = p.getImage(id + "_rechts_2.png");
+                    break;
+                default:
+                    img = p.getImage(id + "_unten_1.png");
+                    break;
+            }
+            shape = p.createShape();
+            shape.beginShape();
+            shape.noStroke();
+            shape.fill(255);
+            shape.texture(img);
+            shape.textureMode(PShape.NORMAL);
+            shape.vertex(0, 0, 0, 0);
+            shape.vertex(p.getBlock_size(), 0, 1, 0);
+            shape.vertex(p.getBlock_size(), p.getBlock_size(), 1, 1);
+            shape.vertex(0, p.getBlock_size(), 0, 1);
+            shape.endShape(PShape.CLOSE);
+            if (inverted) {
+                p.pushMatrix();
+                shape.rotateX(p.PI);
+                shape.translate(0, -p.getBlock_size());
+                p.popMatrix();
+            }
+            bman.put(direction, shape);
+            /* was hab ich mir dabei gedacht */
         }
-        PShape shape = p.createShape();
-        shape.beginShape();
-        shape.noStroke();
-        shape.fill(255);
-        shape.texture(img);
-        shape.textureMode(PShape.NORMAL);
-        shape.vertex(0, 0, 0, 0);
-        shape.vertex(p.getBlock_size(), 0, 1, 0);
-        shape.vertex(p.getBlock_size(), p.getBlock_size(), 1, 1);
-        shape.vertex(0, p.getBlock_size(), 0, 1);
-        shape.endShape(PShape.CLOSE);
-        if (inverted) {
-            p.pushMatrix();
-            shape.rotateX(p.PI);
-            shape.translate(0, -p.getBlock_size());
-            p.popMatrix();
-        }
-
-        this.x = p.getBlock(blockX, blockY).getPosX();
-        this.y = p.getBlock(blockX, blockY).getPosY();
 
         return shape;
 
@@ -114,75 +135,160 @@ public class Bomberman {
         p.shape(this.render(), this.x, this.y );
     }
 
-    public void displaydirection(int direction) {
+    public void displayDirection(int direction) {
         updateBlock();
         p.shape(this.render(direction), this.x, this.y);
     }
-
+    /* ToDo: Abfrage in welchem Block sich der Bomberman befindet
+     * ToDo: Prüfen ob der Bomberman sich auf umliegende Felder bewegen darf */
     public void moveLeft() {
-        if (blockX > 0 && p.getBlock(blockX, blockY).isWalkable() && x >= p.getBlock(blockX, blockY).getPosX()) {
-            if (this.count_left < 25) {
-                this.displaydirection(LEFT1);
-                this.count_left += this.speed;
-            }
-            if (this.count_left >= 25) {
-                displaydirection(LEFT2);
-                this.count_left += this.speed;
-                if (this.count_left >= 50)
-                    this.count_left = 0.0f;
-            }
-            this.x -= this.speed;
+        if (x >= p.getBlock(0, blockY).getPosX()) {
+            this.y = p.getBlock(blockX, blockY).getPosY();
+            this.x -= speed;
         }
     }
     public void moveRight() {
-        if (blockX < p.getHorizontal_blocks()-1 && p.getBlock(blockX+1, blockY).isWalkable() && x <= p.getBlock(blockX, blockY).getPosX()+p.getBlock_size()) {
-            if (this.count_right < 25) {
-                this.displaydirection(LEFT1);
-                this.count_right += this.speed;
-            }
-            if (this.count_right >= 25) {
-                displaydirection(LEFT2);
-                this.count_right += this.speed;
-                if (this.count_right >= 50)
-                    this.count_right = 0.0f;
-            }
-            this.x += this.speed;
+        if (x <= p.getBlock(p.getHorizontal_blocks()-1, blockY).getPosX()) {
+            this.y = p.getBlock(blockX, blockY).getPosY();
+            this.x += speed;
         }
     }
     public void moveUp() {
-        if (blockY > 0 && p.getBlock(blockX, blockY).isWalkable() && y >= p.getBlock(blockX, blockY).getPosY()) {
-            if (this.count_up < 25) {
-                this.displaydirection(LEFT1);
-                this.count_up += this.speed;
-            }
-            if (this.count_up >= 25) {
-                displaydirection(LEFT2);
-                this.count_up += this.speed;
-                if (this.count_up >= 50)
-                    this.count_up = 0.0f;
-            }            
+        if (y >= p.getBlock(blockX, 0).getPosY()) {
             this.y -= speed;
+            this.x = p.getBlock(blockX, blockY).getPosX();
         }
     }
     public void moveDown() {
-        if (blockY < p.getVertical_blocks()-1 && p.getBlock(blockX, blockY+1).isWalkable() && y <= p.getBlock(blockX, blockY).getPosY()+p.getBlock_size()) {
-            if (this.count_down < 25) {
-                this.displaydirection(LEFT1);
-                this.count_down += this.speed;
-            }
-            if (this.count_down >= 25) {
-                displaydirection(LEFT2);
-                this.count_down += this.speed;
-                if (this.count_down >= 50)
-                    this.count_down = 0.0f;
-            }   
-            this.y += 1;
+        if (y <= p.getBlock(blockX, p.getVertical_blocks()-1).getPosY()) {
+            this.y += speed;
+            this.x = p.getBlock(blockX, blockY).getPosX();
         }
     }
-    public void dropBomb() {
-        Block bomb_block = p.getBlock(blockX, blockY);
-        bomb_block.setType(Items.BOMBE);
+    
+    public void draw()
+    {
+        if(direction==0) {
+            displayDirection(Bomberman.STOP);
+        }
+        if(direction==10) {
+            if (count < 25) {
+                displayDirection(Bomberman.UP1);
+                moveUp();
+                count = count + this.speed;
+            }
+            if (count >= 25) {
+                displayDirection(Bomberman.UP2);
+                moveUp();
+                count = count + this.speed;
+                if (count >= 50)
+                    count = 0.0f;
+            }
+        }
+        if(direction==20) {
+            if (count < 25) {
+                displayDirection(Bomberman.DOWN1);
+                moveDown();
+                count = count + this.speed;
+            }
+            if (count >= 25) {
+                displayDirection(Bomberman.DOWN2);
+                moveDown();
+                count = count + this.speed;
+                if (count >= 50)
+                    count = 0.0f;
+            }
+        }
+        if(direction==30) {
+            if (count < 25) {
+                displayDirection(Bomberman.LEFT1);
+                moveLeft();
+                count = count + this.speed;
+            }
+            if (count >= 25) {
+                displayDirection(Bomberman.LEFT2);
+                moveLeft();
+                count = count + this.speed;
+                if (count >= 50)
+                    count = 0.0f;
+            }
+        }
+        if(direction==40) {
+            if (count < 25) {
+                displayDirection(Bomberman.RIGHT1);
+                moveRight();
+                count = count + this.speed;
+            }
+            if (count >= 25) {
+                displayDirection(Bomberman.RIGHT2);
+                moveRight();
+                count = count + this.speed;
+                if (count >= 50)
+                    count = 0.0f;
+            }
+        }
+
+
     }
+    
+    public void dropBomb() {
+        /*
+        Block bomb_block = p.getBlock(blockX, blockY);
+        bomb_block.setType(Items.BOMBE); */
+
+        if(id.equals("violett"))
+        {
+            for(int i=0;i<5;i++)
+            {
+                if(p.bombfield[i].isUsed()==false)
+                {
+                    p.bombfield[i].setBomb(this.blockX, this.blockY);
+                }
+
+            }
+
+        }
+        if(id.equals("blue"))
+        {
+            for(int i=5;i<10;i++)
+            {
+                if(p.bombfield[i].isUsed()==false)
+                {
+                    p.bombfield[i].setBomb(this.blockX, this.blockY);
+                }
+
+            }
+
+        }
+        if(id.equals("orange"))
+        {
+            for(int i=10;i<15;i++)
+            {
+                if(p.bombfield[i].isUsed()==false)
+                {
+                    p.bombfield[i].setBomb(this.blockX, this.blockY);
+                }
+
+            }
+
+        }
+        if(id.equals("red"))
+        {
+            for(int i=15;i<20;i++)
+            {
+                if(p.bombfield[i].isUsed()==false)
+                {
+                    p.bombfield[i].setBomb(this.blockX, this.blockY);
+                }
+
+            }
+
+        }
+
+
+
+    }
+
     public void die() {}
 
     private void updateBlock() {

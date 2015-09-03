@@ -28,6 +28,7 @@ public class Field extends PApplet {
 	private Properties prop;
 	private Blocks blocks;
 	private Bomberman b1, b2, b3, b4;
+	public Plantedbomb[] bombfield= new Plantedbomb[20];
 	private ConcurrentHashMap<String, PImage> ImageMap = new ConcurrentHashMap<String, PImage>();
 
 	public Field() {
@@ -186,13 +187,13 @@ public class Field extends PApplet {
 		this.blocks = new Blocks(this);
 		this.blocks.render();
 
-		b1 = new Bomberman(this, "blue", 0, 0, true);
+		b1 = new Bomberman(this, "red", 0, 0, true);
 		b1.render();
 		Zone z1 = new UserArea(0, 0, panel_width, panel_height,color(255, 48, 48), b1);
 		z1.translate(x_offset,0);
 		z1.rotateAbout(PI,CENTER);
 
-		b2 = new Bomberman(this, "blue", horizontal_blocks-1, 0, true);
+		b2 = new Bomberman(this, "orange", horizontal_blocks-1, 0, true);
 		b2.render();
 		Zone z2 = new UserArea(0, 0, panel_width, panel_height, color(255, 140, 0), b2);
 		z2.translate(width-panel_width-x_offset,0);
@@ -203,7 +204,7 @@ public class Field extends PApplet {
 		Zone z3 = new UserArea(0, 0, panel_width, panel_height, color(30, 144, 255), b3);
 		z3.translate(x_offset, height-panel_height);
 
-		b4 = new Bomberman(this, "red", horizontal_blocks-1, vertical_blocks-1, false);
+		b4 = new Bomberman(this, "violett", horizontal_blocks-1, vertical_blocks-1, false);
 		b4.render();
 		Zone z4 = new UserArea(0, 0, panel_width, panel_height, color(139, 0, 139), b4);
 		z4.translate(width-panel_width-x_offset, height-panel_height);
@@ -213,16 +214,27 @@ public class Field extends PApplet {
 		SMT.add(z3);
 		SMT.add(z4);
 
+		for(int i =0; i<bombfield.length;i++)
+		{
+			bombfield[i]=new Plantedbomb(this);
+		}
+
 	}
 
 	public void draw() {
 		background(255);
 		System.out.println(String.format("fps: %.0f", this.frameRate));
-		this.blocks.display();
-		b1.display();
-		b2.display();
-		b3.display();
-		b4.display();
+		this.blocks.draw();
+
+		b1.draw();
+		b2.draw();
+		b3.draw();
+		b4.draw();
+
+		for(int i=0;i<bombfield.length;i++) {
+			this.bombfield[i].draw();
+		}
+
 	}
 
 

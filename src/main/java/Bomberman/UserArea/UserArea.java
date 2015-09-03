@@ -44,9 +44,11 @@ public class UserArea extends Zone {
 
         maxpos = (int)this.getCrossHeight()/4;
 
-        kreuz((this.getWidth()/4*3), (this.getHeight()/2));
 
         if(this.init) {
+
+            kreuz((this.getWidth()/4*3), (this.getHeight()/2));
+
             this.touchpoint = new PVector(trackball.getX(), trackball.getY());  //get liefert globale Werte
 
             if(this.org_x == null) {            //Startposition des Trackballs speichern
@@ -77,14 +79,25 @@ public class UserArea extends Zone {
             rel_y = touchpoint.y-this.zero_y;
             //if (last_rel_x != rel_x || last_rel_y != rel_y) {
                 //System.out.print("+x: " + rel_x + " +y: " + rel_y + "\n");
-                if (rel_x < 0 && rel_y < 0)
+                if (rel_x < 0 && rel_y < 0) {
                     bomberman.moveLeft();
-                else if (rel_x > 0 && rel_y < 0)
+                    bomberman.setDirection(Bomberman.LEFT);
+                }
+                else if (rel_x > 0 && rel_y < 0) {
                     bomberman.moveUp();
-                else if (rel_x > 0 && rel_y > 0)
+                    bomberman.setDirection(Bomberman.UP);
+                }
+                else if (rel_x > 0 && rel_y > 0) {
                     bomberman.moveRight();
-                else if (rel_x < 0 && rel_y > 0)
+                    bomberman.setDirection(Bomberman.RIGHT);
+                }
+                else if (rel_x < 0 && rel_y > 0) {
                     bomberman.moveDown();
+                    bomberman.setDirection(Bomberman.DOWN);
+                }
+                else {
+                    bomberman.setDirection(Bomberman.STOP);
+                }
             //}
         }
 
@@ -100,6 +113,7 @@ public class UserArea extends Zone {
             this.add(bombbutton);
             this.bomberman.render();
             this.init = true;
+
         }
 
     } //touch down method
