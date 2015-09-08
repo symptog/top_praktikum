@@ -17,6 +17,7 @@ public class Bomberman {
 
     private Float maxLeft, maxRight, maxUp, maxDown;
 
+    private static final int ECKE = 5; // Tolleranz beim um die Ecke gehen
     public static final int STOP = 0;
     public static final int UP = 10;
     public static final int UP1 = 11;
@@ -144,25 +145,25 @@ public class Bomberman {
     /* ToDo: Abfrage in welchem Block sich der Bomberman befindet
      * ToDo: Prüfen ob der Bomberman sich auf umliegende Felder bewegen darf */
     public void moveLeft() {
-        if (x >= maxLeft) {
+        if (x >= maxLeft && y >= p.getBlock(blockX, blockY).getPosY()-ECKE && y <= p.getBlock(blockX, blockY).getPosY()+ECKE ) {
             this.y = p.getBlock(blockX, blockY).getPosY();
             this.x -= speed;
         }
     }
     public void moveRight() {
-        if (x <= maxRight) {
+        if (x <= maxRight && y >= p.getBlock(blockX, blockY).getPosY()-ECKE && y <= p.getBlock(blockX, blockY).getPosY()+ECKE) {
             this.y = p.getBlock(blockX, blockY).getPosY();
             this.x += speed;
         }
     }
     public void moveUp() {
-        if (y >= maxUp) {
+        if (y >= maxUp && x >= p.getBlock(blockX, blockY).getPosX()-ECKE && x <= p.getBlock(blockX, blockY).getPosX()+ECKE) {
             this.y -= speed;
             this.x = p.getBlock(blockX, blockY).getPosX();
         }
     }
     public void moveDown() {
-        if (y <= maxDown) {
+        if (y <= maxDown && x >= p.getBlock(blockX, blockY).getPosX()-ECKE && x <= p.getBlock(blockX, blockY).getPosX()+ECKE) {
             this.y += speed;
             this.x = p.getBlock(blockX, blockY).getPosX();
         }
