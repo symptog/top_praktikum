@@ -223,13 +223,14 @@ public class Field extends PApplet {
 
 	public void draw() {
 		background(255);
-		System.out.println(String.format("fps: %.0f", this.frameRate));
+		//System.out.println(String.format("fps: %.0f\n", this.frameRate));
 		this.blocks.draw();
 
 		b1.draw();
 		b2.draw();
 		b3.draw();
 		b4.draw();
+		//System.out.println(String.format( "%d:%d", this.b1.blockX,this.b1.blockY));
 
 		for(int i=0;i<bombfield.length;i++) {
 			this.bombfield[i].draw();

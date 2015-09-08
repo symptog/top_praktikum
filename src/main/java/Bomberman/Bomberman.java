@@ -7,13 +7,15 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class Bomberman {
     private String id;
-    private Integer blockX, blockY;
+    protected Integer blockX, blockY;
     private Float x, y;
     private Field p;
     private Boolean inverted = false;
     public Float speed = 1.0f;
     PImage img;
     public Float count = 60.0f;
+
+    private Float maxLeft, maxRight, maxUp, maxDown;
 
     public static final int STOP = 0;
     public static final int UP = 10;
@@ -142,25 +144,25 @@ public class Bomberman {
     /* ToDo: Abfrage in welchem Block sich der Bomberman befindet
      * ToDo: Prüfen ob der Bomberman sich auf umliegende Felder bewegen darf */
     public void moveLeft() {
-        if (x >= p.getBlock(0, blockY).getPosX()) {
+        if (x >= maxLeft) {
             this.y = p.getBlock(blockX, blockY).getPosY();
             this.x -= speed;
         }
     }
     public void moveRight() {
-        if (x <= p.getBlock(p.getHorizontal_blocks()-1, blockY).getPosX()) {
+        if (x <= maxRight) {
             this.y = p.getBlock(blockX, blockY).getPosY();
             this.x += speed;
         }
     }
     public void moveUp() {
-        if (y >= p.getBlock(blockX, 0).getPosY()) {
+        if (y >= maxUp) {
             this.y -= speed;
             this.x = p.getBlock(blockX, blockY).getPosX();
         }
     }
     public void moveDown() {
-        if (y <= p.getBlock(blockX, p.getVertical_blocks()-1).getPosY()) {
+        if (y <= maxDown) {
             this.y += speed;
             this.x = p.getBlock(blockX, blockY).getPosX();
         }
@@ -292,8 +294,49 @@ public class Bomberman {
     public void die() {}
 
     private void updateBlock() {
-        blockX = (int) (x-p.getX_offset())/p.getBlock_size();
-        blockY = (int) (y-p.getY_offset())/p.getBlock_size();
+
+        this.blockX = (int) ((x+p.getBlock_size()/2)-p.getX_offset())/p.getBlock_size();
+        this.blockY = (int) ((y+p.getBlock_size()/2)-p.getY_offset())/p.getBlock_size();
+
+        try {
+            if (p.getBlock(this.blockX-1, this.blockY).isWalkable()) {
+                this.maxLeft = p.getBlock(this.blockX-1, this.blockY).getPosX();
+            } else {
+                this.maxLeft = p.getBlock(this.blockX, this.blockY).getPosX();
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            this.maxLeft = p.getBlock(0, blockY).getPosX();
+        }
+
+        try {
+            if (p.getBlock(this.blockX+1, this.blockY).isWalkable()) {
+                this.maxRight = p.getBlock(this.blockX+1, this.blockY).getPosX();
+            } else {
+                this.maxRight = p.getBlock(this.blockX, this.blockY).getPosX();
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            this.maxRight = p.getBlock(p.getHorizontal_blocks()-1, blockY).getPosX();
+        }
+
+        try {
+            if (p.getBlock(this.blockX, this.blockY+1).isWalkable()) {
+                this.maxDown = p.getBlock(this.blockX, this.blockY+1).getPosY();
+            } else {
+                this.maxDown = p.getBlock(this.blockX, this.blockY).getPosY();
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            this.maxDown = p.getBlock(blockX, p.getVertical_blocks()-1).getPosY();
+        }
+
+        try {
+            if (p.getBlock(this.blockX, this.blockY-1).isWalkable()) {
+                this.maxUp = p.getBlock(this.blockX, this.blockY-1).getPosY();
+            } else {
+                this.maxUp = p.getBlock(this.blockX, this.blockY).getPosY();
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            this.maxUp = p.getBlock(blockX, 0).getPosY();
+        }
     }
 
 }
