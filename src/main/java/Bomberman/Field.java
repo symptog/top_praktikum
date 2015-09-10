@@ -27,7 +27,7 @@ public class Field extends PApplet {
 	private Integer y_offset = null;
 	private Properties prop;
 	private Blocks blocks;
-	private Bomberman b1, b2, b3, b4;
+	public Bomberman b1, b2, b3, b4;
 	public Plantedbomb[] bombfield= new Plantedbomb[20];
 	private ConcurrentHashMap<String, PImage> ImageMap = new ConcurrentHashMap<String, PImage>();
 
@@ -127,7 +127,7 @@ public class Field extends PApplet {
 		System.out.print("image\n");
 		PImage image = this.ImageMap.get(name);
 		if(image == null) {
-			System.out.print("not chached\n");
+			//System.out.print("not chached\n");
 			URL resource = getClass().getResource("/img/" + name);
 			if(resource == null)
 				return null;
@@ -232,13 +232,20 @@ public class Field extends PApplet {
 		b4.draw();
 		//System.out.println(String.format( "%d:%d", this.b1.blockX,this.b1.blockY));
 
+		Integer xred=b1.blockX;
+		Integer yred=b1.blockY;
+		Integer xorange=b2.blockX;
+		Integer yorange=b2.blockY;
+
+		Integer xblue=b3.blockX;
+		Integer yblue=b3.blockY;
+
+
+		Integer xviolett=b4.blockX;
+		Integer yviolett=b4.blockY;
+
 		for(int i=0;i<bombfield.length;i++) {
-			this.bombfield[i].draw();
+			this.bombfield[i].draw(xred,yred,xorange, yorange, xblue, yblue, xviolett,yviolett);
 		}
-
 	}
-
-
-
-
 }

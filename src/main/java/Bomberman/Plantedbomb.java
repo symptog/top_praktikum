@@ -16,6 +16,10 @@ public class Plantedbomb {
     private static ConcurrentHashMap<Integer, PShape> pbomb = new ConcurrentHashMap<Integer, PShape>();
     private boolean used;
     PImage img;
+
+    private Integer flameleft=1, flameright=1, flameup=1, flamedown=1, stopleft2=0, stopright2=0, stopup2=0, stopdown2=0;
+    private Boolean stopleft=true, stopright=true, stopup=true, stopdown=true;
+
     public static final int BOMBE_1_GROSS =8;
     public static final int BOMBE_1_KLEIN_1 =6;
     public static final int BOMBE_1_KLEIN_2 =7;
@@ -110,6 +114,7 @@ public class Plantedbomb {
 
     public void setBomb(Integer blockX, Integer blockY ){
         this.used=true;
+        this.time=180;
         this.blockX=blockX;
         this.blockY=blockY;
         this.x = p.getBlock(blockX, blockY).getPosX();
@@ -117,46 +122,276 @@ public class Plantedbomb {
 
     }
 
-    public void draw()
+    public void bombexplode(Integer blockX, Integer blockY)
+    {
+        //settime(1); //im bombfield die bombe an der �bergebenen Stelle suchen und Zeit auf 1 setzen
+    }
+
+    public void draw(Integer xred, Integer yred, Integer xorange, Integer yorange, Integer xblue, Integer yblue,   Integer xviolett, Integer yviolett)
     {
 
         if(!used)
             return;
 
-        if(time==0) {
+        if((time<241&&time>180) || time==0) {
             p.shape(renderBomb(FLAMME), this.x, this.y);
-            time=241;
+            if(time==0) {
+                time = 241;
+            }
+
             for(int i=1;i<=range;i++)
             {
-                if (blockX-i >= 0 && p.getBlock(blockX-i, blockY).isWalkable() && x >= p.getBlock(blockX-i, blockY).getPosX())
-                    p.shape(renderBomb(FLAMME), p.getBlock(blockX-i, blockY).getPosX(), p.getBlock(blockX-i, blockY).getPosY());
-                if (blockX+1 < p.getHorizontal_blocks()-1 && p.getBlock(blockX+1+i, blockY).isWalkable() && x <= p.getBlock(blockX+i, blockY).getPosX()+p.getBlock_size())
-                    p.shape(renderBomb(FLAMME), p.getBlock(blockX+i, blockY).getPosX(), p.getBlock(blockX+i, blockY).getPosY());
-                if (blockY-i >= 0 && p.getBlock(blockX, blockY-i).isWalkable() && y >= p.getBlock(blockX, blockY-i).getPosY())
-                    p.shape(renderBomb(FLAMME), p.getBlock(blockX, blockY-i).getPosX(), p.getBlock(blockX, blockY-i).getPosY());
-                if (blockY+i < p.getVertical_blocks()-1 && p.getBlock(blockX, blockY+1+i).isWalkable() && y <= p.getBlock(blockX, blockY+i).getPosY()+p.getBlock_size())
-                    p.shape(renderBomb(FLAMME), p.getBlock(blockX, blockY+i).getPosX(), p.getBlock(blockX, blockY+i).getPosY());
+                if (blockX-i >= 0 && flameleft==i) //p.getBlock(blockX-i, blockY).isWalkable() && x >= p.getBlock(blockX-i, blockY).getPosX()
+                {
+
+                    if(p.getBlock(blockX-i, blockY).getType()==1)
+                    {
+                        bombexplode(blockX-i, blockY);
+                    }
+
+                    if(blockX-i==xred && yred== blockY)
+                    {
+                        p.b1.die();
+                    }
+                    if(blockX-i==xorange && yorange== blockY)
+                    {
+                        p.b2.die();
+                    }
+                    if(blockX-i==xblue && yblue== blockY)
+                    {
+                        p.b3.die();
+                    }
+                    if(blockX-i==xviolett && yviolett== blockY)
+                    {
+                        p.b4.die();
+                    }
+
+
+
+                    if(p.getBlock(blockX-i, blockY).getCovered())
+                    {
+                        if(time>181&&time<183&&stopleft) {
+                            stopleft=false;
+                            stopleft2=i;
+                            flameleft--;
+                        }
+                        flameleft--;
+                    }
+                    if(p.getBlock(blockX-i, blockY).getType()==2)
+                    {
+                        if(time>180&&time<183&&stopleft) {
+                            stopleft=false;
+                            stopleft2=i;
+                            flameleft--;
+                        }
+                        flameleft--;
+                    }
+                    if(p.getBlock(blockX-i, blockY).getType()==3)
+                    {
+                        flameleft=flameleft-2;
+                    }
+
+
+                    if((i==flameleft||i-1==flameleft)&&stopleft)
+                        p.shape(renderBomb(FLAMME), p.getBlock(blockX - i, blockY).getPosX(), p.getBlock(blockX - i, blockY).getPosY());
+                    flameleft++;
+                }
+                if (blockX+1 < p.getHorizontal_blocks()-1 &&  flameright ==i)   //p.getBlock(blockX+1+i, blockY).isWalkable() && x <= p.getBlock(blockX+i, blockY).getPosX()+p.getBlock_size()){
+                {
+                    if(p.getBlock(blockX+i, blockY).getType()==1)
+                    {
+                        bombexplode(blockX+i, blockY);
+                    }
+
+                    if(blockX+i==xred && yred== blockY)
+                    {
+                        p.b1.die();
+                    }
+                    if(blockX+i==xorange && yorange== blockY)
+                    {
+                        p.b2.die();
+                    }
+                    if(blockX+i==xblue && yblue== blockY)
+                    {
+                        p.b3.die();
+                    }
+                    if(blockX+i==xviolett && yviolett== blockY)
+                    {
+                        p.b4.die();
+                    }
+
+
+                    if(p.getBlock(blockX+i, blockY).getCovered())
+                    {
+                        if(time>181&&time<183&&stopright) {
+                            stopright=false;
+                            stopright2=i;
+                            flameright--;
+                        }
+                        flameright--;
+                    }
+                    if(p.getBlock(blockX+i, blockY).getType()==2)
+                    {
+                        if(time>180&&time<183&&stopright) {
+                            stopright=false;
+                            stopright2=i;
+                            flameright--;
+                        }
+                        flameright--;
+                    }
+                    if(p.getBlock(blockX+i, blockY).getType()==3)
+                    {
+                        flameright=flameright-2;
+                    }
+
+
+                    if((i==flameright||i-1==flameright)&&stopright)
+                        p.shape(renderBomb(FLAMME), p.getBlock(blockX + i, blockY).getPosX(), p.getBlock(blockX + i, blockY).getPosY());
+                    flameright++;
+                }
+                if (blockY-i >= 0 && flamedown==i )//p.getBlock(blockX, blockY-i).isWalkable() && y >= p.getBlock(blockX, blockY-i).getPosY())
+                {
+                    if(p.getBlock(blockX, blockY-i).getType()==1)
+                    {
+                        bombexplode(blockX, blockY-i);
+                    }
+
+                    if(blockX==xred && yred== blockY-i)
+                    {
+                        p.b1.die();
+                    }
+                    if(blockX==xorange && yorange== blockY-i) {
+                        p.b2.die();
+                    }
+                    if (blockX==xblue && yblue== blockY-i)
+                    {
+                        p.b3.die();
+                    }
+                    if(blockX==xviolett && yviolett== blockY-i)
+                    {
+                        p.b4.die();
+                    }
+
+
+                    if(p.getBlock(blockX, blockY-i).getCovered())
+                    {
+                        if(time>181&&time<183&&stopdown) {
+                            stopdown=false;
+                            stopdown2=i;
+                            flamedown--;
+                        }
+                        flamedown--;
+                    }
+                    if(p.getBlock(blockX, blockY-i).getType()==2)
+                    {
+                        if(time>180&&time<183&&stopdown) {
+                            stopdown=false;
+                            stopdown2=i;
+                            flamedown--;
+                        }
+                        flamedown--;
+                    }
+                    if(p.getBlock(blockX, blockY-i).getType()==3)
+                    {
+                        flamedown=flamedown-2;
+                    }
+
+
+                    if((i==flamedown||i-1==flamedown)&&stopdown)
+                        p.shape(renderBomb(FLAMME), p.getBlock(blockX, blockY-i).getPosX(), p.getBlock(blockX, blockY-i).getPosY());
+                    flamedown++;
+
+                }
+                if (blockY+i < p.getVertical_blocks()-1 && flameup==i)//p.getBlock(blockX, blockY + 1 + i).isWalkable() && y <= p.getBlock(blockX, blockY + i).getPosY() + p.getBlock_size()) {
+                {
+                    if(p.getBlock(blockX, blockY+i).getType()==1)
+                    {
+                        bombexplode(blockX, blockY+i);
+                    }
+
+                    if(blockX==xred && yred== blockY+i)
+                    {
+                        p.b1.die();
+                    }
+                    if(blockX==xorange && yorange== blockY+i) {
+                        p.b2.die();
+                    }
+                    if (blockX==xblue && yblue== blockY+i)
+                    {
+                        p.b3.die();
+                    }
+                    if(blockX==xviolett && yviolett== blockY+i)
+                    {
+                        p.b4.die();
+                    }
+
+                    if(p.getBlock(blockX, blockY+i).getCovered())
+                    {
+                        if(time>181&&time<183&&stopup) {
+                            stopup=false;
+                            stopup2=i;
+                            flameup--;
+                        }
+                        flameup--;
+                    }
+                    if(p.getBlock(blockX, blockY+i).getType()==2)
+                    {
+                        if(time>180&&time<183&&stopup) {
+                            stopup=false;
+                            stopup2=i;
+                            flameup--;
+                        }
+                        flameup--;
+                    }
+                    if(p.getBlock(blockX, blockY+i).getType()==3)
+                    {
+                        flameup=flameup-2;
+                    }
+
+
+                    if((i==flameup||i-1==flameup)&&stopup)
+                        p.shape(renderBomb(FLAMME), p.getBlock(blockX, blockY + i).getPosX(), p.getBlock(blockX, blockY+i).getPosY());
+                    flameup++;
+
+                }
             }
-        }
-        else if(time<241&&time>180) {
-            p.shape(renderBomb(FLAMME), this.x, this.y);
-            for(int i=1;i<=range;i++)
-            {
-                if (blockX-i >= 0 && p.getBlock(blockX-i, blockY).isWalkable() && x >= p.getBlock(blockX-i, blockY).getPosX())
-                    p.shape(renderBomb(FLAMME), p.getBlock(blockX-i, blockY).getPosX(), p.getBlock(blockX-i, blockY).getPosY());
-                if (blockX+1 < p.getHorizontal_blocks()-1 && p.getBlock(blockX+1+i, blockY).isWalkable() && x <= p.getBlock(blockX+i, blockY).getPosX()+p.getBlock_size())
-                    p.shape(renderBomb(FLAMME), p.getBlock(blockX+i, blockY).getPosX(), p.getBlock(blockX+i, blockY).getPosY());
-                if (blockY-i >= 0 && p.getBlock(blockX, blockY-i).isWalkable() && y >= p.getBlock(blockX, blockY-i).getPosY())
-                    p.shape(renderBomb(FLAMME), p.getBlock(blockX, blockY-i).getPosX(), p.getBlock(blockX, blockY-i).getPosY());
-                if (blockY+i < p.getVertical_blocks()-1 && p.getBlock(blockX, blockY+1+i).isWalkable() && y <= p.getBlock(blockX, blockY+i).getPosY()+p.getBlock_size())
-                    p.shape(renderBomb(FLAMME), p.getBlock(blockX, blockY+i).getPosX(), p.getBlock(blockX, blockY+i).getPosY());
-            }
+            flameleft=1;
+            flameright=1;
+            flameup=1;
+            flamedown=1;
+
             if(time==181) {
+                if(p.getBlock(blockX-stopleft2, blockY).getCovered())
+                    p.getBlock(blockX - stopleft2, blockY).setCovered(false);
+                if(p.getBlock(blockX-stopleft2, blockY).getType()==2)
+                    p.getBlock(blockX - stopleft2, blockY).setType(0);
+
+                if(p.getBlock(blockX+stopright2, blockY).getCovered())
+                    p.getBlock(blockX + stopright2, blockY).setCovered(false);
+                if(p.getBlock(blockX+stopright2, blockY).getType()==2)
+                    p.getBlock(blockX + stopright2, blockY).setType(0);
+
+                if(p.getBlock(blockX, blockY+stopup2).getCovered())
+                    p.getBlock(blockX, blockY+stopup2).setCovered(false);
+                if(p.getBlock(blockX, blockY+stopup2).getType()==2)
+                    p.getBlock(blockX, blockY+stopup2).setType(0);
+
+                if(p.getBlock(blockX, blockY-stopdown2).getCovered())
+                    p.getBlock(blockX, blockY-stopdown2).setCovered(false);
+                if(p.getBlock(blockX, blockY-stopdown2).getType()==2)
+                    p.getBlock(blockX, blockY-stopdown2).setType(0);
+                stopleft2=0;
+                stopright2=0;
+                stopup2=0;
+                stopdown2=0;
                 this.used = false;
+                stopleft=true;
+                stopright=true;
+                stopup=true;
+                stopdown=true;
                 p.getBlock(blockX,blockY).setType(Items.EMPTY);
             }
-        }
-        else if(time>170&&time<181)
+        } else if(time>170&&time<181)
             p.shape(renderBomb(BOMBE_3_KLEIN_1), this.x, this.y);
         else if(time>160)
             p.shape(renderBomb(BOMBE_3_KLEIN_2), this.x, this.y);
@@ -197,4 +432,3 @@ public class Plantedbomb {
 
     }
 }
-

@@ -44,6 +44,7 @@ public class Block {
 
     public void setCovered(Boolean covered) {
         this.covered = covered;
+        this.render();
     }
 
     public Boolean isWalkable() {
@@ -88,7 +89,7 @@ public class Block {
         } else if (this.type >= Items.ITEM_1) {
             img = b.getBlock_item();
         } else {
-            img = null;
+            img = null; //
         }
 
         this.drawBlock(img);

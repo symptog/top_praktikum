@@ -1,5 +1,6 @@
 package Bomberman;
 
+import processing.core.PConstants;
 import processing.core.PImage;
 import processing.core.PShape;
 
@@ -17,7 +18,7 @@ public class Bomberman {
 
     private Float maxLeft, maxRight, maxUp, maxDown;
 
-    private static final int ECKE = 5; // Tolleranz beim um die Ecke gehen
+    private static final int ECKE = 15; // Tolleranz beim um die Ecke gehen
     public static final int STOP = 0;
     public static final int UP = 10;
     public static final int UP1 = 11;
@@ -71,6 +72,8 @@ public class Bomberman {
         this.inverted = inverted;
     }
 
+
+
     public PShape render() {
         return render(0);
     }
@@ -121,7 +124,7 @@ public class Bomberman {
             shape.endShape(PShape.CLOSE);
             if (inverted) {
                 p.pushMatrix();
-                shape.rotateX(p.PI);
+                shape.rotateX(PConstants.PI);
                 shape.translate(0, -p.getBlock_size());
                 p.popMatrix();
             }
@@ -299,7 +302,7 @@ public class Bomberman {
         this.blockX = (int) ((x+p.getBlock_size()/2)-p.getX_offset())/p.getBlock_size();
         this.blockY = (int) ((y+p.getBlock_size()/2)-p.getY_offset())/p.getBlock_size();
 
-        try {
+        try { // Left
             if (p.getBlock(this.blockX-1, this.blockY).isWalkable()) {
                 this.maxLeft = p.getBlock(this.blockX-1, this.blockY).getPosX();
             } else {
@@ -309,7 +312,7 @@ public class Bomberman {
             this.maxLeft = p.getBlock(0, blockY).getPosX();
         }
 
-        try {
+        try { // Right
             if (p.getBlock(this.blockX+1, this.blockY).isWalkable()) {
                 this.maxRight = p.getBlock(this.blockX+1, this.blockY).getPosX();
             } else {
@@ -319,7 +322,7 @@ public class Bomberman {
             this.maxRight = p.getBlock(p.getHorizontal_blocks()-1, blockY).getPosX();
         }
 
-        try {
+        try { // Down
             if (p.getBlock(this.blockX, this.blockY+1).isWalkable()) {
                 this.maxDown = p.getBlock(this.blockX, this.blockY+1).getPosY();
             } else {
@@ -329,7 +332,7 @@ public class Bomberman {
             this.maxDown = p.getBlock(blockX, p.getVertical_blocks()-1).getPosY();
         }
 
-        try {
+        try { // Up
             if (p.getBlock(this.blockX, this.blockY-1).isWalkable()) {
                 this.maxUp = p.getBlock(this.blockX, this.blockY-1).getPosY();
             } else {
