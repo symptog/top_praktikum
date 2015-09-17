@@ -12,7 +12,10 @@ public class Bomberman {
     private Float x, y;
     private Field p;
     private Boolean inverted = false;
-    public Float speed = 1.0f;
+    private Boolean invulnerable;
+    private Boolean alive;
+    private Integer bombcount, maxbombcount, range, life;
+    public Float speed;
     PImage img;
     public Float count = 60.0f;
 
@@ -50,6 +53,21 @@ public class Bomberman {
         this.inverted = inverted;
         this.x = p.getBlock(blockX, blockY).getPosX();
         this.y = p.getBlock(blockX, blockY).getPosY();
+        bombcount=2;
+        maxbombcount=2;
+        range=1;
+        life=3;
+        speed=2.0f;
+        invulnerable=false;
+        alive=false;
+    }
+
+
+    public boolean isAlive() {
+        return alive;
+    }
+    public void setAlive() {
+        alive=true;
     }
 
     public int getDirection() {
@@ -64,13 +82,67 @@ public class Bomberman {
         return speed;
     }
 
-    public void setSpeed(Float speed) {
-        this.speed = speed;
+    public void increaseSpeed() {
+        if(speed<8.0f)
+            speed = speed+0.5f;
     }
 
     public void setInverted(Boolean inverted) {
         this.inverted = inverted;
     }
+
+    public void increaseBombcount()
+    {
+        if(bombcount < maxbombcount)
+            bombcount++;
+    }
+    public void increasemaxBombCount()
+    {
+        if(maxbombcount<5)
+        {
+            maxbombcount++;
+            increaseBombcount();
+        }
+    }
+    public void increaseLife()
+    {
+        life++;
+
+    }
+    public void increaseRange()
+    {
+        range++;
+        if(id.equals("red"))
+        {
+            for(int i=0;i<5;i++)
+            {
+               p.bombfield[i].setRange(this.range);
+            }
+
+         }
+        if(id.equals("orange"))
+        {
+            for(int i=5;i<10;i++)
+            {
+                p.bombfield[i].setRange(this.range);
+            }
+        }
+        if(id.equals("blue"))
+        {
+            for(int i=10;i<15;i++)
+            {
+                p.bombfield[i].setRange(this.range);
+            }
+        }
+        if(id.equals("violett"))
+        {
+            for(int i=15;i<20;i++)
+            {
+                p.bombfield[i].setRange(this.range);
+            }
+        }
+    }
+
 
 
 
@@ -149,24 +221,32 @@ public class Bomberman {
      * ToDo: Prüfen ob der Bomberman sich auf umliegende Felder bewegen darf */
     public void moveLeft() {
         if (x >= maxLeft && y >= p.getBlock(blockX, blockY).getPosY()-ECKE && y <= p.getBlock(blockX, blockY).getPosY()+ECKE ) {
+            if(this.invulnerable)
+                this.invulnerable = false;
             this.y = p.getBlock(blockX, blockY).getPosY();
             this.x -= speed;
         }
     }
     public void moveRight() {
         if (x <= maxRight && y >= p.getBlock(blockX, blockY).getPosY()-ECKE && y <= p.getBlock(blockX, blockY).getPosY()+ECKE) {
+            if(this.invulnerable)
+                this.invulnerable = false;
             this.y = p.getBlock(blockX, blockY).getPosY();
             this.x += speed;
         }
     }
     public void moveUp() {
         if (y >= maxUp && x >= p.getBlock(blockX, blockY).getPosX()-ECKE && x <= p.getBlock(blockX, blockY).getPosX()+ECKE) {
+            if(this.invulnerable)
+                this.invulnerable = false;
             this.y -= speed;
             this.x = p.getBlock(blockX, blockY).getPosX();
         }
     }
     public void moveDown() {
         if (y <= maxDown && x >= p.getBlock(blockX, blockY).getPosX()-ECKE && x <= p.getBlock(blockX, blockY).getPosX()+ECKE) {
+            if(this.invulnerable)
+                this.invulnerable = false;
             this.y += speed;
             this.x = p.getBlock(blockX, blockY).getPosX();
         }
@@ -242,49 +322,61 @@ public class Bomberman {
         Block bomb_block = p.getBlock(blockX, blockY);
         bomb_block.setType(Items.BOMBE); */
 
-        if(id.equals("violett"))
+        if(id.equals("red")&&bombcount > 0)
         {
             for(int i=0;i<5;i++)
             {
                 if(p.bombfield[i].isUsed()==false)
                 {
                     p.bombfield[i].setBomb(this.blockX, this.blockY);
+                    p.getBlock(blockX,blockY).setType(Items.BOMBE);
+                    bombcount--;
+                    i=5;
                 }
 
             }
 
         }
-        if(id.equals("blue"))
+        if(id.equals("orange")&&bombcount > 0)
         {
             for(int i=5;i<10;i++)
             {
                 if(p.bombfield[i].isUsed()==false)
                 {
                     p.bombfield[i].setBomb(this.blockX, this.blockY);
+                    p.getBlock(blockX,blockY).setType(Items.BOMBE);
+                    bombcount--;
+                    i=10;
                 }
 
             }
 
         }
-        if(id.equals("orange"))
+        if(id.equals("blue")&&bombcount > 0)
         {
             for(int i=10;i<15;i++)
             {
                 if(p.bombfield[i].isUsed()==false)
                 {
                     p.bombfield[i].setBomb(this.blockX, this.blockY);
+                    p.getBlock(blockX,blockY).setType(Items.BOMBE);
+                    bombcount--;
+                    i=15;
                 }
 
             }
 
         }
-        if(id.equals("red"))
+        if(id.equals("violett")&&bombcount > 0)
         {
             for(int i=15;i<20;i++)
             {
                 if(p.bombfield[i].isUsed()==false)
                 {
                     p.bombfield[i].setBomb(this.blockX, this.blockY);
+                    p.getBlock(blockX,blockY).setType(Items.BOMBE);
+                    bombcount--;
+                    i=20;
                 }
 
             }
@@ -294,8 +386,47 @@ public class Bomberman {
 
 
     }
+    public void lostgame()
+    {
+        alive=false;
+    }
 
-    public void die() {}
+    public void die() {
+
+            if(invulnerable==false)
+            {
+                if(id=="red")
+                {
+                blockX=0;
+                blockY=0;
+                }
+                if(id=="orange")
+                {
+                    blockX=p.getHorizontal_blocks()-1;
+                    blockY=0;
+                }
+                if(id=="blue")
+                {
+                    blockX=0;
+                    blockY=p.getVertical_blocks()-1;
+                }
+                if(id=="violett")
+                {
+                    blockX=p.getHorizontal_blocks()-1;
+                    blockY=p.getVertical_blocks()-1;
+
+                }
+                this.x = p.getBlock(blockX, blockY).getPosX();
+                this.y = p.getBlock(blockX, blockY).getPosY();
+
+                invulnerable = true;
+                if (life > 1)
+                    life--;
+                else
+                    lostgame();
+            }
+
+    }
 
     private void updateBlock() {
 

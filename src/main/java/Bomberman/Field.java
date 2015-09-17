@@ -25,6 +25,7 @@ public class Field extends PApplet {
 	private Integer horizontal_blocks = null;
 	private Integer x_offset = null;
 	private Integer y_offset = null;
+	private Integer bombtimer = 300;
 	private Properties prop;
 	private Blocks blocks;
 	public Bomberman b1, b2, b3, b4;
@@ -225,11 +226,14 @@ public class Field extends PApplet {
 		background(255);
 		//System.out.println(String.format("fps: %.0f\n", this.frameRate));
 		this.blocks.draw();
-
-		b1.draw();
-		b2.draw();
-		b3.draw();
-		b4.draw();
+		if(b1.isAlive())
+			b1.draw();
+		if(b2.isAlive())
+			b2.draw();
+		if(b3.isAlive())
+			b3.draw();
+		if(b4.isAlive())
+			b4.draw();
 		//System.out.println(String.format( "%d:%d", this.b1.blockX,this.b1.blockY));
 
 		Integer xred=b1.blockX;
@@ -243,6 +247,16 @@ public class Field extends PApplet {
 
 		Integer xviolett=b4.blockX;
 		Integer yviolett=b4.blockY;
+		bombtimer--;
+		if(bombtimer==0)
+		{
+			b1.increaseBombcount();
+			b2.increaseBombcount();
+			b3.increaseBombcount();
+			b4.increaseBombcount();
+			bombtimer=300;
+		}
+
 
 		for(int i=0;i<bombfield.length;i++) {
 			this.bombfield[i].draw(xred,yred,xorange, yorange, xblue, yblue, xviolett,yviolett);

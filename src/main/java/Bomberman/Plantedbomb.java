@@ -99,6 +99,14 @@ public class Plantedbomb {
     public Integer getTime() {
         return time;
     }
+    public Integer getBlockX() {
+        return blockX;
+    }public Integer getBlockY() {
+        return blockY;
+    }
+    public void setRange(Integer range) {
+        this.range = range;
+    }
 
     public void setTime(Integer time) {
         this.time = time;
@@ -124,7 +132,16 @@ public class Plantedbomb {
 
     public void bombexplode(Integer blockX, Integer blockY)
     {
-        //settime(1); //im bombfield die bombe an der �bergebenen Stelle suchen und Zeit auf 1 setzen
+        for(int i=0;i<p.bombfield.length;i++)
+        {
+            if(p.bombfield[i].isUsed()) {
+                if (p.bombfield[i].getBlockX() == blockX && p.bombfield[i].getBlockY() == blockY)
+                {
+                    if(p.bombfield[i].getTime()>3&&p.bombfield[i].getTime()<181)
+                        p.bombfield[i].setTime(1);
+                }
+            }
+        }
     }
 
     public void draw(Integer xred, Integer yred, Integer xorange, Integer yorange, Integer xblue, Integer yblue,   Integer xviolett, Integer yviolett)
@@ -139,6 +156,26 @@ public class Plantedbomb {
                 time = 241;
             }
 
+            if(p.getBlock(blockX, blockY).getType()==1)
+            {
+                bombexplode(blockX, blockY);
+            }
+            if(time>182) {
+
+                if (blockX == xred && yred == blockY) {
+                    p.b1.die();
+                }
+                if (blockX == xorange && yorange == blockY) {
+                    p.b2.die();
+                }
+                if (blockX == xblue && yblue == blockY) {
+                    p.b3.die();
+                }
+                if (blockX == xviolett && yviolett == blockY) {
+                    p.b4.die();
+                }
+            }
+
             for(int i=1;i<=range;i++)
             {
                 if (blockX-i >= 0 && flameleft==i) //p.getBlock(blockX-i, blockY).isWalkable() && x >= p.getBlock(blockX-i, blockY).getPosX()
@@ -146,24 +183,21 @@ public class Plantedbomb {
 
                     if(p.getBlock(blockX-i, blockY).getType()==1)
                     {
-                        bombexplode(blockX-i, blockY);
+                        bombexplode(blockX - i, blockY);
                     }
-
-                    if(blockX-i==xred && yred== blockY)
-                    {
-                        p.b1.die();
-                    }
-                    if(blockX-i==xorange && yorange== blockY)
-                    {
-                        p.b2.die();
-                    }
-                    if(blockX-i==xblue && yblue== blockY)
-                    {
-                        p.b3.die();
-                    }
-                    if(blockX-i==xviolett && yviolett== blockY)
-                    {
-                        p.b4.die();
+                    if(time>182) {
+                        if (blockX - i == xred && yred == blockY) {
+                            p.b1.die();
+                        }
+                        if (blockX - i == xorange && yorange == blockY) {
+                            p.b2.die();
+                        }
+                        if (blockX - i == xblue && yblue == blockY) {
+                            p.b3.die();
+                        }
+                        if (blockX - i == xviolett && yviolett == blockY) {
+                            p.b4.die();
+                        }
                     }
 
 
@@ -196,28 +230,25 @@ public class Plantedbomb {
                         p.shape(renderBomb(FLAMME), p.getBlock(blockX - i, blockY).getPosX(), p.getBlock(blockX - i, blockY).getPosY());
                     flameleft++;
                 }
-                if (blockX+1 < p.getHorizontal_blocks()-1 &&  flameright ==i)   //p.getBlock(blockX+1+i, blockY).isWalkable() && x <= p.getBlock(blockX+i, blockY).getPosX()+p.getBlock_size()){
+                if (blockX+i < p.getHorizontal_blocks() &&  flameright ==i)   //p.getBlock(blockX+1+i, blockY).isWalkable() && x <= p.getBlock(blockX+i, blockY).getPosX()+p.getBlock_size()){
                 {
                     if(p.getBlock(blockX+i, blockY).getType()==1)
                     {
                         bombexplode(blockX+i, blockY);
                     }
-
-                    if(blockX+i==xred && yred== blockY)
-                    {
-                        p.b1.die();
-                    }
-                    if(blockX+i==xorange && yorange== blockY)
-                    {
-                        p.b2.die();
-                    }
-                    if(blockX+i==xblue && yblue== blockY)
-                    {
-                        p.b3.die();
-                    }
-                    if(blockX+i==xviolett && yviolett== blockY)
-                    {
-                        p.b4.die();
+                    if(time>182) {
+                        if (blockX + i == xred && yred == blockY) {
+                            p.b1.die();
+                        }
+                        if (blockX + i == xorange && yorange == blockY) {
+                            p.b2.die();
+                        }
+                        if (blockX + i == xblue && yblue == blockY) {
+                            p.b3.die();
+                        }
+                        if (blockX + i == xviolett && yviolett == blockY) {
+                            p.b4.die();
+                        }
                     }
 
 
@@ -255,21 +286,19 @@ public class Plantedbomb {
                     {
                         bombexplode(blockX, blockY-i);
                     }
-
-                    if(blockX==xred && yred== blockY-i)
-                    {
-                        p.b1.die();
-                    }
-                    if(blockX==xorange && yorange== blockY-i) {
-                        p.b2.die();
-                    }
-                    if (blockX==xblue && yblue== blockY-i)
-                    {
-                        p.b3.die();
-                    }
-                    if(blockX==xviolett && yviolett== blockY-i)
-                    {
-                        p.b4.die();
+                    if(time>182) {
+                        if (blockX == xred && yred == blockY - i) {
+                            p.b1.die();
+                        }
+                        if (blockX == xorange && yorange == blockY - i) {
+                            p.b2.die();
+                        }
+                        if (blockX == xblue && yblue == blockY - i) {
+                            p.b3.die();
+                        }
+                        if (blockX == xviolett && yviolett == blockY - i) {
+                            p.b4.die();
+                        }
                     }
 
 
@@ -308,21 +337,19 @@ public class Plantedbomb {
                     {
                         bombexplode(blockX, blockY+i);
                     }
-
-                    if(blockX==xred && yred== blockY+i)
-                    {
-                        p.b1.die();
-                    }
-                    if(blockX==xorange && yorange== blockY+i) {
-                        p.b2.die();
-                    }
-                    if (blockX==xblue && yblue== blockY+i)
-                    {
-                        p.b3.die();
-                    }
-                    if(blockX==xviolett && yviolett== blockY+i)
-                    {
-                        p.b4.die();
+                    if(time>182) {
+                        if (blockX == xred && yred == blockY + i) {
+                            p.b1.die();
+                        }
+                        if (blockX == xorange && yorange == blockY + i) {
+                            p.b2.die();
+                        }
+                        if (blockX == xblue && yblue == blockY + i) {
+                            p.b3.die();
+                        }
+                        if (blockX == xviolett && yviolett == blockY + i) {
+                            p.b4.die();
+                        }
                     }
 
                     if(p.getBlock(blockX, blockY+i).getCovered())

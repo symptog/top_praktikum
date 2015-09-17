@@ -84,10 +84,14 @@ public class Block {
         } else if (this.type == Items.EMPTY) {
             this.covered = false;
             img = null;
-        } else if (this.type == Items.BOMBE) {
-            img = b.getBlock_item();
-        } else if (this.type >= Items.ITEM_1) {
-            img = b.getBlock_item();
+        } else if (this.type == Items.COUNTUPGRADE) {
+            img = b.getanzupgrade();
+        } else if (this.type == Items.LIFEUPGRADE) {
+            img = b.getlifeupgrade();
+        } else if (this.type == Items.RANGEUPGRADE) {
+            img = b.getrangeupgrade();
+        } else if (this.type == Items.SPEEDUPGRADE) {
+            img = b.getspeedupgrade();
         } else {
             img = null; //
         }

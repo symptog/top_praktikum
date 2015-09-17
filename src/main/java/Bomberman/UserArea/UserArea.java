@@ -98,8 +98,16 @@ public class UserArea extends Zone {
                 else {
                     bomberman.setDirection(Bomberman.STOP);
                 }
+            if(!bomberman.isAlive())
+            {
+                background(10,128,256);
+                stroke(0,0,0);
+                fill(20, 50, 256);
+                rect(0,0,this.getWidth(),this.getHeight());
+            }
             //}
         }
+
 
     }
 
@@ -111,6 +119,7 @@ public class UserArea extends Zone {
             this.add(trackball);
             this.bombbutton = new Bombbutton(this, (this.getWidth() / 4), (this.getHeight() / 2), (int)this.getCrossHeight()*3/4, (int)this.getCrossHeight()*3/4);
             this.add(bombbutton);
+            this.bomberman.setAlive();
             this.bomberman.render();
             this.init = true;
 
