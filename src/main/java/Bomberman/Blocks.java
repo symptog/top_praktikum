@@ -79,7 +79,7 @@ public class Blocks {
                             this.blocks[i][j].setType(Items.RANGEUPGRADE);
                         else if (zahl > 8 && zahl < 13)
                             this.blocks[i][j].setType(Items.SPEEDUPGRADE);
-                        //this.blocks[i][j].setCovered(true);
+                        this.blocks[i][j].setCovered(true);
                     }
                     else
                         this.blocks[i][j].setType(Items.BLOCK);

@@ -35,7 +35,7 @@ public class Plantedbomb {
         this.p = p;
         this.blockX = 0;
         this.blockY = 0;
-        this.range=3;
+        this.range=1;
         used=false;
         this.time=180;
         this.x = p.getBlock(blockX, blockY).getPosX();
@@ -331,7 +331,7 @@ public class Plantedbomb {
                     flamedown++;
 
                 }
-                if (blockY+i < p.getVertical_blocks()-1 && flameup==i)//p.getBlock(blockX, blockY + 1 + i).isWalkable() && y <= p.getBlock(blockX, blockY + i).getPosY() + p.getBlock_size()) {
+                if (blockY+i < p.getVertical_blocks() && flameup==i)//p.getBlock(blockX, blockY + 1 + i).isWalkable() && y <= p.getBlock(blockX, blockY + i).getPosY() + p.getBlock_size()) {
                 {
                     if(p.getBlock(blockX, blockY+i).getType()==1)
                     {

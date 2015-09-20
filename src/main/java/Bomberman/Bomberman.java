@@ -20,6 +20,7 @@ public class Bomberman {
     public Float count = 60.0f;
 
     private Float maxLeft, maxRight, maxUp, maxDown;
+    private Integer invultime;
 
     private static final int ECKE = 15; // Tolleranz beim um die Ecke gehen
     public static final int STOP = 0;
@@ -53,13 +54,14 @@ public class Bomberman {
         this.inverted = inverted;
         this.x = p.getBlock(blockX, blockY).getPosX();
         this.y = p.getBlock(blockX, blockY).getPosY();
-        bombcount=2;
-        maxbombcount=2;
+        bombcount=1;
+        maxbombcount=1;
         range=1;
         life=3;
         speed=2.0f;
         invulnerable=false;
         alive=false;
+        invultime=0;
     }
 
 
@@ -111,34 +113,28 @@ public class Bomberman {
     }
     public void increaseRange()
     {
-        range++;
-        if(id.equals("red"))
-        {
-            for(int i=0;i<5;i++)
-            {
-               p.bombfield[i].setRange(this.range);
-            }
+        if(range <6) {
+            range++;
+            if (id.equals("red")) {
+                for (int i = 0; i < 5; i++) {
+                    p.bombfield[i].setRange(this.range);
+                }
 
-         }
-        if(id.equals("orange"))
-        {
-            for(int i=5;i<10;i++)
-            {
-                p.bombfield[i].setRange(this.range);
             }
-        }
-        if(id.equals("blue"))
-        {
-            for(int i=10;i<15;i++)
-            {
-                p.bombfield[i].setRange(this.range);
+            if (id.equals("orange")) {
+                for (int i = 5; i < 10; i++) {
+                    p.bombfield[i].setRange(this.range);
+                }
             }
-        }
-        if(id.equals("violett"))
-        {
-            for(int i=15;i<20;i++)
-            {
-                p.bombfield[i].setRange(this.range);
+            if (id.equals("blue")) {
+                for (int i = 10; i < 15; i++) {
+                    p.bombfield[i].setRange(this.range);
+                }
+            }
+            if (id.equals("violett")) {
+                for (int i = 15; i < 20; i++) {
+                    p.bombfield[i].setRange(this.range);
+                }
             }
         }
     }
@@ -220,32 +216,32 @@ public class Bomberman {
     /* ToDo: Abfrage in welchem Block sich der Bomberman befindet
      * ToDo: Prüfen ob der Bomberman sich auf umliegende Felder bewegen darf */
     public void moveLeft() {
-        if (x >= maxLeft && y >= p.getBlock(blockX, blockY).getPosY()-ECKE && y <= p.getBlock(blockX, blockY).getPosY()+ECKE ) {
-            if(this.invulnerable)
+        if (x >= maxLeft && y >= p.getBlock(blockX, blockY).getPosY()-(ECKE + speed) && y <= p.getBlock(blockX, blockY).getPosY()+(ECKE + speed) ) {
+            if(this.invulnerable&&this.invultime==0)
                 this.invulnerable = false;
             this.y = p.getBlock(blockX, blockY).getPosY();
             this.x -= speed;
         }
     }
     public void moveRight() {
-        if (x <= maxRight && y >= p.getBlock(blockX, blockY).getPosY()-ECKE && y <= p.getBlock(blockX, blockY).getPosY()+ECKE) {
-            if(this.invulnerable)
+        if (x <= maxRight && y >= p.getBlock(blockX, blockY).getPosY()-(ECKE + speed) && y <= p.getBlock(blockX, blockY).getPosY()+(ECKE + speed)) {
+            if(this.invulnerable&&this.invultime==0)
                 this.invulnerable = false;
             this.y = p.getBlock(blockX, blockY).getPosY();
             this.x += speed;
         }
     }
     public void moveUp() {
-        if (y >= maxUp && x >= p.getBlock(blockX, blockY).getPosX()-ECKE && x <= p.getBlock(blockX, blockY).getPosX()+ECKE) {
-            if(this.invulnerable)
+        if (y >= maxUp && x >= p.getBlock(blockX, blockY).getPosX()-(ECKE + speed) && x <= p.getBlock(blockX, blockY).getPosX()+(ECKE + speed)) {
+            if(this.invulnerable&&this.invultime==0)
                 this.invulnerable = false;
             this.y -= speed;
             this.x = p.getBlock(blockX, blockY).getPosX();
         }
     }
     public void moveDown() {
-        if (y <= maxDown && x >= p.getBlock(blockX, blockY).getPosX()-ECKE && x <= p.getBlock(blockX, blockY).getPosX()+ECKE) {
-            if(this.invulnerable)
+        if (y <= maxDown && x >= p.getBlock(blockX, blockY).getPosX()-(ECKE + speed) && x <= p.getBlock(blockX, blockY).getPosX()+(ECKE + speed)) {
+            if(this.invulnerable&&this.invultime==0)
                 this.invulnerable = false;
             this.y += speed;
             this.x = p.getBlock(blockX, blockY).getPosX();
@@ -254,6 +250,10 @@ public class Bomberman {
     
     public void draw()
     {
+        if(invultime>0) {
+            invultime--;
+
+        }
         if(direction==0) {
             displayDirection(Bomberman.STOP);
         }
@@ -322,7 +322,7 @@ public class Bomberman {
         Block bomb_block = p.getBlock(blockX, blockY);
         bomb_block.setType(Items.BOMBE); */
 
-        if(id.equals("red")&&bombcount > 0)
+        if(id.equals("red")&&bombcount > 0&&isAlive())
         {
             for(int i=0;i<5;i++)
             {
@@ -337,7 +337,7 @@ public class Bomberman {
             }
 
         }
-        if(id.equals("orange")&&bombcount > 0)
+        if(id.equals("orange")&&bombcount > 0&&isAlive())
         {
             for(int i=5;i<10;i++)
             {
@@ -352,7 +352,7 @@ public class Bomberman {
             }
 
         }
-        if(id.equals("blue")&&bombcount > 0)
+        if(id.equals("blue")&&bombcount > 0&&isAlive())
         {
             for(int i=10;i<15;i++)
             {
@@ -367,7 +367,7 @@ public class Bomberman {
             }
 
         }
-        if(id.equals("violett")&&bombcount > 0)
+        if(id.equals("violett")&&bombcount > 0&&isAlive())
         {
             for(int i=15;i<20;i++)
             {
@@ -420,6 +420,7 @@ public class Bomberman {
                 this.y = p.getBlock(blockX, blockY).getPosY();
 
                 invulnerable = true;
+                invultime=60;
                 if (life > 1)
                     life--;
                 else
@@ -432,6 +433,23 @@ public class Bomberman {
 
         this.blockX = (int) ((x+p.getBlock_size()/2)-p.getX_offset())/p.getBlock_size();
         this.blockY = (int) ((y+p.getBlock_size()/2)-p.getY_offset())/p.getBlock_size();
+        if(p.getBlock(this.blockX, this.blockY).getType()==4) {
+            p.getBlock(this.blockX, this.blockY).setType(0);
+            increasemaxBombCount();
+        }
+        if(p.getBlock(this.blockX, this.blockY).getType()==5) {
+            p.getBlock(this.blockX, this.blockY).setType(0);
+            increaseLife();
+        }
+        if(p.getBlock(this.blockX, this.blockY).getType()==6) {
+            p.getBlock(this.blockX, this.blockY).setType(0);
+            increaseRange();
+        }
+
+        if(p.getBlock(this.blockX, this.blockY).getType()==7) {
+            p.getBlock(this.blockX, this.blockY).setType(0);
+            increaseSpeed();
+        }
 
         try { // Left
             if (p.getBlock(this.blockX-1, this.blockY).isWalkable()) {
