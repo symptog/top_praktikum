@@ -322,7 +322,7 @@ public class Bomberman {
         Block bomb_block = p.getBlock(blockX, blockY);
         bomb_block.setType(Items.BOMBE); */
 
-        if(id.equals("red")&&bombcount > 0&&isAlive())
+        if(id.equals("red")&&bombcount > 0&&isAlive()&&p.getBlock(blockX,blockY).getType()==Items.EMPTY)
         {
             for(int i=0;i<5;i++)
             {
@@ -337,7 +337,7 @@ public class Bomberman {
             }
 
         }
-        if(id.equals("orange")&&bombcount > 0&&isAlive())
+        if(id.equals("orange")&&bombcount > 0&&isAlive()&&p.getBlock(blockX,blockY).getType()==Items.EMPTY)
         {
             for(int i=5;i<10;i++)
             {
@@ -352,7 +352,7 @@ public class Bomberman {
             }
 
         }
-        if(id.equals("blue")&&bombcount > 0&&isAlive())
+        if(id.equals("blue")&&bombcount > 0&&isAlive()&&p.getBlock(blockX,blockY).getType()==Items.EMPTY)
         {
             for(int i=10;i<15;i++)
             {
@@ -367,7 +367,7 @@ public class Bomberman {
             }
 
         }
-        if(id.equals("violett")&&bombcount > 0&&isAlive())
+        if(id.equals("violett")&&bombcount > 0&&isAlive()&&p.getBlock(blockX,blockY).getType()==Items.EMPTY)
         {
             for(int i=15;i<20;i++)
             {
