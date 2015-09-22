@@ -169,7 +169,8 @@ public class Field extends PApplet {
 
 	public void setup() {
 
-		size(1280, 720, SMT.RENDERER);
+		size(this.displayWidth, this.displayHeight, SMT.RENDERER);
+		//size(1280, 720, SMT.RENDERER);
 		SMT.init(this);
 
 		block_size = height/(vertical_blocks+6);

@@ -23,7 +23,7 @@ public class Bomberman {
     private Float maxLeft, maxRight, maxUp, maxDown;
     private Integer invultime;
 
-    private static final int ECKE = 15; // Tolleranz beim um die Ecke gehen
+    private static final int ECKE = 15; // Toleranz beim um die Ecke gehen, ToDo: Toleranz besser in %
     public static final int STOP = 0;
     public static final int UP = 10;
     public static final int UP1 = 11;
@@ -462,23 +462,6 @@ public class Bomberman {
 
         this.blockX = (int) ((x+p.getBlock_size()/2)-p.getX_offset())/p.getBlock_size();
         this.blockY = (int) ((y+p.getBlock_size()/2)-p.getY_offset())/p.getBlock_size();
-        if(p.getBlock(this.blockX, this.blockY).getType()==4) {
-            p.getBlock(this.blockX, this.blockY).setType(0);
-            increasemaxBombCount();
-        }
-        if(p.getBlock(this.blockX, this.blockY).getType()==5) {
-            p.getBlock(this.blockX, this.blockY).setType(0);
-            increaseLife();
-        }
-        if(p.getBlock(this.blockX, this.blockY).getType()==6) {
-            p.getBlock(this.blockX, this.blockY).setType(0);
-            increaseRange();
-        }
-
-        if(p.getBlock(this.blockX, this.blockY).getType()==7) {
-            p.getBlock(this.blockX, this.blockY).setType(0);
-            increaseSpeed();
-        }
 
         this.checkItem(this.blockX, this.blockY);
 
