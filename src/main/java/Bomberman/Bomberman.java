@@ -3,6 +3,7 @@ package Bomberman;
 import processing.core.PConstants;
 import processing.core.PImage;
 import processing.core.PShape;
+import sun.org.mozilla.javascript.ast.*;
 
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -428,10 +429,40 @@ public class Bomberman {
 
     }
 
+    private void checkItem(int x, int y) {
+        Block b = p.getBlock(x,y);
+        switch (b.getType()) {
+            case Items.LIFEUPGRADE:
+                this.increaseLife();
+                b.setType(Items.EMPTY);
+                break;
+            case Items.RANGEUPGRADE:
+                this.increaseRange();
+                b.setType(Items.EMPTY);
+                break;
+            case Items.SPEEDUPGRADE:
+                this.increaseSpeed();
+                b.setType(Items.EMPTY);
+                break;
+            case Items.COUNTUPGRADE:
+                this.increasemaxBombCount();
+                b.setType(Items.EMPTY);
+                break;
+            case Items.BOMBE:
+                this.increaseBombcount();
+                b.setType(Items.EMPTY);
+                break;
+            default:
+                break;
+        }
+    }
+
     private void updateBlock() {
 
         this.blockX = (int) ((x+p.getBlock_size()/2)-p.getX_offset())/p.getBlock_size();
         this.blockY = (int) ((y+p.getBlock_size()/2)-p.getY_offset())/p.getBlock_size();
+
+        this.checkItem(this.blockX, this.blockY);
 
         try { // Left
             if (p.getBlock(this.blockX-1, this.blockY).isWalkable()) {
