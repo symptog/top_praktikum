@@ -227,14 +227,7 @@ public class Field extends PApplet {
 		background(255);
 		//System.out.println(String.format("fps: %.0f\n", this.frameRate));
 		this.blocks.draw();
-		if(b1.isAlive())
-			b1.draw();
-		if(b2.isAlive())
-			b2.draw();
-		if(b3.isAlive())
-			b3.draw();
-		if(b4.isAlive())
-			b4.draw();
+
 		//System.out.println(String.format( "%d:%d", this.b1.blockX,this.b1.blockY));
 
 		Integer xred=b1.blockX;
@@ -262,5 +255,13 @@ public class Field extends PApplet {
 		for(int i=0;i<bombfield.length;i++) {
 			this.bombfield[i].draw(xred,yred,xorange, yorange, xblue, yblue, xviolett,yviolett);
 		}
+		if(b1.isAlive())
+			b1.draw();
+		if(b2.isAlive())
+			b2.draw();
+		if(b3.isAlive())
+			b3.draw();
+		if(b4.isAlive())
+			b4.draw();
 	}
 }

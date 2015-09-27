@@ -3,7 +3,7 @@ package Bomberman;
 import processing.core.PConstants;
 import processing.core.PImage;
 import processing.core.PShape;
-import sun.org.mozilla.javascript.ast.*;
+//import sun.org.mozilla.javascript.ast.*;
 
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -14,7 +14,7 @@ public class Bomberman {
     private Field p;
     private Boolean inverted = false;
     private Boolean invulnerable;
-    private Boolean alive;
+    private Boolean alive, dying;
     private Integer bombcount, maxbombcount, range, life;
     public Float speed;
     PImage img;
@@ -37,6 +37,8 @@ public class Bomberman {
     public static final int RIGHT = 40;
     public static final int RIGHT1 = 41;
     public static final int RIGHT2 = 42;
+    public static final int DYING1 = 51;
+    public static final int DYING2 = 52;
     private int direction = STOP;
     private ConcurrentHashMap<Integer, PShape> bman = new ConcurrentHashMap<Integer, PShape>();
 
@@ -62,7 +64,24 @@ public class Bomberman {
         speed=2.0f;
         invulnerable=false;
         alive=false;
+        dying=false;
         invultime=0;
+    }
+
+    public Integer getBombcount() {
+        return bombcount;
+    }
+
+    public Integer getMaxbombcount() {
+        return maxbombcount;
+    }
+
+    public Integer getRange() {
+        return range;
+    }
+
+    public Integer getLife() {
+        return life;
     }
 
 
@@ -71,6 +90,13 @@ public class Bomberman {
     }
     public void setAlive() {
         alive=true;
+    }
+    public boolean isDying() {
+        return dying;
+    }
+
+    public Boolean isInvulnerable() {
+        return invulnerable;
     }
 
     public int getDirection() {
@@ -101,7 +127,7 @@ public class Bomberman {
     }
     public void increasemaxBombCount()
     {
-        if(maxbombcount<5)
+        if(maxbombcount<4)
         {
             maxbombcount++;
             increaseBombcount();
@@ -114,7 +140,7 @@ public class Bomberman {
     }
     public void increaseRange()
     {
-        if(range <6) {
+        if(range <5) {
             range++;
             if (id.equals("red")) {
                 for (int i = 0; i < 5; i++) {
@@ -176,6 +202,12 @@ public class Bomberman {
                 case RIGHT2:
                     img = p.getImage(id + "_rechts_2.png");
                     break;
+                case DYING1:
+                    img = p.getImage(id + "_dying_1.png");
+                    break;
+                case DYING2:
+                    img = p.getImage(id + "_dying_2.png");
+                    break;
                 default:
                     img = p.getImage(id + "_unten_1.png");
                     break;
@@ -217,7 +249,7 @@ public class Bomberman {
     /* ToDo: Abfrage in welchem Block sich der Bomberman befindet
      * ToDo: Prüfen ob der Bomberman sich auf umliegende Felder bewegen darf */
     public void moveLeft() {
-        if (x >= maxLeft && y >= p.getBlock(blockX, blockY).getPosY()-(ECKE + speed) && y <= p.getBlock(blockX, blockY).getPosY()+(ECKE + speed) ) {
+        if (x >= maxLeft && y >= p.getBlock(blockX, blockY).getPosY()-(ECKE + speed) && y <= p.getBlock(blockX, blockY).getPosY()+(ECKE + speed) &&!dying) {
             if(this.invulnerable&&this.invultime==0)
                 this.invulnerable = false;
             this.y = p.getBlock(blockX, blockY).getPosY();
@@ -225,7 +257,7 @@ public class Bomberman {
         }
     }
     public void moveRight() {
-        if (x <= maxRight && y >= p.getBlock(blockX, blockY).getPosY()-(ECKE + speed) && y <= p.getBlock(blockX, blockY).getPosY()+(ECKE + speed)) {
+        if (x <= maxRight && y >= p.getBlock(blockX, blockY).getPosY()-(ECKE + speed) && y <= p.getBlock(blockX, blockY).getPosY()+(ECKE + speed)&&!dying) {
             if(this.invulnerable&&this.invultime==0)
                 this.invulnerable = false;
             this.y = p.getBlock(blockX, blockY).getPosY();
@@ -233,7 +265,7 @@ public class Bomberman {
         }
     }
     public void moveUp() {
-        if (y >= maxUp && x >= p.getBlock(blockX, blockY).getPosX()-(ECKE + speed) && x <= p.getBlock(blockX, blockY).getPosX()+(ECKE + speed)) {
+        if (y >= maxUp && x >= p.getBlock(blockX, blockY).getPosX()-(ECKE + speed) && x <= p.getBlock(blockX, blockY).getPosX()+(ECKE + speed)&&!dying) {
             if(this.invulnerable&&this.invultime==0)
                 this.invulnerable = false;
             this.y -= speed;
@@ -241,7 +273,7 @@ public class Bomberman {
         }
     }
     public void moveDown() {
-        if (y <= maxDown && x >= p.getBlock(blockX, blockY).getPosX()-(ECKE + speed) && x <= p.getBlock(blockX, blockY).getPosX()+(ECKE + speed)) {
+        if (y <= maxDown && x >= p.getBlock(blockX, blockY).getPosX()-(ECKE + speed) && x <= p.getBlock(blockX, blockY).getPosX()+(ECKE + speed)&&!dying) {
             if(this.invulnerable&&this.invultime==0)
                 this.invulnerable = false;
             this.y += speed;
@@ -253,65 +285,82 @@ public class Bomberman {
     {
         if(invultime>0) {
             invultime--;
+        }
+        else if(invultime==0&&dying) {
+            die();
 
         }
-        if(direction==0) {
-            displayDirection(Bomberman.STOP);
-        }
-        if(direction==10) {
+        if(dying) {
             if (count < 25) {
-                displayDirection(Bomberman.UP1);
-                moveUp();
-                count = count + this.speed;
+                displayDirection(Bomberman.DYING1);
+                count++;
             }
             if (count >= 25) {
-                displayDirection(Bomberman.UP2);
-                moveUp();
-                count = count + this.speed;
+                displayDirection(Bomberman.DYING2);
+                count++;
                 if (count >= 50)
                     count = 0.0f;
             }
         }
-        if(direction==20) {
-            if (count < 25) {
-                displayDirection(Bomberman.DOWN1);
-                moveDown();
-                count = count + this.speed;
+        else {
+            if (direction == 0) {
+                displayDirection(Bomberman.STOP);
             }
-            if (count >= 25) {
-                displayDirection(Bomberman.DOWN2);
-                moveDown();
-                count = count + this.speed;
-                if (count >= 50)
-                    count = 0.0f;
+            if (direction == 10) {
+                if (count < 25) {
+                    displayDirection(Bomberman.UP1);
+                    moveUp();
+                    count = count + this.speed;
+                }
+                if (count >= 25) {
+                    displayDirection(Bomberman.UP2);
+                    moveUp();
+                    count = count + this.speed;
+                    if (count >= 50)
+                        count = 0.0f;
+                }
             }
-        }
-        if(direction==30) {
-            if (count < 25) {
-                displayDirection(Bomberman.LEFT1);
-                moveLeft();
-                count = count + this.speed;
+            if (direction == 20) {
+                if (count < 25) {
+                    displayDirection(Bomberman.DOWN1);
+                    moveDown();
+                    count = count + this.speed;
+                }
+                if (count >= 25) {
+                    displayDirection(Bomberman.DOWN2);
+                    moveDown();
+                    count = count + this.speed;
+                    if (count >= 50)
+                        count = 0.0f;
+                }
             }
-            if (count >= 25) {
-                displayDirection(Bomberman.LEFT2);
-                moveLeft();
-                count = count + this.speed;
-                if (count >= 50)
-                    count = 0.0f;
+            if (direction == 30) {
+                if (count < 25) {
+                    displayDirection(Bomberman.LEFT1);
+                    moveLeft();
+                    count = count + this.speed;
+                }
+                if (count >= 25) {
+                    displayDirection(Bomberman.LEFT2);
+                    moveLeft();
+                    count = count + this.speed;
+                    if (count >= 50)
+                        count = 0.0f;
+                }
             }
-        }
-        if(direction==40) {
-            if (count < 25) {
-                displayDirection(Bomberman.RIGHT1);
-                moveRight();
-                count = count + this.speed;
-            }
-            if (count >= 25) {
-                displayDirection(Bomberman.RIGHT2);
-                moveRight();
-                count = count + this.speed;
-                if (count >= 50)
-                    count = 0.0f;
+            if (direction == 40) {
+                if (count < 25) {
+                    displayDirection(Bomberman.RIGHT1);
+                    moveRight();
+                    count = count + this.speed;
+                }
+                if (count >= 25) {
+                    displayDirection(Bomberman.RIGHT2);
+                    moveRight();
+                    count = count + this.speed;
+                    if (count >= 50)
+                        count = 0.0f;
+                }
             }
         }
 
@@ -323,7 +372,7 @@ public class Bomberman {
         Block bomb_block = p.getBlock(blockX, blockY);
         bomb_block.setType(Items.BOMBE); */
 
-        if(id.equals("red")&&bombcount > 0&&isAlive()&&p.getBlock(blockX,blockY).getType()==Items.EMPTY)
+        if(id.equals("red")&&bombcount > 0&&alive&&!dying&&!invulnerable&&p.getBlock(blockX,blockY).getType()==Items.EMPTY)
         {
             for(int i=0;i<5;i++)
             {
@@ -338,7 +387,7 @@ public class Bomberman {
             }
 
         }
-        if(id.equals("orange")&&bombcount > 0&&isAlive()&&p.getBlock(blockX,blockY).getType()==Items.EMPTY)
+        if(id.equals("orange")&&bombcount > 0&&alive&&!dying&&!invulnerable&&p.getBlock(blockX,blockY).getType()==Items.EMPTY)
         {
             for(int i=5;i<10;i++)
             {
@@ -353,7 +402,7 @@ public class Bomberman {
             }
 
         }
-        if(id.equals("blue")&&bombcount > 0&&isAlive()&&p.getBlock(blockX,blockY).getType()==Items.EMPTY)
+        if(id.equals("blue")&&bombcount > 0&&alive&&!dying&&!invulnerable&&p.getBlock(blockX,blockY).getType()==Items.EMPTY)
         {
             for(int i=10;i<15;i++)
             {
@@ -368,7 +417,7 @@ public class Bomberman {
             }
 
         }
-        if(id.equals("violett")&&bombcount > 0&&isAlive()&&p.getBlock(blockX,blockY).getType()==Items.EMPTY)
+        if(id.equals("violett")&&bombcount > 0&&alive&&!dying&&!invulnerable&&p.getBlock(blockX,blockY).getType()==Items.EMPTY)
         {
             for(int i=15;i<20;i++)
             {
@@ -392,41 +441,46 @@ public class Bomberman {
         alive=false;
     }
 
+    public void startDie() {
+        if(invulnerable==false)
+        {
+            dying=true;
+            invultime=300;
+            invulnerable = true;
+        }
+
+
+    }
     public void die() {
 
-            if(invulnerable==false)
-            {
-                if(id=="red")
-                {
-                blockX=0;
-                blockY=0;
-                }
-                if(id=="orange")
-                {
-                    blockX=p.getHorizontal_blocks()-1;
-                    blockY=0;
-                }
-                if(id=="blue")
-                {
-                    blockX=0;
-                    blockY=p.getVertical_blocks()-1;
-                }
-                if(id=="violett")
-                {
-                    blockX=p.getHorizontal_blocks()-1;
-                    blockY=p.getVertical_blocks()-1;
 
-                }
-                this.x = p.getBlock(blockX, blockY).getPosX();
-                this.y = p.getBlock(blockX, blockY).getPosY();
+                    if (id == "red") {
+                        blockX = 0;
+                        blockY = 0;
+                    }
+                    if (id == "orange") {
+                        blockX = p.getHorizontal_blocks() - 1;
+                        blockY = 0;
+                    }
+                    if (id == "blue") {
+                        blockX = 0;
+                        blockY = p.getVertical_blocks() - 1;
+                    }
+                    if (id == "violett") {
+                        blockX = p.getHorizontal_blocks() - 1;
+                        blockY = p.getVertical_blocks() - 1;
 
-                invulnerable = true;
-                invultime=60;
+                    }
+                    this.x = p.getBlock(blockX, blockY).getPosX();
+                    this.y = p.getBlock(blockX, blockY).getPosY();
+
+
+                dying=false;
                 if (life > 1)
                     life--;
                 else
                     lostgame();
-            }
+
 
     }
 
@@ -449,10 +503,12 @@ public class Bomberman {
                 this.increasemaxBombCount();
                 b.setType(Items.EMPTY);
                 break;
+            /*
             case Items.BOMBE:
                 this.increaseBombcount();
                 b.setType(Items.EMPTY);
                 break;
+                */
             default:
                 break;
         }

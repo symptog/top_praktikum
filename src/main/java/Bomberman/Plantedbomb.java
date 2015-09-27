@@ -163,16 +163,16 @@ public class Plantedbomb {
             if(time>182) {
 
                 if (blockX == xred && yred == blockY) {
-                    p.b1.die();
+                    p.b1.startDie();
                 }
                 if (blockX == xorange && yorange == blockY) {
-                    p.b2.die();
+                    p.b2.startDie();
                 }
                 if (blockX == xblue && yblue == blockY) {
-                    p.b3.die();
+                    p.b3.startDie();
                 }
                 if (blockX == xviolett && yviolett == blockY) {
-                    p.b4.die();
+                    p.b4.startDie();
                 }
             }
 
@@ -187,16 +187,16 @@ public class Plantedbomb {
                     }
                     if(time>182) {
                         if (blockX - i == xred && yred == blockY) {
-                            p.b1.die();
+                            p.b1.startDie();
                         }
                         if (blockX - i == xorange && yorange == blockY) {
-                            p.b2.die();
+                            p.b2.startDie();
                         }
                         if (blockX - i == xblue && yblue == blockY) {
-                            p.b3.die();
+                            p.b3.startDie();
                         }
                         if (blockX - i == xviolett && yviolett == blockY) {
-                            p.b4.die();
+                            p.b4.startDie();
                         }
                     }
 
@@ -238,16 +238,16 @@ public class Plantedbomb {
                     }
                     if(time>182) {
                         if (blockX + i == xred && yred == blockY) {
-                            p.b1.die();
+                            p.b1.startDie();
                         }
                         if (blockX + i == xorange && yorange == blockY) {
-                            p.b2.die();
+                            p.b2.startDie();
                         }
                         if (blockX + i == xblue && yblue == blockY) {
-                            p.b3.die();
+                            p.b3.startDie();
                         }
                         if (blockX + i == xviolett && yviolett == blockY) {
-                            p.b4.die();
+                            p.b4.startDie();
                         }
                     }
 
@@ -288,16 +288,16 @@ public class Plantedbomb {
                     }
                     if(time>182) {
                         if (blockX == xred && yred == blockY - i) {
-                            p.b1.die();
+                            p.b1.startDie();
                         }
                         if (blockX == xorange && yorange == blockY - i) {
-                            p.b2.die();
+                            p.b2.startDie();
                         }
                         if (blockX == xblue && yblue == blockY - i) {
-                            p.b3.die();
+                            p.b3.startDie();
                         }
                         if (blockX == xviolett && yviolett == blockY - i) {
-                            p.b4.die();
+                            p.b4.startDie();
                         }
                     }
 
@@ -339,16 +339,16 @@ public class Plantedbomb {
                     }
                     if(time>182) {
                         if (blockX == xred && yred == blockY + i) {
-                            p.b1.die();
+                            p.b1.startDie();
                         }
                         if (blockX == xorange && yorange == blockY + i) {
-                            p.b2.die();
+                            p.b2.startDie();
                         }
                         if (blockX == xblue && yblue == blockY + i) {
-                            p.b3.die();
+                            p.b3.startDie();
                         }
                         if (blockX == xviolett && yviolett == blockY + i) {
-                            p.b4.die();
+                            p.b4.startDie();
                         }
                     }
 

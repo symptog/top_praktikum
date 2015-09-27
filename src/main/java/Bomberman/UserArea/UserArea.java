@@ -45,9 +45,12 @@ public class UserArea extends Zone {
         maxpos = (int)this.getCrossHeight()/4;
 
 
+
         if(this.init) {
 
-            kreuz((this.getWidth()/4*3), (this.getHeight()/2));
+            kreuz((this.getWidth()/4*3 + this.getWidth() / 12), (this.getHeight()/2));
+            bombe((this.getWidth() / 4 - this.getWidth() / 12), (this.getHeight() / 2));
+            anzeige((this.getWidth() / 2 - this.getWidth() / 12), (this.getHeight()));
 
             this.touchpoint = new PVector(trackball.getX(), trackball.getY());  //get liefert globale Werte
 
@@ -100,10 +103,15 @@ public class UserArea extends Zone {
                 }
             if(!bomberman.isAlive())
             {
+
                 background(10,128,256);
                 stroke(0,0,0);
                 fill(20, 50, 256);
                 rect(0,0,this.getWidth(),this.getHeight());
+                textAlign(CENTER);
+                fill(0);
+                text("Leider verloren", this.getWidth()/2, (this.getHeight()-6)/3-(this.getHeight()-6)/12);
+
             }
             //}
         }
@@ -134,15 +142,37 @@ public class UserArea extends Zone {
     public void touchMoved(Touch touch){}
 
     private void kreuz(int x, int y) {
-        background(128,128,128);//legt Hintergrundfarbe fest - wenn nur einmal gezeichnet, dann läuft der Bildschirm voll
+        background(128, 128,128);//legt Hintergrundfarbe fest - wenn nur einmal gezeichnet, dann läuft der Bildschirm voll
         stroke(0,0,0);//legt Randfarbe nachfolgender Formen fest
         fill(col);//legt Füllfarbe nachfolgender Formen fest
         ellipseMode(CENTER);
-        ellipse(x, y, this.getCrossHeight(),  this.getCrossHeight());//Position, Position, Breite, Höhe                //Außenkreis
+        ellipse(x, y, this.getCrossHeight(), this.getCrossHeight());//Position, Position, Breite, Höhe                //Außenkreis
         int kreuz = (int) Math.floor( Math.sqrt( this.getCrossHeight()/2* this.getCrossHeight())/2);                //
-        line(x-kreuz, y-kreuz,1,x+kreuz, y+kreuz,1);                                                //loru
+        line(x - kreuz, y - kreuz, 1, x + kreuz, y+kreuz,1);                                                //loru
         line(x-kreuz, y+kreuz,1,x+kreuz, y-kreuz,1);                                                //luro
         ellipse(x, y, this.getHeight()/4*0.75f, this.getHeight()/4*0.75f);                                          //Innenkreis schwarz
+    }
+
+    private void bombe(int x, int y) {
+        stroke(0, 0, 0);//legt Randfarbe nachfolgender Formen fest
+        fill(192, 0, 0);//legt Füllfarbe nachfolgender Formen fest
+        ellipseMode(CENTER);
+        ellipse(x, y, this.getCrossHeight(), this.getCrossHeight());        //Bombknopf
+        textAlign(CENTER);  textSize(20);   fill(0);
+        //text("Bombe", this.getCrossHeight(), this.getCrossHeight());      //vielleicht bekommst du ja eine zentrale Positionierung hin ;)
+    }
+
+    private void anzeige(int x, int y) {
+        stroke(0, 0, 0);//legt Randfarbe nachfolgender Formen fest
+        fill(255, 255, 255);//legt Füllfarbe nachfolgender Formen fest
+        rect(x, 3, this.getWidth() / 6, y - 6);         //Anzeigen
+        line(x, y/3, x+this.getWidth()/6, y/3);    //Trennlinie 1
+        line(x, 2*y/3, x+this.getWidth()/6, 2*y/3);    //Trennlinie 2
+        textAlign(CENTER);
+        fill(0);
+        text(bomberman.getBombcount()+" / "+bomberman.getMaxbombcount(), this.getWidth()/2, (y-6)/3-(y-6)/12);
+        text(bomberman.getRange(), this.getWidth()/2, (y-6)/3*2-(y-6)/12);
+        text(bomberman.getLife(), this.getWidth()/2, (y-6)-(y-6)/12);
     }
 
 }
