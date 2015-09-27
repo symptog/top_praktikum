@@ -222,6 +222,52 @@ public class Field extends PApplet {
 		}
 
 	}
+	public void gametest() {
+		if(b1.isAlive()&&b1.isPlaying()&&!b2.isAlive()&&b2.isPlaying()&&!b3.isAlive()&&b3.isPlaying()&&!b4.isAlive()&&b4.isPlaying()) {
+			background(255, 48, 48);
+			stroke(0, 0, 0);
+			fill(255, 48, 48);
+			rect(0, 0, this.displayWidth, this.displayHeight);
+			textAlign(CENTER);
+			fill(0);
+			text("Spieler rot hat gewonnen", this.displayWidth / 2, (this.displayHeight - 6) / 3 - (this.displayHeight - 6) / 12);
+
+		}
+		if(!b1.isAlive()&&b1.isPlaying()&&b2.isAlive()&&b2.isPlaying()&&!b3.isAlive()&&b3.isPlaying()&&!b4.isAlive()&&b4.isPlaying()) {
+			background(255, 140, 0);
+			stroke(0, 0, 0);
+			fill(255, 140, 0);
+			rect(0, 0, this.displayWidth, this.displayHeight);
+			textAlign(CENTER);
+			fill(0);
+			text("Spieler orange hat gewonnen", this.displayWidth / 2, (this.displayHeight - 6) / 3 - (this.displayHeight - 6) / 12);
+
+		}
+		if(!b1.isAlive()&&b1.isPlaying()&&!b2.isAlive()&&b2.isPlaying()&&b3.isAlive()&&b3.isPlaying()&&!b4.isAlive()&&b4.isPlaying()) {
+			background(30, 144, 255);
+			stroke(0, 0, 0);
+			fill(30, 144, 255);
+			rect(0, 0, this.displayWidth, this.displayHeight);
+			textAlign(CENTER);
+			fill(0);
+			text("Spieler blau hat gewonnen", this.displayWidth / 2, (this.displayHeight - 6) / 3 - (this.displayHeight - 6) / 12);
+
+		}
+		if(!b1.isAlive()&&b1.isPlaying()&&!b2.isAlive()&&b2.isPlaying()&&!b3.isAlive()&&b3.isPlaying()&&b4.isAlive()&&b4.isPlaying()) {
+			background(139, 0, 139);
+			stroke(0, 0, 0);
+			fill(139, 0, 139);
+			rect(0, 0, this.displayWidth, this.displayHeight);
+			textAlign(CENTER);
+			fill(0);
+			text("Spieler violett hat gewonnen", this.displayWidth / 2, (this.displayHeight - 6) / 3 - (this.displayHeight - 6) / 12);
+
+		}
+
+	}
+
+
+
 
 	public void draw() {
 		background(255);
@@ -229,6 +275,8 @@ public class Field extends PApplet {
 		this.blocks.draw();
 
 		//System.out.println(String.format( "%d:%d", this.b1.blockX,this.b1.blockY));
+
+		gametest();
 
 		Integer xred=b1.blockX;
 		Integer yred=b1.blockY;

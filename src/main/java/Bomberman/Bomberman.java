@@ -14,7 +14,7 @@ public class Bomberman {
     private Field p;
     private Boolean inverted = false;
     private Boolean invulnerable;
-    private Boolean alive, dying;
+    private Boolean alive, dying,playing;
     private Integer bombcount, maxbombcount, range, life;
     public Float speed;
     PImage img;
@@ -65,6 +65,7 @@ public class Bomberman {
         invulnerable=false;
         alive=false;
         dying=false;
+        playing=false;
         invultime=0;
     }
 
@@ -89,10 +90,18 @@ public class Bomberman {
         return alive;
     }
     public void setAlive() {
-        alive=true;
+        alive = alive == false;
     }
     public boolean isDying() {
         return dying;
+    }
+
+    public void setPlaying(Boolean playing) {
+        this.playing = playing;
+    }
+
+    public Boolean isPlaying() {
+        return playing;
     }
 
     public Boolean isInvulnerable() {

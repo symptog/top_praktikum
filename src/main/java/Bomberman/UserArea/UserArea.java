@@ -43,7 +43,14 @@ public class UserArea extends Zone {
     public void draw() {
 
         maxpos = (int)this.getCrossHeight()/4;
-
+        background(10,128,256);
+        stroke(0,0,0);
+        fill(20, 50, 256);
+        rect(0,0,this.getWidth(),this.getHeight());
+        textAlign(CENTER);
+        fill(0);
+        text("Bereit", this.getWidth()/2, (this.getHeight()-6)/3-(this.getHeight()-6)/12);
+        text("Zum Starten drücken", this.getWidth()/2, (this.getHeight()-6)/2-(this.getHeight()-6)/12);
 
 
         if(this.init) {
@@ -112,6 +119,7 @@ public class UserArea extends Zone {
                 fill(0);
                 text("Leider verloren", this.getWidth()/2, (this.getHeight()-6)/3-(this.getHeight()-6)/12);
 
+
             }
             //}
         }
@@ -128,6 +136,7 @@ public class UserArea extends Zone {
             this.bombbutton = new Bombbutton(this, (this.getWidth() / 4), (this.getHeight() / 2), (int)this.getCrossHeight()*3/4, (int)this.getCrossHeight()*3/4);
             this.add(bombbutton);
             this.bomberman.setAlive();
+            this.bomberman.setPlaying(true);
             this.bomberman.render();
             this.init = true;
 
