@@ -169,8 +169,8 @@ public class Field extends PApplet {
 
 	public void setup() {
 
-		size(this.displayWidth, this.displayHeight, SMT.RENDERER);
-		//size(1280, 720, SMT.RENDERER);
+		//size(this.displayWidth, this.displayHeight, SMT.RENDERER);
+		size(1280, 720, SMT.RENDERER);
 		SMT.init(this);
 
 		block_size = height/(vertical_blocks+6);
@@ -191,30 +191,32 @@ public class Field extends PApplet {
 
 		b1 = new Bomberman(this, "red", 0, 0, true);
 		b1.render();
-		Zone z1 = new UserArea(0, 0, panel_width, panel_height,color(255, 48, 48), b1);
+		Zone z1 = new UserArea(0, 0, panel_width, panel_height,color(255, 48, 48), b1, this);
 		z1.translate(x_offset,0);
 		z1.rotateAbout(PI,CENTER);
 
 		b2 = new Bomberman(this, "orange", horizontal_blocks-1, 0, true);
 		b2.render();
-		Zone z2 = new UserArea(0, 0, panel_width, panel_height, color(255, 140, 0), b2);
+		Zone z2 = new UserArea(0, 0, panel_width, panel_height, color(255, 140, 0), b2, this);
 		z2.translate(width-panel_width-x_offset,0);
 		z2.rotateAbout(PI,CENTER);
 
 		b3 = new Bomberman(this, "blue", 0, vertical_blocks-1, false);
 		b3.render();
-		Zone z3 = new UserArea(0, 0, panel_width, panel_height, color(30, 144, 255), b3);
+		Zone z3 = new UserArea(0, 0, panel_width, panel_height, color(30, 144, 255), b3, this);
 		z3.translate(x_offset, height-panel_height);
 
 		b4 = new Bomberman(this, "violett", horizontal_blocks-1, vertical_blocks-1, false);
 		b4.render();
-		Zone z4 = new UserArea(0, 0, panel_width, panel_height, color(139, 0, 139), b4);
+		Zone z4 = new UserArea(0, 0, panel_width, panel_height, color(139, 0, 139), b4, this);
 		z4.translate(width-panel_width-x_offset, height-panel_height);
 
 		SMT.add(z1);
 		SMT.add(z2);
 		SMT.add(z3);
 		SMT.add(z4);
+
+
 
 		for(int i =0; i<bombfield.length;i++)
 		{
@@ -231,6 +233,8 @@ public class Field extends PApplet {
 			textAlign(CENTER);
 			fill(0);
 			text("Spieler rot hat gewonnen", this.displayWidth / 2, (this.displayHeight - 6) / 3 - (this.displayHeight - 6) / 12);
+
+			setup();
 
 		}
 		if(!b1.isAlive()&&b1.isPlaying()&&b2.isAlive()&&b2.isPlaying()&&!b3.isAlive()&&b3.isPlaying()&&!b4.isAlive()&&b4.isPlaying()) {

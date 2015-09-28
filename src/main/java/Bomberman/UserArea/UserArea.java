@@ -21,6 +21,9 @@ public class UserArea extends Zone {
     private float abstand, rel_x, rel_y, last_rel_x, last_rel_y;
     protected Bomberman bomberman;
     private boolean init = false;
+    private Field p;
+    PImage range, life, bomb;
+    PShape rangeIcon, lifeIcon, bombIcon;
 
     public float getCrossWidth() {
         return crossWidth;
@@ -30,12 +33,20 @@ public class UserArea extends Zone {
         return crossHeight;
     }
 
-    public UserArea(int i, int i1, int i2, int i3, Integer col, Bomberman b) {
+    public Integer getCol() {
+        return col;
+    }
+
+    public UserArea(int i, int i1, int i2, int i3, Integer col, Bomberman b, Field p) {
         super(i, i1, i2, i3);
         this.col = col;
         this.crossWidth = i2/5*4;
         this.crossHeight = i3/5*4;
         this.bomberman = b;
+        this.p = p;
+        this.range = p.getImage("Flamme.png");
+        this.bomb = p.getImage(p.getProp("item_img"));
+        this.life = p.getImage(p.getProp("lifeupgrade_img"));
         //System.out.print("i: " + i + " " + "i1: " + i1 + " " + "i2: " + i2 + " " + "i3: " + i3 + " " + "crossWidth: " + crossWidth + " " + "crossHeight: " + crossHeight + "\n");
     }
 
@@ -56,7 +67,7 @@ public class UserArea extends Zone {
         if(this.init) {
 
             kreuz((this.getWidth()/4*3 + this.getWidth() / 12), (this.getHeight()/2));
-            bombe((this.getWidth() / 4 - this.getWidth() / 12), (this.getHeight() / 2));
+            //bombe((this.getWidth() / 4 - this.getWidth() / 12), (this.getHeight() / 2));
             anzeige((this.getWidth() / 2 - this.getWidth() / 12), (this.getHeight()));
 
             this.touchpoint = new PVector(trackball.getX(), trackball.getY());  //get liefert globale Werte
@@ -74,7 +85,7 @@ public class UserArea extends Zone {
                 if (org_y<600) this.v = new PVector(org_x - touchpoint.x, org_y - touchpoint.y);    //Test ob obere Hälfte
                 else this.v = new PVector(touchpoint.x-org_x, touchpoint.y-org_y);                  //oder untere Hälfte
                 this.v.normalize();
-                trackball.setX((this.getWidth() / 4 * 3) - (int)this.getCrossHeight()/4 + v.x * maxpos);       //Trackball lokal setzen
+                trackball.setX((this.getWidth() / 4 * 3) + this.getWidth() / 12 - (int)this.getCrossHeight()/4 + v.x * maxpos);       //Trackball lokal setzen
                 trackball.setY((this.getHeight() / 2) - (int)this.getCrossHeight()/4 + v.y * maxpos);
                 //System.out.print("+x: " + v.x + " +y: " + v.y + "\n");
             }
@@ -131,15 +142,17 @@ public class UserArea extends Zone {
     @Override
     public void touch() {
         if (!this.init) {
-            this.trackball = new Trackball((this.getWidth() / 4*3)-(int)this.getCrossHeight()/4, (this.getHeight() / 2)-(int)this.getCrossHeight()/4, (int)this.getCrossHeight()/2, (int)this.getCrossHeight()/2);  //lokal
+            this.trackball = new Trackball((this.getWidth() / 4*3) + this.getWidth() / 12-(int)this.getCrossHeight()/4, (this.getHeight() / 2)-(int)this.getCrossHeight()/4, (int)this.getCrossHeight()/2, (int)this.getCrossHeight()/2, this.col);  //lokal
             this.add(trackball);
-            this.bombbutton = new Bombbutton(this, (this.getWidth() / 4), (this.getHeight() / 2), (int)this.getCrossHeight()*3/4, (int)this.getCrossHeight()*3/4);
+            this.bombbutton = new Bombbutton(this, (this.getWidth() / 4)- this.getWidth() / 12-(int)this.getCrossHeight()/2, (this.getHeight() / 2)-(int)this.getCrossHeight()/2, (int)this.getCrossHeight(), (int)this.getCrossHeight());
             this.add(bombbutton);
             this.bomberman.setAlive();
             this.bomberman.setPlaying(true);
             this.bomberman.render();
             this.init = true;
-
+            this.rangeIcon = renderIcon(this.range);
+            this.lifeIcon = renderIcon(this.life);
+            this.bombIcon = renderIcon(this.bomb);
         }
 
     } //touch down method
@@ -149,6 +162,21 @@ public class UserArea extends Zone {
     public void touchUp(Touch touch){} //touch moved method
     @Override
     public void touchMoved(Touch touch){}
+
+    private PShape renderIcon(PImage img) {
+        PShape s = p.createShape();
+        s.beginShape();
+        s.noStroke();
+        s.fill(255);
+        s.texture(img);
+        s.textureMode(PShape.NORMAL);
+        s.vertex(0, 0, 0, 0);
+        s.vertex(this.getHeight()/3, 0, 1, 0);
+        s.vertex(this.getHeight()/3, this.getHeight()/3, 1, 1);
+        s.vertex(0, this.getHeight()/3, 0, 1);
+        s.endShape(PShape.CLOSE);
+        return s;
+    }
 
     private void kreuz(int x, int y) {
         background(128, 128,128);//legt Hintergrundfarbe fest - wenn nur einmal gezeichnet, dann läuft der Bildschirm voll
@@ -179,7 +207,8 @@ public class UserArea extends Zone {
         line(x, 2*y/3, x+this.getWidth()/6, 2*y/3);    //Trennlinie 2
         textAlign(CENTER);
         fill(0);
-        text(bomberman.getBombcount()+" / "+bomberman.getMaxbombcount(), this.getWidth()/2, (y-6)/3-(y-6)/12);
+        this.shape(this.bombIcon, this.getWidth() / 2, (y - 6) / 3 - (y - 6) / 12);
+        text(bomberman.getBombcount() + " / " + bomberman.getMaxbombcount(), this.getWidth()/2, (y-6)/3-(y-6)/12);
         text(bomberman.getRange(), this.getWidth()/2, (y-6)/3*2-(y-6)/12);
         text(bomberman.getLife(), this.getWidth()/2, (y-6)-(y-6)/12);
     }

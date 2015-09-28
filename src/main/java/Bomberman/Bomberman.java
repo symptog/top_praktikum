@@ -121,7 +121,7 @@ public class Bomberman {
     }
 
     public void increaseSpeed() {
-        if(speed<8.0f)
+        if(speed<5.0f)
             speed = speed+0.5f;
     }
 

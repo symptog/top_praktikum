@@ -19,8 +19,9 @@ public class Bombbutton extends Zone {
     public void draw() {
         stroke(0, 0, 0);//legt Randfarbe nachfolgender Formen fest
         fill(192, 0, 0);//legt Füllfarbe nachfolgender Formen fest
-        ellipseMode(CENTER);
+        ellipseMode(CORNER);
         ellipse(0, 0, this.getHeight(), this.getHeight());        //Bombknopf
+        ellipse((this.getHeight()-this.getHeight()/5*4)/2, (this.getHeight()-this.getHeight()/5*4)/2, this.getHeight()/5*4, this.getHeight()/5 * 4);
         textAlign(CENTER);  textSize(20);   fill(0);
     }
     //touch method
