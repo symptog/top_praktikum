@@ -33,7 +33,7 @@ public class menu extends Zone {
         fill(192, 50, 0);//legt Füllfarbe nachfolgender Formen fest
         rect( 0, -55, this.getHeight(), this.getHeight());
         textAlign(CENTER);  textSize(10);   fill(0);
-        text("Neu", 0, -55);
+        text("Neu", 0, -50);
 
     }
 
