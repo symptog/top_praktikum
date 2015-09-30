@@ -122,7 +122,7 @@ public class Bomberman {
 
     public void increaseSpeed() {
         if(speed<5.0f)
-            speed = speed+0.5f;
+            speed = speed+0.3f;
     }
 
     public void setInverted(Boolean inverted) {

@@ -28,6 +28,7 @@ public class Field extends PApplet {
 	private Integer bombtimer = 300;
 	private Properties prop;
 	private Blocks blocks;
+	private boolean won=false;
 	public Bomberman b1, b2, b3, b4;
 	public Plantedbomb[] bombfield= new Plantedbomb[20];
 	private ConcurrentHashMap<String, PImage> ImageMap = new ConcurrentHashMap<String, PImage>();
@@ -224,7 +225,7 @@ public class Field extends PApplet {
 		}
 
 	}
-	public void gametest() {
+	public boolean gametest() {
 		if(b1.isAlive()&&b1.isPlaying()&&!b2.isAlive()&&b2.isPlaying()&&!b3.isAlive()&&b3.isPlaying()&&!b4.isAlive()&&b4.isPlaying()) {
 			background(255, 48, 48);
 			stroke(0, 0, 0);
@@ -233,11 +234,12 @@ public class Field extends PApplet {
 			textAlign(CENTER);
 			fill(0);
 			text("Spieler rot hat gewonnen", this.displayWidth / 2, (this.displayHeight - 6) / 3 - (this.displayHeight - 6) / 12);
+			return true;
 
-			setup();
+			//setup();
 
 		}
-		if(!b1.isAlive()&&b1.isPlaying()&&b2.isAlive()&&b2.isPlaying()&&!b3.isAlive()&&b3.isPlaying()&&!b4.isAlive()&&b4.isPlaying()) {
+		else if(!b1.isAlive()&&b1.isPlaying()&&b2.isAlive()&&b2.isPlaying()&&!b3.isAlive()&&b3.isPlaying()&&!b4.isAlive()&&b4.isPlaying()) {
 			background(255, 140, 0);
 			stroke(0, 0, 0);
 			fill(255, 140, 0);
@@ -245,9 +247,10 @@ public class Field extends PApplet {
 			textAlign(CENTER);
 			fill(0);
 			text("Spieler orange hat gewonnen", this.displayWidth / 2, (this.displayHeight - 6) / 3 - (this.displayHeight - 6) / 12);
+			return true;
 
 		}
-		if(!b1.isAlive()&&b1.isPlaying()&&!b2.isAlive()&&b2.isPlaying()&&b3.isAlive()&&b3.isPlaying()&&!b4.isAlive()&&b4.isPlaying()) {
+		else if(!b1.isAlive()&&b1.isPlaying()&&!b2.isAlive()&&b2.isPlaying()&&b3.isAlive()&&b3.isPlaying()&&!b4.isAlive()&&b4.isPlaying()) {
 			background(30, 144, 255);
 			stroke(0, 0, 0);
 			fill(30, 144, 255);
@@ -255,9 +258,10 @@ public class Field extends PApplet {
 			textAlign(CENTER);
 			fill(0);
 			text("Spieler blau hat gewonnen", this.displayWidth / 2, (this.displayHeight - 6) / 3 - (this.displayHeight - 6) / 12);
+			return true;
 
 		}
-		if(!b1.isAlive()&&b1.isPlaying()&&!b2.isAlive()&&b2.isPlaying()&&!b3.isAlive()&&b3.isPlaying()&&b4.isAlive()&&b4.isPlaying()) {
+		else if(!b1.isAlive()&&b1.isPlaying()&&!b2.isAlive()&&b2.isPlaying()&&!b3.isAlive()&&b3.isPlaying()&&b4.isAlive()&&b4.isPlaying()) {
 			background(139, 0, 139);
 			stroke(0, 0, 0);
 			fill(139, 0, 139);
@@ -265,8 +269,11 @@ public class Field extends PApplet {
 			textAlign(CENTER);
 			fill(0);
 			text("Spieler violett hat gewonnen", this.displayWidth / 2, (this.displayHeight - 6) / 3 - (this.displayHeight - 6) / 12);
+			return true;
 
 		}
+		else
+			return false;
 
 	}
 
@@ -276,44 +283,48 @@ public class Field extends PApplet {
 	public void draw() {
 		background(255);
 		//System.out.println(String.format("fps: %.0f\n", this.frameRate));
-		this.blocks.draw();
-
-		//System.out.println(String.format( "%d:%d", this.b1.blockX,this.b1.blockY));
-
-		gametest();
-
-		Integer xred=b1.blockX;
-		Integer yred=b1.blockY;
-		Integer xorange=b2.blockX;
-		Integer yorange=b2.blockY;
-
-		Integer xblue=b3.blockX;
-		Integer yblue=b3.blockY;
-
-
-		Integer xviolett=b4.blockX;
-		Integer yviolett=b4.blockY;
 		bombtimer--;
-		if(bombtimer==0)
-		{
+		if (bombtimer == 0) {
 			b1.increaseBombcount();
 			b2.increaseBombcount();
 			b3.increaseBombcount();
 			b4.increaseBombcount();
-			bombtimer=300;
+			bombtimer = 300;
 		}
+		if (bombtimer % 60 == 0)
+			won = gametest();
+		if (won)
+			gametest();
+		else {
+			this.blocks.draw();
+
+			//System.out.println(String.format( "%d:%d", this.b1.blockX,this.b1.blockY));
 
 
-		for(int i=0;i<bombfield.length;i++) {
-			this.bombfield[i].draw(xred,yred,xorange, yorange, xblue, yblue, xviolett,yviolett);
+			Integer xred = b1.blockX;
+			Integer yred = b1.blockY;
+			Integer xorange = b2.blockX;
+			Integer yorange = b2.blockY;
+
+			Integer xblue = b3.blockX;
+			Integer yblue = b3.blockY;
+
+
+			Integer xviolett = b4.blockX;
+			Integer yviolett = b4.blockY;
+
+
+			for (int i = 0; i < bombfield.length; i++) {
+				this.bombfield[i].draw(xred, yred, xorange, yorange, xblue, yblue, xviolett, yviolett);
+			}
+			if (b1.isAlive())
+				b1.draw();
+			if (b2.isAlive())
+				b2.draw();
+			if (b3.isAlive())
+				b3.draw();
+			if (b4.isAlive())
+				b4.draw();
 		}
-		if(b1.isAlive())
-			b1.draw();
-		if(b2.isAlive())
-			b2.draw();
-		if(b3.isAlive())
-			b3.draw();
-		if(b4.isAlive())
-			b4.draw();
 	}
 }
