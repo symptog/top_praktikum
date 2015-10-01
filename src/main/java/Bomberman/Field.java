@@ -282,7 +282,7 @@ public class Field extends PApplet {
 
 	public void draw() {
 		background(255);
-		//System.out.println(String.format("fps: %.0f\n", this.frameRate));
+		System.out.println(String.format("fps: %.0f\n", this.frameRate));
 		bombtimer--;
 		if (bombtimer == 0) {
 			b1.increaseBombcount();

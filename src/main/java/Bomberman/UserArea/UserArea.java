@@ -171,9 +171,9 @@ public class UserArea extends Zone {
         s.texture(img);
         s.textureMode(PShape.NORMAL);
         s.vertex(0, 0, 0, 0);
-        s.vertex(this.getHeight()/3, 0, 1, 0);
-        s.vertex(this.getHeight()/3, this.getHeight()/3, 1, 1);
-        s.vertex(0, this.getHeight()/3, 0, 1);
+        s.vertex(this.getHeight()/4, 0, 1, 0);
+        s.vertex(this.getHeight()/4, this.getHeight()/4, 1, 1);
+        s.vertex(0, this.getHeight()/4, 0, 1);
         s.endShape(PShape.CLOSE);
         return s;
     }
@@ -207,9 +207,11 @@ public class UserArea extends Zone {
         line(x, 2*y/3, x+this.getWidth()/6, 2*y/3);    //Trennlinie 2
         textAlign(CENTER);
         fill(0);
-        this.shape(this.bombIcon, this.getWidth() / 2, (y - 6) / 3 - (y - 6) / 12);
+        this.shape(this.bombIcon, this.getWidth() / 12*4, 3);
         text(bomberman.getBombcount() + " / " + bomberman.getMaxbombcount(), this.getWidth()/2, (y-6)/3-(y-6)/12);
+        this.shape(this.rangeIcon, this.getWidth() / 12*4, (y - 6) / 3+3);
         text(bomberman.getRange(), this.getWidth()/2, (y-6)/3*2-(y-6)/12);
+        this.shape(this.lifeIcon, this.getWidth() / 12*4, 2*((y - 6) / 3+3));
         text(bomberman.getLife(), this.getWidth()/2, (y-6)-(y-6)/12);
     }
 
