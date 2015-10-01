@@ -11,28 +11,33 @@ import vialab.SMT.*;
 public class menu extends Zone {
 
     private UserArea parent;
+    private boolean pop = false;
 
     public menu(UserArea parent, int i, int i1, int i2, int i3) {
         super(i, i1, i2, i3);
         this.parent = parent;
 
-        //SMT.add(new LeftPopUpMenuZone(300, 100, 50, 50, 200, 100, "Aufgeben", "Beenden", "zurück"));
+
+        //SMT.add(new LeftPopUpMenuZone(300, 100, 50, 50, 200, 100, "Aufgeben", "Beenden", "zurï¿½ck"));
         // http://vialab.science.uoit.ca/smt/reference/LeftPopUpMenuZone/LeftPopUpMenuZone.php
         // http://vialab.science.uoit.ca/smt/examples/Zones/LeftPopUpMenu.php
     }
     @Override
     public void draw() {
         stroke(0, 0, 0);//legt Randfarbe nachfolgender Formen fest
-        fill(192, 0, 0);//legt Füllfarbe nachfolgender Formen fest
+        fill(192, 0, 0);//legt Fï¿½llfarbe nachfolgender Formen fest
         rectMode(CORNER);
         rect(-16, -20, this.getHeight(), this.getHeight());
         textAlign(CENTER);  textSize(10);   fill(0);
         text("menu", 0, 0);
+        if (pop) {
+            drawMenu();
+        }
     }
     public void drawMenu() {
         // Menu
         stroke(0, 0, 0);//legt Randfarbe nachfolgender Formen fest
-        fill(192, 50, 0);//legt Füllfarbe nachfolgender Formen fest
+        fill(192, 50, 0);//legt Fï¿½llfarbe nachfolgender Formen fest
         rectMode(CORNER);
         rect(-16, -55, this.getHeight(), this.getHeight());
         textAlign(CENTER);  textSize(10);   fill(0);
@@ -40,7 +45,7 @@ public class menu extends Zone {
 
         //Beenden
         stroke(0, 0, 0);//legt Randfarbe nachfolgender Formen fest
-        fill(192, 50, 0);//legt Füllfarbe nachfolgender Formen fest
+        fill(192, 50, 0);//legt Fï¿½llfarbe nachfolgender Formen fest
         rectMode(CORNER);
         rect(-16, -90, this.getHeight(), this.getHeight());
         textAlign(CENTER);  textSize(10);   fill(0);
@@ -48,7 +53,7 @@ public class menu extends Zone {
 
         // Aufgeben
         stroke(0, 0, 0);//legt Randfarbe nachfolgender Formen fest
-        fill(192, 50, 0);//legt Füllfarbe nachfolgender Formen fest
+        fill(192, 50, 0);//legt Fï¿½llfarbe nachfolgender Formen fest
         rectMode(CORNER);
         rect(-16, -125, this.getHeight(), this.getHeight());
         textAlign(CENTER);  textSize(10);   fill(0);
@@ -61,14 +66,7 @@ public class menu extends Zone {
     public void touch() {}
     @Override
     public void touchDown(Touch touch){
-        int pop = 0;
-        if (pop == 0)
-        {
-            drawMenu();
-            pop++;
-        }
-        else {pop--;}
-
+        pop=!pop;
     } //nur der Moment des Touches
     @Override
     public void touchUp(Touch touch){} //touch moved method
