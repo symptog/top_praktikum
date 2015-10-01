@@ -126,7 +126,6 @@ public class Field extends PApplet {
 	}
 
 	public PImage getImage(String name) {
-		System.out.print("image\n");
 		PImage image = this.ImageMap.get(name);
 		if(image == null) {
 			//System.out.print("not chached\n");
