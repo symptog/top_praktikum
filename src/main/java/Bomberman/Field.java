@@ -126,7 +126,6 @@ public class Field extends PApplet {
 	}
 
 	public PImage getImage(String name) {
-		System.out.print("image\n");
 		PImage image = this.ImageMap.get(name);
 		if(image == null) {
 			//System.out.print("not chached\n");
@@ -282,7 +281,7 @@ public class Field extends PApplet {
 
 	public void draw() {
 		background(255);
-		//System.out.println(String.format("fps: %.0f\n", this.frameRate));
+		System.out.println(String.format("fps: %.0f\n", this.frameRate));
 		bombtimer--;
 		if (bombtimer == 0) {
 			b1.increaseBombcount();
