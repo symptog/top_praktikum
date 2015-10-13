@@ -4,55 +4,77 @@ import vialab.SMT.Touch;
 import vialab.SMT.Zone;
 import vialab.SMT.*;
 
-/**
- * Created by tobias on 15.07.15.
- */
-
 public class menu extends Zone {
 
     private UserArea parent;
+    private boolean pop = false;
 
     public menu(UserArea parent, int i, int i1, int i2, int i3) {
         super(i, i1, i2, i3);
         this.parent = parent;
-
-        //SMT.add(new LeftPopUpMenuZone(300, 100, 50, 50, 200, 100, "Aufgeben", "Beenden", "zurück"));
-        // http://vialab.science.uoit.ca/smt/reference/LeftPopUpMenuZone/LeftPopUpMenuZone.php
-        // http://vialab.science.uoit.ca/smt/examples/Zones/LeftPopUpMenu.php
     }
     @Override
     public void draw() {
         stroke(0, 0, 0);//legt Randfarbe nachfolgender Formen fest
         fill(192, 0, 0);//legt Füllfarbe nachfolgender Formen fest
         rectMode(CORNER);
-        rect(-16, -20, this.getHeight(), this.getHeight());
-        textAlign(CENTER);  textSize(10);   fill(0);
-        text("menu", 0, 0);
+        rect(-16, -15, this.getHeight()*5/2, this.getHeight()-3);
+        textAlign(CENTER);  textSize(15);   fill(0);
+        text("Menue", 25, 5);
+        if (pop) {
+            drawMenu();
+            drawdialog(5);
+        }
     }
     public void drawMenu() {
-        // Menu
+        // Neues Spiel
         stroke(0, 0, 0);//legt Randfarbe nachfolgender Formen fest
         fill(192, 50, 0);//legt Füllfarbe nachfolgender Formen fest
         rectMode(CORNER);
-        rect(-16, -55, this.getHeight(), this.getHeight());
-        textAlign(CENTER);  textSize(10);   fill(0);
-        text("Neu", 0, -35);
+        rect(-16, -47, this.getHeight()*5/2, this.getHeight()-3);
+        textAlign(CENTER);  textSize(15);   fill(0);
+        text("Neu", 25, - 27);
 
         //Beenden
         stroke(0, 0, 0);//legt Randfarbe nachfolgender Formen fest
         fill(192, 50, 0);//legt Füllfarbe nachfolgender Formen fest
         rectMode(CORNER);
-        rect(-16, -90, this.getHeight(), this.getHeight());
-        textAlign(CENTER);  textSize(10);   fill(0);
-        text("close", 0, -70);
+        rect(-16, -79, this.getHeight()*5/2, this.getHeight()-3);
+        textAlign(CENTER);  textSize(15);   fill(0);
+        text("Beenden", 25, -60);
 
         // Aufgeben
         stroke(0, 0, 0);//legt Randfarbe nachfolgender Formen fest
         fill(192, 50, 0);//legt Füllfarbe nachfolgender Formen fest
         rectMode(CORNER);
-        rect(-16, -125, this.getHeight(), this.getHeight());
-        textAlign(CENTER);  textSize(10);   fill(0);
-        text("aufgeben", 0, -105);
+        rect(-16, -111, this.getHeight()*5/2, this.getHeight()-3);
+        textAlign(CENTER);  textSize(15);   fill(0);
+        text("Aufgeben", 25, -90);
+    }
+    public void drawdialog(int auswahl){
+        //ganzes Feld
+        stroke(0, 0, 0);//legt Randfarbe nachfolgender Formen fest
+        fill(192, 50, 0);//legt Füllfarbe nachfolgender Formen fest
+        rectMode(CORNER);
+        rect(this.getWidth()*3, -this.getHeight()*3, this.getHeight()*5, this.getHeight()*3);
+        textAlign(CENTER);  textSize(15);   fill(0);
+        text("Willst du wirklich \n Aufgegeben ?", this.getWidth()*6, -this.getHeight()*2);
+
+        // aufgeben - ja
+        stroke(0, 0, 0);//legt Randfarbe nachfolgender Formen fest
+        fill(192, 100, 0);//legt Füllfarbe nachfolgender Formen fest
+        rectMode(CORNER);
+        rect(this.getWidth()*3, -this.getHeight(), this.getHeight()*2, this.getHeight());
+        textAlign(CENTER);  textSize(15);   fill(0);
+        text("Ja", this.getWidth()*4, -this.getHeight()+22);
+
+        // aufgeben - nein
+        stroke(0, 0, 0);//legt Randfarbe nachfolgender Formen fest
+        fill(192, 100, 0);//legt Füllfarbe nachfolgender Formen fest
+        rectMode(CORNER);
+        rect(this.getWidth()*7, -this.getHeight(), this.getHeight()*2, this.getHeight());
+        textAlign(CENTER);  textSize(15);   fill(0);
+        text("Nein", this.getWidth()*8, -this.getHeight()+22);
     }
 
 
@@ -61,14 +83,7 @@ public class menu extends Zone {
     public void touch() {}
     @Override
     public void touchDown(Touch touch){
-        int pop = 0;
-        if (pop == 0)
-        {
-            drawMenu();
-            pop++;
-        }
-        else {pop--;}
-
+        pop=!pop;
     } //nur der Moment des Touches
     @Override
     public void touchUp(Touch touch){} //touch moved method
