@@ -72,7 +72,13 @@ public class Bomberman {
         this.inverted = inverted;
     }
 
+    public Boolean isInverted() {
+        return inverted;
+    }
 
+    public String getId() {
+        return id;
+    }
 
     public PShape render() {
         return render(0);

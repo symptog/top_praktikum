@@ -64,7 +64,7 @@ public class UserArea extends Zone {
             //Todo: in den grenzen bleiben, mittelpunkt der box benutzen, nicht die ecke (radius addieren)
             abstand = touchpoint.dist(new PVector(this.org_x, this.org_y));        //Abstand ermitteln klappt auch
             if (abstand > maxpos) {
-                if (org_y < 600)
+                if (bomberman.isInverted())
                     this.v = new PVector(org_x - touchpoint.x, org_y - touchpoint.y);    //Test ob obere Hälfte
                 else
                     this.v = new PVector(touchpoint.x - org_x, touchpoint.y - org_y);                  //oder untere Hälfte
@@ -110,8 +110,13 @@ public class UserArea extends Zone {
         if (!this.init) {
             this.trackball = new Trackball((this.getWidth() / 4 * 3) - (int) this.getCrossHeight() / 4, (this.getHeight() / 2) - (int) this.getCrossHeight() / 4, (int) this.getCrossHeight() / 2, (int) this.getCrossHeight() / 2);  //lokal
             this.add(trackball);
-            this.menu = new menu(this, (this.getWidth()+20), (this.getHeight()-15), (int) this.getCrossHeight() / 4, (int) this.getCrossHeight() / 3);
-            this.add(menu);
+            if (bomberman.getId().equals("red") || bomberman.getId().equals("violett") ) {
+                this.menu = new menu(this, (-20), (this.getHeight()-15), (int) this.getCrossHeight() / 4, (int) this.getCrossHeight() / 3);
+                this.add(menu);
+            } else {
+                this.menu = new menu(this, (this.getWidth()+20), (this.getHeight()-15), (int) this.getCrossHeight() / 4, (int) this.getCrossHeight() / 3);
+                this.add(menu);
+            }
             this.bombbutton = new Bombbutton(this, (this.getWidth() / 4), (this.getHeight() / 2), (int) this.getCrossHeight() * 3 / 4, (int) this.getCrossHeight() * 3 / 4);
             this.add(bombbutton);
             this.bomberman.render();
