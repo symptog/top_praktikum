@@ -3,7 +3,6 @@ package Bomberman;
 import processing.core.PConstants;
 import processing.core.PImage;
 import processing.core.PShape;
-//import sun.org.mozilla.javascript.ast.*;
 
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -132,6 +131,14 @@ public class Bomberman {
         this.inverted = inverted;
     }
 
+    public Boolean isInverted() {
+        return inverted;
+    }
+
+    public String getId() {
+        return id;
+    }
+    
     public void increaseBombcount()
     {
         if(bombcount < maxbombcount)

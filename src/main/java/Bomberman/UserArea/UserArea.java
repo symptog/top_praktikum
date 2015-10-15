@@ -17,10 +17,11 @@ public class UserArea extends Zone {
     private int maxpos;
     private PVector touchpoint, v;
     private Integer org_x, org_y;
-    private Float zero_x, zero_y ;
+    private Float zero_x, zero_y;
     private float abstand, rel_x, rel_y, last_rel_x, last_rel_y;
     protected Bomberman bomberman;
     private boolean init = false;
+    private Zone menu = null;
     private Field p;
     PImage range, life, bomb;
     PShape rangeIcon, lifeIcon, bombIcon;
@@ -72,18 +73,20 @@ public class UserArea extends Zone {
 
             this.touchpoint = new PVector(trackball.getX(), trackball.getY());  //get liefert globale Werte
 
-            if(this.org_x == null) {            //Startposition des Trackballs speichern
+            if (this.org_x == null) {            //Startposition des Trackballs speichern
                 this.org_x = trackball.getX();
             }
-            if(this.org_y == null) {
+            if (this.org_y == null) {
                 this.org_y = trackball.getY();
             }
 
             //Todo: in den grenzen bleiben, mittelpunkt der box benutzen, nicht die ecke (radius addieren)
-            abstand =  touchpoint.dist(new PVector(this.org_x, this.org_y));        //Abstand ermitteln klappt auch
+            abstand = touchpoint.dist(new PVector(this.org_x, this.org_y));        //Abstand ermitteln klappt auch
             if (abstand > maxpos) {
-                if (org_y<600) this.v = new PVector(org_x - touchpoint.x, org_y - touchpoint.y);    //Test ob obere Hälfte
-                else this.v = new PVector(touchpoint.x-org_x, touchpoint.y-org_y);                  //oder untere Hälfte
+                if (bomberman.isInverted())
+                    this.v = new PVector(org_x - touchpoint.x, org_y - touchpoint.y);    //Test ob obere Hälfte
+                else
+                    this.v = new PVector(touchpoint.x - org_x, touchpoint.y - org_y);                  //oder untere Hälfte
                 this.v.normalize();
                 trackball.setX((this.getWidth() / 4 * 3) + this.getWidth() / 12 - (int)this.getCrossHeight()/4 + v.x * maxpos);       //Trackball lokal setzen
                 trackball.setY((this.getHeight() / 2) - (int)this.getCrossHeight()/4 + v.y * maxpos);
@@ -95,9 +98,9 @@ public class UserArea extends Zone {
             if (this.zero_y == null)
                 this.zero_y = touchpoint.y;
             last_rel_x = rel_x;
-            rel_x = touchpoint.x-this.zero_x;
+            rel_x = touchpoint.x - this.zero_x;
             last_rel_y = rel_y;
-            rel_y = touchpoint.y-this.zero_y;
+            rel_y = touchpoint.y - this.zero_y;
             //if (last_rel_x != rel_x || last_rel_y != rel_y) {
                 //System.out.print("+x: " + rel_x + " +y: " + rel_y + "\n");
                 if (rel_x < 0 && rel_y < 0) {
@@ -135,7 +138,6 @@ public class UserArea extends Zone {
             //}
         }
 
-
     }
 
     //touch method
@@ -144,7 +146,14 @@ public class UserArea extends Zone {
         if (!this.init) {
             this.trackball = new Trackball((this.getWidth() / 4*3) + this.getWidth() / 12-(int)this.getCrossHeight()/4, (this.getHeight() / 2)-(int)this.getCrossHeight()/4, (int)this.getCrossHeight()/2, (int)this.getCrossHeight()/2, this.col);  //lokal
             this.add(trackball);
-            this.bombbutton = new Bombbutton(this, (this.getWidth() / 4)- this.getWidth() / 12-(int)this.getCrossHeight()/2, (this.getHeight() / 2)-(int)this.getCrossHeight()/2, (int)this.getCrossHeight(), (int)this.getCrossHeight());
+            if (bomberman.getId().equals("red") || bomberman.getId().equals("violett") ) {
+                this.menu = new menu(this, (-20), (this.getHeight()-15), (int) this.getCrossHeight() / 4, (int) this.getCrossHeight() / 3);
+                this.add(menu);
+            } else {
+                this.menu = new menu(this, (this.getWidth()+20), (this.getHeight()-15), (int) this.getCrossHeight() / 4, (int) this.getCrossHeight() / 3);
+                this.add(menu);
+            }
+            this.bombbutton = new Bombbutton(this, (this.getWidth() / 4), (this.getHeight() / 2), (int) this.getCrossHeight() * 3 / 4, (int) this.getCrossHeight() * 3 / 4);
             this.add(bombbutton);
             this.bomberman.setAlive();
             this.bomberman.setPlaying(true);
@@ -157,11 +166,16 @@ public class UserArea extends Zone {
 
     } //touch down method
     @Override
-    public void touchDown(Touch touch){} //touch up method
+    public void touchDown(Touch touch) {
+    } //touch up method
+
     @Override
-    public void touchUp(Touch touch){} //touch moved method
+    public void touchUp(Touch touch) {
+    } //touch moved method
+
     @Override
-    public void touchMoved(Touch touch){}
+    public void touchMoved(Touch touch) {
+    }
 
     private PShape renderIcon(PImage img) {
         PShape s = p.createShape();
