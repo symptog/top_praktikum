@@ -147,13 +147,13 @@ public class UserArea extends Zone {
             this.trackball = new Trackball((this.getWidth() / 4*3) + this.getWidth() / 12-(int)this.getCrossHeight()/4, (this.getHeight() / 2)-(int)this.getCrossHeight()/4, (int)this.getCrossHeight()/2, (int)this.getCrossHeight()/2, this.col);  //lokal
             this.add(trackball);
             if (bomberman.getId().equals("red") || bomberman.getId().equals("violett") ) {
-                this.menu = new menu(this, (-20), (this.getHeight()-15), (int) this.getCrossHeight() / 4, (int) this.getCrossHeight() / 3);
+                this.menu = new menu(this, (-((int) this.getCrossHeight() / 4)), (this.getHeight()-15), (int) this.getCrossHeight() / 4, (int) this.getCrossHeight() / 3);
                 this.add(menu);
             } else {
-                this.menu = new menu(this, (this.getWidth()+20), (this.getHeight()-15), (int) this.getCrossHeight() / 4, (int) this.getCrossHeight() / 3);
+                this.menu = new menu(this, (this.getWidth()), (this.getHeight()), (int) this.getCrossHeight() / 4, (int) this.getCrossHeight() / 3);
                 this.add(menu);
             }
-            this.bombbutton = new Bombbutton(this, (this.getWidth() / 4), (this.getHeight() / 2), (int) this.getCrossHeight() * 3 / 4, (int) this.getCrossHeight() * 3 / 4);
+            this.bombbutton = new Bombbutton(this, (this.getWidth() / 4) - this.getWidth()/12-(int)this.getCrossHeight()/2 , (this.getHeight() / 2)-(int)this.getCrossHeight()/2, (int) this.getCrossHeight(), (int) this.getCrossHeight());
             this.add(bombbutton);
             this.bomberman.setAlive();
             this.bomberman.setPlaying(true);
@@ -221,11 +221,11 @@ public class UserArea extends Zone {
         line(x, 2*y/3, x+this.getWidth()/6, 2*y/3);    //Trennlinie 2
         textAlign(CENTER);
         fill(0);
-        this.shape(this.bombIcon, this.getWidth() / 12*4, 3);
-        text(bomberman.getBombcount() + " / " + bomberman.getMaxbombcount(), this.getWidth()/2, (y-6)/3-(y-6)/12);
-        this.shape(this.rangeIcon, this.getWidth() / 12*4, (y - 6) / 3+3);
-        text(bomberman.getRange(), this.getWidth()/2, (y-6)/3*2-(y-6)/12);
-        this.shape(this.lifeIcon, this.getWidth() / 12*4, 2*((y - 6) / 3+3));
+        this.shape(this.bombIcon, this.getWidth() / 12 * 4, 3);
+        text(bomberman.getBombcount() + " / " + bomberman.getMaxbombcount(), this.getWidth()/2, (y-6)/ 3 - (y - 6) / 12);
+        this.shape(this.rangeIcon, this.getWidth() / 12* 4, (y - 6) / 3 + 3);
+        text(bomberman.getRange(), this.getWidth()/2, (y-6)/3* 2 - (y - 6) / 12);
+        this.shape(this.lifeIcon, this.getWidth() / 12*4, 2 * ((y - 6) / 3 + 3));
         text(bomberman.getLife(), this.getWidth()/2, (y-6)-(y-6)/12);
     }
 

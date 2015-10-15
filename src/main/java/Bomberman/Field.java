@@ -25,7 +25,7 @@ public class Field extends PApplet {
 	private Integer horizontal_blocks = null;
 	private Integer x_offset = null;
 	private Integer y_offset = null;
-	private Integer bombtimer = 300;
+	private Integer bombtimer = 120;
 	private Properties prop;
 	private Blocks blocks;
 	private boolean won=false;
@@ -169,8 +169,8 @@ public class Field extends PApplet {
 
 	public void setup() {
 
-		//size(this.displayWidth, this.displayHeight, SMT.RENDERER);
-		size(1280, 720, SMT.RENDERER);
+		size(this.displayWidth, this.displayHeight, SMT.RENDERER);
+		//size(1280, 720, SMT.RENDERER);
 		SMT.init(this);
 
 		block_size = height/(vertical_blocks+6);
@@ -288,7 +288,7 @@ public class Field extends PApplet {
 			b2.increaseBombcount();
 			b3.increaseBombcount();
 			b4.increaseBombcount();
-			bombtimer = 300;
+			bombtimer = 120;
 		}
 		if (bombtimer % 60 == 0)
 			won = gametest();

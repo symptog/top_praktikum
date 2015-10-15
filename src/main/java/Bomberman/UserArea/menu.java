@@ -7,11 +7,12 @@ public class menu extends Zone {
 
     private UserArea parent;
     private boolean pop = false;
+    private ButtonClose button_close;
 
     public menu(UserArea parent, int i, int i1, int i2, int i3) {
         super(i, i1, i2, i3);
         this.parent = parent;
-
+        button_close = new ButtonClose(parent, 0,0,40,40); // ToDo(micha): Buttons als einzellne Klassen definieren
     }
     @Override
     public void draw() {
@@ -34,14 +35,6 @@ public class menu extends Zone {
         rect(-16, -48, this.getHeight()*5/2, this.getHeight()-3);
         textAlign(CENTER);  textSize(15);   fill(0);
         text("Neu", 25, -27);
-
-        //Beenden
-        stroke(0, 0, 0);
-        fill(192, 50, 0);
-        rectMode(CORNER);
-        rect(-16, -80, this.getHeight()*5/2, this.getHeight()-3);
-        textAlign(CENTER);  textSize(15);   fill(0);
-        text("Beenden", 25, -61);
 
         // Aufgeben
         stroke(0, 0, 0);
@@ -85,6 +78,12 @@ public class menu extends Zone {
     @Override
     public void touchDown(Touch touch){
         pop=!pop;
+
+        if (pop) {
+            this.add(button_close);
+        } else {
+            this.remove(button_close);
+        }
     } //nur der Moment des Touches
     @Override
     public void touchUp(Touch touch){} //touch moved method

@@ -41,13 +41,6 @@ public class Bomberman {
     private int direction = STOP;
     private ConcurrentHashMap<Integer, PShape> bman = new ConcurrentHashMap<Integer, PShape>();
 
-    public Bomberman(Field p, String id, Integer blockX, Integer blockY) {
-        this.p = p;
-        this.id = id;
-        this.blockX = blockX;
-        this.blockY = blockY;
-        this.CORNER = (int)(p.getBlock_size() * 0.25f);
-    }
 
     public Bomberman(Field p, String id, Integer blockX, Integer blockY, Boolean inverted) {
         this.p = p;
@@ -67,7 +60,7 @@ public class Bomberman {
         dying=false;
         playing=false;
         invultime=0;
-        this.CORNER = (int)(p.getBlock_size() * 0.25f);
+        this.CORNER = (int)(p.getBlock_size() * 0.45f);
 
     }
 
@@ -123,8 +116,8 @@ public class Bomberman {
     }
 
     public void increaseSpeed() {
-        if(speed<5.0f)
-            speed = speed+0.3f;
+        if(speed<4.0f)
+            speed = speed+0.2f;
     }
 
     public void setInverted(Boolean inverted) {
@@ -159,7 +152,7 @@ public class Bomberman {
     }
     public void increaseRange()
     {
-        if(range <5) {
+        if(range <9) {
             range++;
             if (id.equals("red")) {
                 for (int i = 0; i < 5; i++) {
