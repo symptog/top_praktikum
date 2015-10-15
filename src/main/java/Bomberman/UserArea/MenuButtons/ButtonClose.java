@@ -1,10 +1,8 @@
-package Bomberman.UserArea;
+package Bomberman.UserArea.MenuButtons;
 
+import Bomberman.UserArea.UserArea;
 import vialab.SMT.Zone;
 
-/**
- * Created by tobias on 15.10.15.
- */
 public class ButtonClose extends Zone {
 
     public ButtonClose(UserArea parent, int i, int i1, int i2, int i3) {

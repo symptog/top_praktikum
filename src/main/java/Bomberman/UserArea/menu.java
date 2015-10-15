@@ -1,5 +1,6 @@
 package Bomberman.UserArea;
 
+import Bomberman.UserArea.MenuButtons.ButtonClose;
 import vialab.SMT.Touch;
 import vialab.SMT.Zone;
 
@@ -19,7 +20,7 @@ public class menu extends Zone {
         stroke(0, 0, 0);//legt Randfarbe nachfolgender Formen fest
         fill(192, 0, 0);//legt F�llfarbe nachfolgender Formen fest
         rectMode(CORNER);
-        rect(-16, -16, this.getHeight()*5/2, this.getHeight()-3);
+        rect(-this.getHeight(), -this.getHeight(), this.getHeight(), this.getHeight());
         textAlign(CENTER);  textSize(15);   fill(0);
         text("Menu", 25, 3);
         if (pop) {
