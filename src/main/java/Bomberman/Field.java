@@ -62,7 +62,6 @@ public class Field extends PApplet {
 
 		this.vertical_blocks = Integer.parseInt(prop.getProperty("vertical_blocks"));
 
-
 		buildImageMap();
 
 	}

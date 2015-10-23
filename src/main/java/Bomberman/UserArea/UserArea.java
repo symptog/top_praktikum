@@ -102,26 +102,26 @@ public class UserArea extends Zone {
             last_rel_y = rel_y;
             rel_y = touchpoint.y - this.zero_y;
             //if (last_rel_x != rel_x || last_rel_y != rel_y) {
-                //System.out.print("+x: " + rel_x + " +y: " + rel_y + "\n");
-                if (rel_x < 0 && rel_y < 0) {
-                    bomberman.moveLeft();
-                    bomberman.setDirection(Bomberman.LEFT);
-                }
-                else if (rel_x > 0 && rel_y < 0) {
-                    bomberman.moveUp();
-                    bomberman.setDirection(Bomberman.UP);
-                }
-                else if (rel_x > 0 && rel_y > 0) {
-                    bomberman.moveRight();
-                    bomberman.setDirection(Bomberman.RIGHT);
-                }
-                else if (rel_x < 0 && rel_y > 0) {
-                    bomberman.moveDown();
-                    bomberman.setDirection(Bomberman.DOWN);
-                }
-                else {
-                    bomberman.setDirection(Bomberman.STOP);
-                }
+            //System.out.print("+x: " + rel_x + " +y: " + rel_y + "\n");
+            if (rel_x < 0 && rel_y < 0) {
+                bomberman.moveLeft();
+                bomberman.setDirection(Bomberman.LEFT);
+            }
+            else if (rel_x > 0 && rel_y < 0) {
+                bomberman.moveUp();
+                bomberman.setDirection(Bomberman.UP);
+            }
+            else if (rel_x > 0 && rel_y > 0) {
+                bomberman.moveRight();
+                bomberman.setDirection(Bomberman.RIGHT);
+            }
+            else if (rel_x < 0 && rel_y > 0) {
+                bomberman.moveDown();
+                bomberman.setDirection(Bomberman.DOWN);
+            }
+            else {
+                bomberman.setDirection(Bomberman.STOP);
+            }
             if(!bomberman.isAlive())
             {
 
@@ -147,10 +147,10 @@ public class UserArea extends Zone {
             this.trackball = new Trackball((this.getWidth() / 4*3) + this.getWidth() / 12-(int)this.getCrossHeight()/4, (this.getHeight() / 2)-(int)this.getCrossHeight()/4, (int)this.getCrossHeight()/2, (int)this.getCrossHeight()/2, this.col);  //lokal
             this.add(trackball);
             if (bomberman.getId().equals("red") || bomberman.getId().equals("violett") ) {
-                this.menu = new menu(this, 0, (this.getHeight()), (int) this.getCrossHeight(), (int) this.getCrossHeight()/4);
+                this.menu = new Menu(this, -(int) this.getCrossHeight(), this.getHeight()- this.getHeight()/4 ,(int) this.getCrossHeight() , this.getHeight()/4);
                 this.add(menu);
             } else {
-                this.menu = new menu(this, (this.getWidth()+ (int) this.getCrossHeight() / 4), (this.getHeight()), (int) this.getCrossHeight(), (int) this.getCrossHeight() / 4);
+                this.menu = new Menu(this, this.getWidth(), this.getHeight()- this.getHeight()/4, (int) this.getCrossHeight() , this.getHeight()/4);
                 this.add(menu);
             }
             this.bombbutton = new Bombbutton(this, (this.getWidth() / 4) - this.getWidth()/12-(int)this.getCrossHeight()/2 , (this.getHeight() / 2)-(int)this.getCrossHeight()/2, (int) this.getCrossHeight(), (int) this.getCrossHeight());
