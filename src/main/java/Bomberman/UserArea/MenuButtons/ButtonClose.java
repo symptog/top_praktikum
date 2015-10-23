@@ -11,12 +11,13 @@ public class ButtonClose extends Zone {
 
     @Override
     public void draw() {
-        //Beenden
         stroke(0, 0, 0);
-        fill(192, 50, 0);
+        fill(192, 0, 0);
         rectMode(CORNER);
-        rect(0, -this.getHeight() / 2, this.getWidth()/2 + this.getWidth()/6, this.getHeight()/4);
+        rect(0, 0, this.getWidth(), this.getHeight());
         textAlign(CENTER);  textSize(15);   fill(0);
-        text("Beenden", this.getWidth()/3, -this.getHeight()/3);
+        text("Beenden", this.getWidth()/2, this.getHeight()/3*2);
+
     }
+
 }

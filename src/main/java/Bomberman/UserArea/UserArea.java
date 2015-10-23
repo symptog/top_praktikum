@@ -111,10 +111,10 @@ public class UserArea extends Zone {
             this.trackball = new Trackball((this.getWidth() / 4 * 3) - (int) this.getCrossHeight() / 4, (this.getHeight() / 2) - (int) this.getCrossHeight() / 4, (int) this.getCrossHeight() / 2, (int) this.getCrossHeight() / 2);  //lokal
             this.add(trackball);
             if (bomberman.getId().equals("red") || bomberman.getId().equals("violett") ) {
-                this.menu = new menu(this, - this.getHeight()/4 -this.getHeight()/3  , (this.getHeight()-this.getHeight()/5-2), (int) this.getCrossHeight(), (int) this.getCrossHeight());
+                this.menu = new Menu(this, -(int) this.getCrossHeight(), this.getHeight()- this.getHeight()/4 ,(int) this.getCrossHeight() , this.getHeight()/4);
                 this.add(menu);
             } else {
-                this.menu = new menu(this, (this.getWidth() - (int) this.getCrossHeight() + this.getHeight() - this.getHeight()/5+1), (this.getHeight()-this.getHeight()/5-2), (int) this.getCrossHeight(), (int) this.getCrossHeight());
+                this.menu = new Menu(this, this.getWidth(), this.getHeight()- this.getHeight()/4, (int) this.getCrossHeight() , this.getHeight()/4);
                 this.add(menu);
             }
             this.bombbutton = new Bombbutton(this, (this.getWidth() / 4), (this.getHeight() / 2), (int) this.getCrossHeight() * 3 / 4, (int) this.getCrossHeight() * 3 / 4);

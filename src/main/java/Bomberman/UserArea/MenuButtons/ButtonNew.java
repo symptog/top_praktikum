@@ -11,12 +11,12 @@ public class ButtonNew extends Zone {
 
     @Override
     public void draw() {
-        //neues Spiel
         stroke(0, 0, 0);
-        fill(192, 50, 0);
+        fill(192, 0, 0);
         rectMode(CORNER);
-        rect(0, -this.getHeight()-this.getHeight()/25, this.getWidth()/2 + this.getWidth()/6, this.getHeight()/4);
+        rect(0, 0, this.getWidth(), this.getHeight());
         textAlign(CENTER);  textSize(15);   fill(0);
-        text("Neu", this.getWidth()/3, -this.getHeight()/3 -this.getHeight()/2 -this.getHeight()/22);
+        text("Neues Spiel", this.getWidth()/2, this.getHeight()/3*2);
+
     }
 }

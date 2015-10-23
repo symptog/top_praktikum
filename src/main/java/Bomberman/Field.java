@@ -190,7 +190,7 @@ public class Field extends PApplet {
 		b1 = new Bomberman(this, "red", 0, 0, true);
 		b1.render();
 		Zone z1 = new UserArea(0, 0, panel_width, panel_height,color(255, 48, 48), b1);
-		//Zone m1 = new ButtonZone("menu",115,0,30,30,"menu", 10);
+		//Zone m1 = new ButtonZone("Menu",115,0,30,30,"Menu", 10);
 		z1.translate(x_offset, 0);
 		z1.rotateAbout(PI,CENTER);
 		//m1.translate(x_offset, 0);
@@ -199,7 +199,7 @@ public class Field extends PApplet {
 		b2 = new Bomberman(this, "orange", horizontal_blocks-1, 0, true);
 		b2.render();
 		Zone z2 = new UserArea(0, 0, panel_width, panel_height, color(255, 140, 0), b2);
-		//Zone m2 = new ButtonZone("menu",-12,0,30,30,"menu", 10);
+		//Zone m2 = new ButtonZone("Menu",-12,0,30,30,"Menu", 10);
 		z2.translate(width - panel_width - x_offset, 0);
 		z2.rotateAbout(PI, CENTER);
 		//m2.translate(width - panel_width - x_offset, 0);
@@ -208,14 +208,14 @@ public class Field extends PApplet {
 		b3 = new Bomberman(this, "blue", 0, vertical_blocks-1, false);
 		b3.render();
 		Zone z3 = new UserArea(0, 0, panel_width, panel_height, color(30, 144, 255), b3);
-		//Zone m3 = new ButtonZone("menu",348,95,30,30,"menu", 10);
+		//Zone m3 = new ButtonZone("Menu",348,95,30,30,"Menu", 10);
 		z3.translate(x_offset, height - panel_height);
 		//m3.translate(x_offset, height - panel_height);
 
 		b4 = new Bomberman(this, "violett", horizontal_blocks-1, vertical_blocks-1, false);
 		b4.render();
 		Zone z4 = new UserArea(0, 0, panel_width, panel_height, color(139, 0, 139), b4);
-		//Zone m4 = new ButtonZone("menu",-40,95,30,30,"menu", 10);
+		//Zone m4 = new ButtonZone("Menu",-40,95,30,30,"Menu", 10);
 		z4.translate(width - panel_width - x_offset, height - panel_height);
 		//m4.translate(width - panel_width - x_offset, height - panel_height);
 
