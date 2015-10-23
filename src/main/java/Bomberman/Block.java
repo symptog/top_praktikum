@@ -48,7 +48,7 @@ public class Block {
     }
 
     public Boolean isWalkable() {
-        return (type != Items.STATIC && type != Items.BLOCK && !covered);
+        return (type != Items.STATIC && type != Items.BLOCK && !covered&& type != Items.BOMBE);
     }
 
     public Float getPosX() {
