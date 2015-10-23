@@ -63,7 +63,7 @@ public class Block {
         block = p.createShape();
         block.beginShape();
         block.noStroke();
-        block.fill(255);
+        block.fill(220f);
         block.texture(img);
         block.textureMode(PShape.NORMAL);
         block.vertex(0, 0, 0, 0);

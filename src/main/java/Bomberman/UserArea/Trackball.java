@@ -16,7 +16,7 @@ public class Trackball extends Zone {
 
     @Override
     public void draw() {
-        stroke(255,0,0);//Rand des Objektes festlegen
+        stroke(0,220,0);//Rand des Objektes festlegen
         //fill(col);//F\u00fcllfarbe des Objektes festlegen
         fill(0,255,0);
         ellipseMode(CENTER);

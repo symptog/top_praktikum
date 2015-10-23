@@ -47,7 +47,7 @@ public class UserArea extends Zone {
         this.p = p;
         this.range = p.getImage("Flamme.png");
         this.bomb = p.getImage(p.getProp("item_img"));
-        this.life = p.getImage(p.getProp("lifeupgrade_img"));
+        this.life = p.getImage(p.getProp("herz_img"));
         //System.out.print("i: " + i + " " + "i1: " + i1 + " " + "i2: " + i2 + " " + "i3: " + i3 + " " + "crossWidth: " + crossWidth + " " + "crossHeight: " + crossHeight + "\n");
     }
 
@@ -227,6 +227,7 @@ public class UserArea extends Zone {
         text(bomberman.getRange(), this.getWidth()/2, (y-6)/3* 2 - (y - 6) / 12);
         this.shape(this.lifeIcon, this.getWidth() / 12*4, 2 * ((y - 6) / 3 + 3));
         text(bomberman.getLife(), this.getWidth()/2, (y-6)-(y-6)/12);
+        //this.shape(this.bombIcon, (this.getWidth() / 4) - this.getWidth()/12-(int)this.getCrossHeight()/2 , (this.getHeight() / 2)-(int)this.getCrossHeight()/2, (int) this.getCrossHeight(), (int) this.getCrossHeight());
     }
 
 }

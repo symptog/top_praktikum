@@ -60,7 +60,7 @@ public class Bomberman {
         dying=false;
         playing=false;
         invultime=0;
-        this.CORNER = (int)(p.getBlock_size() * 0.45f);
+        this.CORNER = (int)(p.getBlock_size() * 0.75f);
 
     }
 
@@ -85,7 +85,7 @@ public class Bomberman {
         return alive;
     }
     public void setAlive() {
-        alive = alive == false;
+        alive = !alive;
     }
     public boolean isDying() {
         return dying;
@@ -116,7 +116,7 @@ public class Bomberman {
     }
 
     public void increaseSpeed() {
-        if(speed<4.0f)
+        if(speed < 4.0f)
             speed = speed+0.2f;
     }
 
