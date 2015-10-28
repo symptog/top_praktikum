@@ -55,18 +55,18 @@ public class UserArea extends Zone {
     public void draw() {
 
         maxpos = (int)this.getCrossHeight()/4;
-        background(10,128,256);
-        stroke(0,0,0);
-        fill(20, 50, 256);
+        background(128,128,128);
+        stroke(0);
+        fill(128,128,128);
         rect(0,0,this.getWidth(),this.getHeight());
         textAlign(CENTER);
-        fill(0);
-        text("Bereit", this.getWidth()/2, (this.getHeight()-6)/3-(this.getHeight()-6)/12);
-        text("Zum Starten drücken", this.getWidth()/2, (this.getHeight()-6)/2-(this.getHeight()-6)/12);
+        textSize(20);
+        fill(255);
+        text("Bereit", this.getWidth()/2, this.getHeight()/3);
+        text("Zum Starten drücken", this.getWidth() / 2, this.getHeight()/3*2);
 
 
-        if(this.init) {
-
+        if (this.init) {
             kreuz((this.getWidth()/4*3 + this.getWidth() / 12), (this.getHeight()/2));
             //bombe((this.getWidth() / 4 - this.getWidth() / 12), (this.getHeight() / 2));
             anzeige((this.getWidth() / 2 - this.getWidth() / 12), (this.getHeight()));
@@ -125,12 +125,12 @@ public class UserArea extends Zone {
             if(!bomberman.isAlive())
             {
 
-                background(10,128,256);
+                background(128,128,128);
                 stroke(0,0,0);
-                fill(20, 50, 256);
+                fill(128,128,128);
                 rect(0,0,this.getWidth(),this.getHeight());
                 textAlign(CENTER);
-                fill(0);
+                fill(255);
                 text("Leider verloren", this.getWidth()/2, (this.getHeight()-6)/3-(this.getHeight()-6)/12);
 
 
@@ -185,9 +185,9 @@ public class UserArea extends Zone {
         s.texture(img);
         s.textureMode(PShape.NORMAL);
         s.vertex(0, 0, 0, 0);
-        s.vertex(this.getHeight()/4, 0, 1, 0);
-        s.vertex(this.getHeight()/4, this.getHeight()/4, 1, 1);
-        s.vertex(0, this.getHeight()/4, 0, 1);
+        s.vertex(this.getHeight()/3, 0, 1, 0);
+        s.vertex(this.getHeight()/3, this.getHeight()/3, 1, 1);
+        s.vertex(0, this.getHeight()/3, 0, 1);
         s.endShape(PShape.CLOSE);
         return s;
     }
@@ -214,20 +214,28 @@ public class UserArea extends Zone {
     }
 
     private void anzeige(int x, int y) {
-        stroke(0, 0, 0);//legt Randfarbe nachfolgender Formen fest
+        /*stroke(0, 0, 0);//legt Randfarbe nachfolgender Formen fest
         fill(255, 255, 255);//legt Füllfarbe nachfolgender Formen fest
         rect(x, 3, this.getWidth() / 6, y - 6);         //Anzeigen
         line(x, y/3, x+this.getWidth()/6, y/3);    //Trennlinie 1
         line(x, 2*y/3, x+this.getWidth()/6, 2*y/3);    //Trennlinie 2
-        textAlign(CENTER);
-        fill(0);
         this.shape(this.bombIcon, this.getWidth() / 12 * 4, 3);
         text(bomberman.getBombcount() + " / " + bomberman.getMaxbombcount(), this.getWidth()/2, (y-6)/ 3 - (y - 6) / 12);
         this.shape(this.rangeIcon, this.getWidth() / 12* 4, (y - 6) / 3 + 3);
         text(bomberman.getRange(), this.getWidth()/2, (y-6)/3* 2 - (y - 6) / 12);
         this.shape(this.lifeIcon, this.getWidth() / 12*4, 2 * ((y - 6) / 3 + 3));
-        text(bomberman.getLife(), this.getWidth()/2, (y-6)-(y-6)/12);
+        text(bomberman.getLife(), this.getWidth()/2, (y-6)-(y-6)/12);*/
         //this.shape(this.bombIcon, (this.getWidth() / 4) - this.getWidth()/12-(int)this.getCrossHeight()/2 , (this.getHeight() / 2)-(int)this.getCrossHeight()/2, (int) this.getCrossHeight(), (int) this.getCrossHeight());
+        textAlign(CENTER);
+        textSize(16);
+        fill(255);
+        this.shape(this.bombIcon, this.getWidth() / 2 - this.getHeight()/6+1, 3);
+        text(bomberman.getMaxbombcount(), this.getWidth()/2, (y-6)/ 3 - (y - 6) / 12+2);
+        fill(0);
+        this.shape(this.rangeIcon, this.getWidth() / 2 - this.getHeight()/6, (y - 6) / 3 + 3);
+        text(bomberman.getRange(), this.getWidth()/2, (y-6)/3* 2-2);
+        this.shape(this.lifeIcon, this.getWidth() / 2 - this.getHeight()/6-1, 2 * ((y - 6) / 3 + 3));
+        text(bomberman.getLife(), this.getWidth()/2, (y-6)-(y-6)/12+2);
     }
 
 }
