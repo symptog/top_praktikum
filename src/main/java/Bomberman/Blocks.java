@@ -82,7 +82,8 @@ public class Blocks {
                         this.blocks[i][j].setCovered(true);
                     }
                     else
-                        this.blocks[i][j].setType(Items.BLOCK);
+                        //this.blocks[i][j].setType(Items.BLOCK);
+                        this.blocks[i][j].setType(Items.EMPTY);
                 }
             }
         }

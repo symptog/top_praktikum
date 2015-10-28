@@ -64,6 +64,14 @@ public class Bomberman {
 
     }
 
+    public Float getX() {
+        return x;
+    }
+
+    public Float getY() {
+        return y;
+    }
+
     public Integer getBombcount() {
         return bombcount;
     }
@@ -502,22 +510,22 @@ public class Bomberman {
             case Items.LIFEUPGRADE:
                 this.increaseLife();
                 b.setType(Items.EMPTY);
-                p.setFloatingUpgrade(1, x, y, id);
+                p.setFloatingUpgrade(1,  id);
                 break;
             case Items.RANGEUPGRADE:
                 this.increaseRange();
                 b.setType(Items.EMPTY);
-                p.setFloatingUpgrade(2, x, y,id);
+                p.setFloatingUpgrade(2, id);
                 break;
             case Items.SPEEDUPGRADE:
                 this.increaseSpeed();
                 b.setType(Items.EMPTY);
-                p.setFloatingUpgrade(3, x, y,id);
+                p.setFloatingUpgrade(3, id);
                 break;
             case Items.COUNTUPGRADE:
                 this.increasemaxBombCount();
                 b.setType(Items.EMPTY);
-                p.setFloatingUpgrade(4,x,y,id);
+                p.setFloatingUpgrade(4,id);
                 break;
             /*
             case Items.BOMBE:

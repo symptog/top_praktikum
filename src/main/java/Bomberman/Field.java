@@ -31,7 +31,7 @@ public class Field extends PApplet {
 	private boolean won=false;
 	public Bomberman b1, b2, b3, b4;
 	public Plantedbomb[] bombfield= new Plantedbomb[20];
-	public int[][] movefield=new int[20][5];
+	public int[][] movefield=new int[20][7];
 	PImage range, life, speed,count;
 	PShape rangeIcon, lifeIcon, speedIcon, countIcon;
 	private ConcurrentHashMap<String, PImage> ImageMap = new ConcurrentHashMap<String, PImage>();
@@ -177,9 +177,9 @@ public class Field extends PApplet {
 		s.texture(img);
 		s.textureMode(PShape.NORMAL);
 		s.vertex(0, 0, 0, 0);
-		s.vertex(this.getHeight()/4, 0, 1, 0);
-		s.vertex(this.getHeight()/4, this.getHeight()/4, 1, 1);
-		s.vertex(0, this.getHeight()/4, 0, 1);
+		s.vertex(this.block_size, 0, 1, 0);
+		s.vertex(this.block_size, this.block_size, 1, 1);
+		s.vertex(0, this.block_size, 0, 1);
 		s.endShape(PShape.CLOSE);
 		return s;
 	}
@@ -245,13 +245,17 @@ public class Field extends PApplet {
 			movefield[i][0]=0;
 			movefield[i][1]=0;
 			movefield[i][2]=0;
+			movefield[i][3]=0;
+			movefield[i][4]=0;
+			movefield[i][5]=0;
+			movefield[i][6]=0;
 		}
 
-		this.life =getImage("lifeupgrade_img");
+		this.life =getImage(getProp("lifeupgrade_img"));
 
-		this.range = getImage("rangeupgrade_img");
-		this.speed = getImage("speedupgrade_img");
-		this.count = getImage("countupgrade_img");
+		this.range = getImage(getProp("rangeupgrade_img"));
+		this.speed = getImage(getProp("speedupgrade_img"));
+		this.count = getImage(getProp("anzupgrade_img"));
 
 		this.rangeIcon = renderIcon(this.range);
 		this.lifeIcon = renderIcon(this.life);
@@ -312,34 +316,49 @@ public class Field extends PApplet {
 	}
 
 
-	public void setFloatingUpgrade(int upgrade ,int X, int Y, String id)
+	public void setFloatingUpgrade(int upgrade , String id)
 	{
 		for(int i=0;i<20;i++)
 		{
 			if(movefield[i][0]==0)
 			{
 				movefield[i][0] = upgrade;
-				movefield[i][1] = X;
-				movefield[i][2] = Y;
 				if(id=="red")
 				{
+					movefield[i][1] = b1.getX().intValue();
+					movefield[i][2] = b1.getY().intValue();
 					movefield[i][3] = 0;
 					movefield[i][4] = 0;
+					movefield[i][5] = -(movefield[i][1]-movefield[i][3])/500;
+					movefield[i][6] = -(movefield[i][2]-movefield[i][4])/500;
+
 				}
 				else if(id=="orange")
 				{
+					movefield[i][1] = b2.getX().intValue();
+					movefield[i][2] = b2.getY().intValue();
 					movefield[i][3] = width;
 					movefield[i][4] = 0;
+					movefield[i][5] = -(movefield[i][1]-movefield[i][3])/500;
+					movefield[i][6] = -(movefield[i][2]-movefield[i][4])/500;
 				}
 				else if(id=="blue")
 				{
+					movefield[i][1] = b3.getX().intValue();
+					movefield[i][2] = b3.getY().intValue();
 					movefield[i][3] = 0;
 					movefield[i][4] = height;
+					movefield[i][5] = -(movefield[i][1]-movefield[i][3])/500;
+					movefield[i][6] = -(movefield[i][2]-movefield[i][4])/500;
 				}
 				else if(id=="violett")
 				{
+					movefield[i][1] = b4.getX().intValue();
+					movefield[i][2] = b4.getY().intValue();
 					movefield[i][3] = width;
 					movefield[i][4] = height;
+					movefield[i][5] = -(movefield[i][1]-movefield[i][3])/500;
+					movefield[i][6] = -(movefield[i][2]-movefield[i][4])/500;
 				}
 				i=20;
 			}
@@ -350,26 +369,56 @@ public class Field extends PApplet {
 		for(int i=0;i<20;i++) {
 			if (movefield[i][0] > 0) {
 				shape(this.lifeIcon, movefield[i][1], movefield[i][2]);
+
+				movefield[i][1] += movefield[i][5];
+				movefield[i][2] += movefield[i][6];
+				/*
 				if (movefield[i][1] < movefield[i][3])
-					movefield[i][1] = movefield[i][1] + 5;
+					movefield[i][1] = movefield[i][1] + movefield[i][5];
 				else
-					movefield[i][1] = movefield[i][1] - 5;
+					movefield[i][1] = movefield[i][1] - movefield[i][5];
 				if(movefield[i][2] < movefield[i][4])
-					movefield[i][2] = movefield[i][2] + 5;
+					movefield[i][2] = movefield[i][2] + movefield[i][6];
 				else
-					movefield[i][2] = movefield[i][2] - 5;
-				if(movefield[i][1]<0)
-					movefield[i][1]=0;
-				if(movefield[i][1]>movefield[i][3])
-					movefield[i][1]=movefield[i][3];
-				if(movefield[i][2]<0)
-					movefield[i][2]=0;
-				if(movefield[i][2]>movefield[i][4])
-					movefield[i][2]=movefield[i][4];
-				if(movefield[i][1]==movefield[i][3]&&movefield[i][2]==movefield[i][4])
-					movefield[i][0]=0;
+					movefield[i][2] = movefield[i][2] - movefield[i][6];
+					*/
 
+				if (movefield[i][5] < 0 && movefield[i][6] < 0) { // neg x && neg y
+					if(movefield[i][1]<movefield[i][3]) {
+						movefield[i][1] = movefield[i][3];
+					}
+					if(movefield[i][2]<movefield[i][4]) {
+						movefield[i][2] = movefield[i][4];
+					}
+				}
+				else if (movefield[i][5] > 0 && movefield[i][6] > 0) { // neg x && neg y
+					if(movefield[i][1]>movefield[i][3]) {
+						movefield[i][1] = movefield[i][3];
+					}
+					if(movefield[i][2]>movefield[i][4]) {
+						movefield[i][2] = movefield[i][4];
+					}
+				}
+				else if (movefield[i][5] < 0 && movefield[i][6] > 0) { // neg x && neg y
+					if(movefield[i][1]<movefield[i][3]) {
+						movefield[i][1] = movefield[i][3];
+					}
+					if(movefield[i][2]>movefield[i][4]) {
+						movefield[i][2] = movefield[i][4];
+					}
+				}
+				else if (movefield[i][5] > 0 && movefield[i][6] < 0) { // neg x && neg y
+					if(movefield[i][1]>movefield[i][3]) {
+						movefield[i][1] = movefield[i][3];
+					}
+					if(movefield[i][2]<movefield[i][4]) {
+						movefield[i][2] = movefield[i][4];
+					}
+				}
 
+/*
+				if (movefield[i][1] == movefield[i][3]&& movefield[i][2] == movefield[i][4])
+					movefield[i][0]=0;*/
 			}
 
 
@@ -424,7 +473,8 @@ public class Field extends PApplet {
 				b3.draw();
 			if (b4.isAlive())
 				b4.draw();
+			drawFloatingUpgrade();
 		}
-		drawFloatingUpgrade();
+
 	}
 }
