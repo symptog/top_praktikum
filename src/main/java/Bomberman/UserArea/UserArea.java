@@ -123,7 +123,7 @@ public class UserArea extends Zone {
                 bomberman.setDirection(Bomberman.STOP);
             }
             if(!bomberman.isAlive())
-            {
+            {            //}
 
                 background(128,128,128);
                 stroke(0,0,0);
@@ -133,9 +133,7 @@ public class UserArea extends Zone {
                 fill(255);
                 text("Leider verloren", this.getWidth()/2, (this.getHeight()-6)/3-(this.getHeight()-6)/12);
 
-
             }
-            //}
         }
 
     }
@@ -214,18 +212,6 @@ public class UserArea extends Zone {
     }
 
     private void anzeige(int x, int y) {
-        /*stroke(0, 0, 0);//legt Randfarbe nachfolgender Formen fest
-        fill(255, 255, 255);//legt Füllfarbe nachfolgender Formen fest
-        rect(x, 3, this.getWidth() / 6, y - 6);         //Anzeigen
-        line(x, y/3, x+this.getWidth()/6, y/3);    //Trennlinie 1
-        line(x, 2*y/3, x+this.getWidth()/6, 2*y/3);    //Trennlinie 2
-        this.shape(this.bombIcon, this.getWidth() / 12 * 4, 3);
-        text(bomberman.getBombcount() + " / " + bomberman.getMaxbombcount(), this.getWidth()/2, (y-6)/ 3 - (y - 6) / 12);
-        this.shape(this.rangeIcon, this.getWidth() / 12* 4, (y - 6) / 3 + 3);
-        text(bomberman.getRange(), this.getWidth()/2, (y-6)/3* 2 - (y - 6) / 12);
-        this.shape(this.lifeIcon, this.getWidth() / 12*4, 2 * ((y - 6) / 3 + 3));
-        text(bomberman.getLife(), this.getWidth()/2, (y-6)-(y-6)/12);*/
-        //this.shape(this.bombIcon, (this.getWidth() / 4) - this.getWidth()/12-(int)this.getCrossHeight()/2 , (this.getHeight() / 2)-(int)this.getCrossHeight()/2, (int) this.getCrossHeight(), (int) this.getCrossHeight());
         textAlign(CENTER);
         textSize(16);
         fill(255);
