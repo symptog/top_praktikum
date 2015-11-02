@@ -35,6 +35,7 @@ public class Field extends PApplet {
 	PImage range, life, speed,count;
 	PShape rangeIcon, lifeIcon, speedIcon, countIcon;
 	private ConcurrentHashMap<String, PImage> ImageMap = new ConcurrentHashMap<String, PImage>();
+	int diff=50;
 
 	public Field() {
 		super();
@@ -327,38 +328,38 @@ public class Field extends PApplet {
 				{
 					movefield[i][1] = b1.getX().intValue();
 					movefield[i][2] = b1.getY().intValue();
-					movefield[i][3] = 0;
-					movefield[i][4] = 0;
-					movefield[i][5] = -(movefield[i][1]-movefield[i][3])/500;
-					movefield[i][6] = -(movefield[i][2]-movefield[i][4])/500;
+					movefield[i][3] = 4*block_size;
+					movefield[i][4] = block_size;
+					movefield[i][5] = -(movefield[i][1]-movefield[i][3])/diff;
+					movefield[i][6] = -(movefield[i][2]-movefield[i][4])/diff;
 
 				}
 				else if(id=="orange")
 				{
 					movefield[i][1] = b2.getX().intValue();
 					movefield[i][2] = b2.getY().intValue();
-					movefield[i][3] = width;
-					movefield[i][4] = 0;
-					movefield[i][5] = -(movefield[i][1]-movefield[i][3])/500;
-					movefield[i][6] = -(movefield[i][2]-movefield[i][4])/500;
+					movefield[i][3] = width-4*block_size;
+					movefield[i][4] = block_size;
+					movefield[i][5] = -(movefield[i][1]-movefield[i][3])/diff;
+					movefield[i][6] = -(movefield[i][2]-movefield[i][4])/diff;
 				}
 				else if(id=="blue")
 				{
 					movefield[i][1] = b3.getX().intValue();
 					movefield[i][2] = b3.getY().intValue();
-					movefield[i][3] = 0;
-					movefield[i][4] = height;
-					movefield[i][5] = -(movefield[i][1]-movefield[i][3])/500;
-					movefield[i][6] = -(movefield[i][2]-movefield[i][4])/500;
+					movefield[i][3] = 4*block_size;
+					movefield[i][4] = height-block_size;
+					movefield[i][5] = -(movefield[i][1]-movefield[i][3])/diff;
+					movefield[i][6] = -(movefield[i][2]-movefield[i][4])/diff;
 				}
 				else if(id=="violett")
 				{
 					movefield[i][1] = b4.getX().intValue();
 					movefield[i][2] = b4.getY().intValue();
-					movefield[i][3] = width;
-					movefield[i][4] = height;
-					movefield[i][5] = -(movefield[i][1]-movefield[i][3])/500;
-					movefield[i][6] = -(movefield[i][2]-movefield[i][4])/500;
+					movefield[i][3] = width-4*block_size;
+					movefield[i][4] = height-block_size;
+					movefield[i][5] = -(movefield[i][1]-movefield[i][3])/diff;
+					movefield[i][6] = -(movefield[i][2]-movefield[i][4])/diff;
 				}
 				i=20;
 			}
@@ -368,7 +369,20 @@ public class Field extends PApplet {
 	{
 		for(int i=0;i<20;i++) {
 			if (movefield[i][0] > 0) {
-				shape(this.lifeIcon, movefield[i][1], movefield[i][2]);
+				if(movefield[i][0]==1) {
+					shape(this.lifeIcon, movefield[i][1], movefield[i][2]);
+				}
+
+				if(movefield[i][0]==2) {
+					shape(this.rangeIcon, movefield[i][1], movefield[i][2]);
+				}
+				if(movefield[i][0]==3) {
+					shape(this.speedIcon, movefield[i][1], movefield[i][2]);
+				}
+				if(movefield[i][0]==4) {
+					shape(this.countIcon, movefield[i][1], movefield[i][2]);
+				}
+
 
 				movefield[i][1] += movefield[i][5];
 				movefield[i][2] += movefield[i][6];
@@ -383,7 +397,7 @@ public class Field extends PApplet {
 					movefield[i][2] = movefield[i][2] - movefield[i][6];
 					*/
 
-				if (movefield[i][5] < 0 && movefield[i][6] < 0) { // neg x && neg y
+				if (movefield[i][5] < 0 && movefield[i][6] < 0) { // linke obere Ecke=Ziel
 					if(movefield[i][1]<movefield[i][3]) {
 						movefield[i][1] = movefield[i][3];
 					}
@@ -391,7 +405,7 @@ public class Field extends PApplet {
 						movefield[i][2] = movefield[i][4];
 					}
 				}
-				else if (movefield[i][5] > 0 && movefield[i][6] > 0) { // neg x && neg y
+				else if (movefield[i][5] > 0 && movefield[i][6] > 0) { // rechts unten
 					if(movefield[i][1]>movefield[i][3]) {
 						movefield[i][1] = movefield[i][3];
 					}
@@ -399,7 +413,7 @@ public class Field extends PApplet {
 						movefield[i][2] = movefield[i][4];
 					}
 				}
-				else if (movefield[i][5] < 0 && movefield[i][6] > 0) { // neg x && neg y
+				else if (movefield[i][5] < 0 && movefield[i][6] > 0) { // links unten
 					if(movefield[i][1]<movefield[i][3]) {
 						movefield[i][1] = movefield[i][3];
 					}
@@ -407,7 +421,7 @@ public class Field extends PApplet {
 						movefield[i][2] = movefield[i][4];
 					}
 				}
-				else if (movefield[i][5] > 0 && movefield[i][6] < 0) { // neg x && neg y
+				else if (movefield[i][5] > 0 && movefield[i][6] < 0) { // rechts oben
 					if(movefield[i][1]>movefield[i][3]) {
 						movefield[i][1] = movefield[i][3];
 					}
@@ -416,9 +430,9 @@ public class Field extends PApplet {
 					}
 				}
 
-/*
+
 				if (movefield[i][1] == movefield[i][3]&& movefield[i][2] == movefield[i][4])
-					movefield[i][0]=0;*/
+					movefield[i][0]=0;
 			}
 
 

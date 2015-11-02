@@ -230,11 +230,11 @@ public class UserArea extends Zone {
         textSize(16);
         fill(255);
         this.shape(this.bombIcon, this.getWidth() / 2 - this.getHeight()/6+1, 3);
-        text(bomberman.getMaxbombcount(), this.getWidth()/2, (y-6)/ 3 - (y - 6) / 12+2);
+        text(bomberman.getMaxbombcount(), this.getWidth()/2, (y-6)/ 3 - (y - 6) / 12+4);
         fill(0);
         this.shape(this.rangeIcon, this.getWidth() / 2 - this.getHeight()/6, (y - 6) / 3 + 3);
-        text(bomberman.getRange(), this.getWidth()/2, (y-6)/3* 2-2);
-        this.shape(this.lifeIcon, this.getWidth() / 2 - this.getHeight()/6-1, 2 * ((y - 6) / 3 + 3));
+        text(bomberman.getRange(), this.getWidth()/2, (y-6)/3*2-1);
+        this.shape(this.lifeIcon, this.getWidth() / 2 - this.getHeight()/6, 2 * ((y - 6) / 3 + 3));
         text(bomberman.getLife(), this.getWidth()/2, (y-6)-(y-6)/12+2);
     }
 
