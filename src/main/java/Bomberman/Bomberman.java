@@ -55,7 +55,7 @@ public class Bomberman {
         range=1;
         life=3;
         speed=2.0f;
-        invulnerable=false;
+        invulnerable=true;
         alive=false;
         dying=false;
         playing=false;
