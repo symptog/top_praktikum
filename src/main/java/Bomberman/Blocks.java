@@ -70,7 +70,7 @@ public class Blocks {
                     this.blocks[i][j].setType(Items.STATIC);
                 } else {
                     zahl= rand.nextInt(60);
-                    if(zahl<13) {
+                    if(zahl<24) {
                         if (zahl == 0)
                             this.blocks[i][j].setType(Items.LIFEUPGRADE);
                         else if (zahl > 0 && zahl < 5)
@@ -79,11 +79,14 @@ public class Blocks {
                             this.blocks[i][j].setType(Items.RANGEUPGRADE);
                         else if (zahl > 8 && zahl < 13)
                             this.blocks[i][j].setType(Items.SPEEDUPGRADE);
-                        this.blocks[i][j].setCovered(true);
+                        else if (zahl > 12 && zahl < 24)
+                            this.blocks[i][j].setType(Items.EMPTY);
+                        if (zahl < 13)
+                            this.blocks[i][j].setCovered(true);
                     }
                     else
-                        //this.blocks[i][j].setType(Items.BLOCK);
-                        this.blocks[i][j].setType(Items.EMPTY);
+                        this.blocks[i][j].setType(Items.BLOCK);
+                        //this.blocks[i][j].setType(Items.EMPTY);
                 }
             }
         }
