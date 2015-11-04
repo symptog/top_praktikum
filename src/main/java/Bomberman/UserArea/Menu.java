@@ -1,8 +1,6 @@
 package Bomberman.UserArea;
 
-import Bomberman.UserArea.MenuButtons.ButtonClose;
-import Bomberman.UserArea.MenuButtons.ButtonNew;
-import Bomberman.UserArea.MenuButtons.ButtonSurr;
+import Bomberman.UserArea.MenuButtons.*;
 import vialab.SMT.Touch;
 import vialab.SMT.Zone;
 
@@ -10,10 +8,13 @@ public class Menu extends Zone {
 
     private UserArea parent;
     private boolean pop = false;
-    private boolean popup = false;
     private ButtonClose button_close;
     private ButtonNew button_new;
     private ButtonSurr button_surr;
+    private ButtonCheckSurr button_check;
+    private ButtonYes button_yes;
+    private ButtonNo button_no;
+
 
     public Menu(UserArea parent, int i, int i1, int i2, int i3) {
         super(i, i1, i2, i3);
@@ -38,22 +39,17 @@ public class Menu extends Zone {
     public void touch() {}
     @Override
     public void touchDown(Touch touch){
-        System.out.print(this.pop );
         this.pop=!this.pop;
-        System.out.print(this.pop );
         if (this.pop) {
             this.add(button_close);
             this.add(button_new);
             this.add(button_surr);
-            System.out.print("if");
+
         } else {
             this.remove(button_close);
             this.remove(button_new);
             this.remove(button_surr);
-            System.out.print("else");
         }
-
-
 
     } //nur der Moment des Touches
     @Override

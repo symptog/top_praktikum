@@ -24,6 +24,7 @@ public class Bombbutton extends Zone {
         ellipse((this.getHeight()-this.getHeight()/5*4)/2, (this.getHeight()-this.getHeight()/5*4)/2, this.getHeight()/5*4, this.getHeight()/5 * 4);
         textAlign(CENTER);  textSize(20);   fill(0);
     }
+
     //touch method
     @Override
     public void touch() {} //gedrückte halten
