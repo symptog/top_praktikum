@@ -16,6 +16,7 @@ public class Menu extends Zone {
     private ButtonNo button_no;
 
 
+
     public Menu(UserArea parent, int i, int i1, int i2, int i3) {
         super(i, i1, i2, i3);
         this.parent = parent;
@@ -50,7 +51,6 @@ public class Menu extends Zone {
             this.remove(button_new);
             this.remove(button_surr);
         }
-
     } //nur der Moment des Touches
     @Override
     public void touchUp(Touch touch){} //touch moved method
