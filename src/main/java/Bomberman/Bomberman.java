@@ -459,6 +459,7 @@ public class Bomberman {
     public void lostgame()
     {
         alive=false;
+        p.gametest();
     }
 
     public void startDie() {

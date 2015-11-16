@@ -264,8 +264,8 @@ public class Field extends PApplet {
 		this.countIcon = renderIcon(this.count);
 
 	}
-	public boolean gametest() {
-		if(b1.isAlive()&&b1.isPlaying()&&!b2.isAlive()&&b2.isPlaying()&&!b3.isAlive()&&b3.isPlaying()&&!b4.isAlive()&&b4.isPlaying()) {
+	public void gametest() {
+		if(b1.isAlive()&&!b2.isAlive()&&!b3.isAlive()&&!b4.isAlive()) {
 			background(255, 48, 48);
 			stroke(0, 0, 0);
 			fill(255, 48, 48);
@@ -273,12 +273,12 @@ public class Field extends PApplet {
 			textAlign(CENTER);
 			fill(0);
 			text("Spieler rot hat gewonnen", this.displayWidth / 2, (this.displayHeight - 6) / 3 - (this.displayHeight - 6) / 12);
-			return true;
+			won=  true;
 
 			//setup();
 
 		}
-		else if(!b1.isAlive()&&b1.isPlaying()&&b2.isAlive()&&b2.isPlaying()&&!b3.isAlive()&&b3.isPlaying()&&!b4.isAlive()&&b4.isPlaying()) {
+		else if(!b1.isAlive()&&b2.isAlive()&&!b3.isAlive()&&!b4.isAlive()) {
 			background(255, 140, 0);
 			stroke(0, 0, 0);
 			fill(255, 140, 0);
@@ -286,10 +286,10 @@ public class Field extends PApplet {
 			textAlign(CENTER);
 			fill(0);
 			text("Spieler orange hat gewonnen", this.displayWidth / 2, (this.displayHeight - 6) / 3 - (this.displayHeight - 6) / 12);
-			return true;
+			won= true;
 
 		}
-		else if(!b1.isAlive()&&b1.isPlaying()&&!b2.isAlive()&&b2.isPlaying()&&b3.isAlive()&&b3.isPlaying()&&!b4.isAlive()&&b4.isPlaying()) {
+		else if(!b1.isAlive()&&!b2.isAlive()&&b3.isAlive()&&!b4.isAlive()) {
 			background(30, 144, 255);
 			stroke(0, 0, 0);
 			fill(30, 144, 255);
@@ -297,10 +297,10 @@ public class Field extends PApplet {
 			textAlign(CENTER);
 			fill(0);
 			text("Spieler blau hat gewonnen", this.displayWidth / 2, (this.displayHeight - 6) / 3 - (this.displayHeight - 6) / 12);
-			return true;
+			won=  true;
 
 		}
-		else if(!b1.isAlive()&&b1.isPlaying()&&!b2.isAlive()&&b2.isPlaying()&&!b3.isAlive()&&b3.isPlaying()&&b4.isAlive()&&b4.isPlaying()) {
+		else if(!b1.isAlive()&&!b2.isAlive()&&!b3.isAlive()&&b4.isAlive()) {
 			background(139, 0, 139);
 			stroke(0, 0, 0);
 			fill(139, 0, 139);
@@ -308,11 +308,21 @@ public class Field extends PApplet {
 			textAlign(CENTER);
 			fill(0);
 			text("Spieler violett hat gewonnen", this.displayWidth / 2, (this.displayHeight - 6) / 3 - (this.displayHeight - 6) / 12);
-			return true;
+			won= true;
 
 		}
+		else if(!b1.isAlive()&&!b2.isAlive()&&!b3.isAlive()&&!b4.isAlive()&&b1.isPlaying()&&b2.isPlaying()&&b3.isPlaying()&&b4.isPlaying()) {
+			background(0, 0, 0);
+			stroke(0, 0, 0);
+			fill(0, 0, 0);
+			rect(0, 0, this.displayWidth, this.displayHeight);
+			textAlign(CENTER);
+			fill(255);
+			text("Spielt zusammen, nicht nacheinander!", this.displayWidth / 2, (this.displayHeight - 6) / 3 - (this.displayHeight - 6) / 12);
+			won = true;
+		}
 		else
-			return false;
+			won= false;
 
 	}
 
@@ -453,8 +463,6 @@ public class Field extends PApplet {
 			b4.increaseBombcount();
 			bombtimer = 120;
 		}
-		if (bombtimer % 60 == 0)
-			won = gametest();
 		if (won)
 			gametest();
 		else {
