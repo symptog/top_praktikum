@@ -132,7 +132,7 @@ public class UserArea extends Zone {
                 textAlign(CENTER);
                 fill(255);
                 text("Leider verloren", this.getWidth()/2, (this.getHeight()-6)/3-(this.getHeight()-6)/12);
-
+                //SMT.putZoneOnTop(this);
             }
         }
 
@@ -221,7 +221,7 @@ public class UserArea extends Zone {
         this.shape(this.rangeIcon, this.getWidth() / 2 - this.getHeight()/6, (y - 6) / 3 + 3);
         text(bomberman.getRange(), this.getWidth()/2, (y-6)/3*2-1);
         this.shape(this.lifeIcon, this.getWidth() / 2 - this.getHeight()/6, 2 * ((y - 6) / 3 + 3));
-        text(bomberman.getLife(), this.getWidth()/2, (y-6)-(y-6)/12+2);
+        text(bomberman.getLife()-1, this.getWidth()/2, (y-6)-(y-6)/12+2);
     }
 
 }
