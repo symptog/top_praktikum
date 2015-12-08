@@ -1,28 +1,42 @@
 package Bomberman.UserArea;
 
 import Bomberman.UserArea.MenuButtons.*;
+import Bomberman.UserArea.MenuButtons.ButtonNo;
 import vialab.SMT.Touch;
 import vialab.SMT.Zone;
+
+
 
 public class Menu extends Zone {
 
     private UserArea parent;
     private boolean pop = false;
-    private ButtonClose button_close;
+   //private ButtonClose button_close;
     private ButtonNew button_new;
     private ButtonSurr button_surr;
-    private ButtonCheckSurr button_check;
-    private ButtonYes button_yes;
     private ButtonNo button_no;
-
+    private ButtonYes button_yes;
+    private ButtonCheckClose button_check_close;
+    private ButtonCheckNew button_check_new;
+    private ButtonCheckSurr button_check_surr;
+    private Zone button_close = null;
 
 
     public Menu(UserArea parent, int i, int i1, int i2, int i3) {
         super(i, i1, i2, i3);
         this.parent = parent;
-        button_close = new ButtonClose(parent, 0,-this.getHeight(),this.getWidth(),this.getHeight());
-        button_new = new ButtonNew(parent, 0,-this.getHeight()*2,this.getWidth(),this.getHeight());
-        button_surr = new ButtonSurr(parent, 0,-this.getHeight()*3,this.getWidth(),this.getHeight());
+        this.button_close = new ButtonClose(parent, 0,-this.getHeight(),this.getWidth(),this.getHeight());
+        this.button_new = new ButtonNew(parent, 0,-this.getHeight()*2,this.getWidth(),this.getHeight());
+        this.button_surr = new ButtonSurr(parent, 0,-this.getHeight()*3,this.getWidth(),this.getHeight());
+        /*
+        button_no = new ButtonNo(parent, this.getWidth()*2,this.getHeight()*3,this.getWidth(),this.getHeight());
+        button_yes = new ButtonYes(parent, this.getWidth(),this.getHeight()*3,this.getWidth(),this.getHeight());
+        button_check_close = new ButtonCheckClose(parent, 0,-this.getHeight(),this.getWidth(),this.getHeight());
+        button_check_new = new ButtonCheckNew(parent, 0,-this.getHeight(),this.getWidth(),this.getHeight());
+        button_check_surr = new ButtonCheckSurr(parent, this.getWidth(),0,this.getWidth()*2,this.getHeight()*4);
+        */
+
+
     }
     @Override
     public void draw() {
@@ -51,6 +65,7 @@ public class Menu extends Zone {
             this.remove(button_new);
             this.remove(button_surr);
         }
+
     } //nur der Moment des Touches
     @Override
     public void touchUp(Touch touch){} //touch moved method
