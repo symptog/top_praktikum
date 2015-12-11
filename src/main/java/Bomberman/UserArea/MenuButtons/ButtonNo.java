@@ -9,11 +9,15 @@ import vialab.SMT.Zone;
 public class ButtonNo extends Zone {
 
     private boolean status = true;
-    protected ButtonNo button_no;
+    private boolean Submenu = true;
+    public void setSubmenu(boolean status){ Submenu=status; }
+
+    public boolean getSubmenu(){return Submenu;}
 
     public ButtonNo(UserArea parent, int i, int i1, int i2, int i3) {
         super(i, i1, i2, i3);
 
+        setSubmenu (status);
 
     }
 
@@ -32,6 +36,8 @@ public class ButtonNo extends Zone {
     }
     @Override
     public void touchDown(Touch touch){
+
+        setSubmenu (!status);
 
         // remove ButtonNo, ButtonYes + ButtonCheckbox
 

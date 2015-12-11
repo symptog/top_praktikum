@@ -11,12 +11,10 @@ public class ButtonClose extends Zone {
     private ButtonYes button_yes;
     private ButtonNo button_no;
 
-    private boolean Submenu = true;
-    public void setSubmenu(boolean status){ Submenu=status; }
 
-    public boolean getSubmenu(){return Submenu;}
-
+    public boolean getSubmenu() {return submenu;}
     private boolean check = true;
+    private boolean submenu;
 
 
     public ButtonClose(UserArea parent, int i, int i1, int i2, int i3) {
@@ -26,21 +24,14 @@ public class ButtonClose extends Zone {
         button_yes = new ButtonYes(parent, this.getWidth(),this.getHeight(),this.getWidth(),this.getHeight());
         button_no = new ButtonNo(parent, this.getWidth()*2,this.getHeight(),this.getWidth(),this.getHeight());
 
-        if (!this.Submenu){
+        this.submenu = getSubmenu();
+        if (!this.submenu){
             this.remove(button_check_close);
             this.remove(button_yes);
             this.remove(button_no);
         }
 
     }
-
-    public void close (){
-        this.remove(button_check_close);
-        this.remove(button_yes);
-        this.remove(button_no);
-    }
-
-
 
     @Override
     public void draw() {
@@ -60,6 +51,12 @@ public class ButtonClose extends Zone {
             this.add(button_yes);
             this.add(button_no);
         }
+        else{
+            this.remove(button_check_close);
+            this.remove(button_yes);
+            this.remove(button_no);
+        }
     }//nur der Moment des Touches
+
 
 }
