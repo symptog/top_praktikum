@@ -1,5 +1,6 @@
 package Bomberman.UserArea.MenuButtons;
 
+import Bomberman.UserArea.Menu;
 import Bomberman.UserArea.UserArea;
 import vialab.SMT.Touch;
 import vialab.SMT.Zone;

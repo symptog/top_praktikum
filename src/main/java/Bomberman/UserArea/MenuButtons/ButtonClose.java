@@ -1,5 +1,6 @@
 package Bomberman.UserArea.MenuButtons;
 
+import Bomberman.UserArea.Menu;
 import Bomberman.UserArea.UserArea;
 import vialab.SMT.Touch;
 import vialab.SMT.Zone;
@@ -9,6 +10,11 @@ public class ButtonClose extends Zone {
     public ButtonCheckClose button_check_close;
     private ButtonYes button_yes;
     private ButtonNo button_no;
+
+    private boolean Submenu = true;
+    public void setSubmenu(boolean status){ Submenu=status; }
+
+    public boolean getSubmenu(){return Submenu;}
 
     private boolean check = true;
 
@@ -20,6 +26,11 @@ public class ButtonClose extends Zone {
         button_yes = new ButtonYes(parent, this.getWidth(),this.getHeight(),this.getWidth(),this.getHeight());
         button_no = new ButtonNo(parent, this.getWidth()*2,this.getHeight(),this.getWidth(),this.getHeight());
 
+        if (!this.Submenu){
+            this.remove(button_check_close);
+            this.remove(button_yes);
+            this.remove(button_no);
+        }
 
     }
 
@@ -49,13 +60,6 @@ public class ButtonClose extends Zone {
             this.add(button_yes);
             this.add(button_no);
         }
-
-        if (this.check){
-            close();
-        }
-
-
-
-    } //nur der Moment des Touches
+    }//nur der Moment des Touches
 
 }

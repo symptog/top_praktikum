@@ -1,11 +1,15 @@
 package Bomberman.UserArea.MenuButtons;
 
+import Bomberman.UserArea.Menu;
 import Bomberman.UserArea.UserArea;
 import vialab.SMT.Touch;
 import vialab.SMT.Zone;
 
 
 public class ButtonNo extends Zone {
+
+    private boolean status = true;
+    protected ButtonNo button_no;
 
     public ButtonNo(UserArea parent, int i, int i1, int i2, int i3) {
         super(i, i1, i2, i3);
@@ -29,6 +33,7 @@ public class ButtonNo extends Zone {
     @Override
     public void touchDown(Touch touch){
 
+        // remove ButtonNo, ButtonYes + ButtonCheckbox
 
     } //nur der Moment des Touches
 
