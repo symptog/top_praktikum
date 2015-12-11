@@ -10,9 +10,8 @@ public class ButtonClose extends Zone {
     private ButtonYes button_yes;
     private ButtonNo button_no;
 
-    private boolean close;
-    public void setButtonClose(boolean action){this.close=action;}
-    public boolean getButtonClose(){return this.close;}
+    private boolean check = true;
+
 
     public ButtonClose(UserArea parent, int i, int i1, int i2, int i3) {
         super(i, i1, i2, i3);
@@ -21,6 +20,13 @@ public class ButtonClose extends Zone {
         button_yes = new ButtonYes(parent, this.getWidth(),this.getHeight(),this.getWidth(),this.getHeight());
         button_no = new ButtonNo(parent, this.getWidth()*2,this.getHeight(),this.getWidth(),this.getHeight());
 
+
+    }
+
+    public void close (){
+        this.remove(button_check_close);
+        this.remove(button_yes);
+        this.remove(button_no);
     }
 
 
@@ -37,14 +43,19 @@ public class ButtonClose extends Zone {
     }
     @Override
     public void touchDown(Touch touch){
-
+        this.check = !this.check;
         if (this.pop) {
             this.add(button_check_close);
             this.add(button_yes);
             this.add(button_no);
         }
 
+        if (this.check){
+            close();
+        }
+
 
 
     } //nur der Moment des Touches
+
 }

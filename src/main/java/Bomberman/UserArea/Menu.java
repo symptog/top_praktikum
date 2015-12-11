@@ -1,9 +1,8 @@
+
 package Bomberman.UserArea;
 
 import Bomberman.UserArea.MenuButtons.*;
-import Bomberman.UserArea.MenuButtons.ButtonNo;
-import vialab.SMT.Touch;
-import vialab.SMT.Zone;
+import vialab.SMT.*;
 
 
 
@@ -36,7 +35,6 @@ public class Menu extends Zone {
         button_check_surr = new ButtonCheckSurr(parent, this.getWidth(),0,this.getWidth()*2,this.getHeight()*4);
         */
 
-
     }
     @Override
     public void draw() {
@@ -48,6 +46,7 @@ public class Menu extends Zone {
         text("Menu", this.getWidth()/2, this.getHeight()/3*2);
 
     }
+
 
     //touch method
     @Override
@@ -71,3 +70,4 @@ public class Menu extends Zone {
     public void touchUp(Touch touch){} //touch moved method
 
 }
+

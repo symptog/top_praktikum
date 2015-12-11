@@ -10,9 +10,7 @@ public class ButtonNew extends Zone {
     private ButtonYes button_yes;
     private ButtonNo button_no;
 
-    private boolean close;
-    public void setButtonNew(boolean action){this.close=action;}
-    public boolean getButtonNew(){return this.close;}
+
 
     public ButtonNew(UserArea parent, int i, int i1, int i2, int i3) {
         super(i, i1, i2, i3);
