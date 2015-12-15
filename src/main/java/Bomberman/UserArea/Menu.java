@@ -40,6 +40,7 @@ public class Menu extends Zone {
 }
 */
 
+import Bomberman.UserArea.MenuButtons.*;
 import vialab.SMT.*;
 
 public class Menu extends Zone {
@@ -50,25 +51,43 @@ public class Menu extends Zone {
     private boolean popclose = false;
     private boolean popnew = false;
     private boolean popsurr = false;
+
+    private ButtonClose button_close;
+    private ButtonSurr button_surr;
+    private ButtonNew button_new;
+    /*
     private ButtonZone button_new;
     private ButtonZone button_surr;
-    private ButtonZone button_close;
+
     private ButtonZone button_yes;
     private ButtonZone button_no;
     private ButtonZone button_check;
+*/
+
 
     public Menu(UserArea parent, int i, int i1, int i2, int i3) {
         super(i, i1, i2, i3);
         this.parent = parent;
 
-        this.button_close = new ButtonZone( "close", 0,-this.getHeight(),this.getWidth(),this.getHeight(), "Beenden");
-        this.button_new = new ButtonZone( "new", 0,-this.getHeight()*2,this.getWidth(),this.getHeight(), "Neustarten");
-        this.button_surr = new ButtonZone( "surr", 0,-this.getHeight()*3,this.getWidth(),this.getHeight(), "Aufgeben");
+        this.button_close = new ButtonClose(parent, 0,-this.getHeight(),this.getWidth(),this.getHeight());
+        this.button_surr = new ButtonSurr(parent, 0,-this.getHeight()*3,this.getWidth(),this.getHeight());
 
-        this.button_check = new ButtonZone ("check", this.getWidth(),-this.getHeight()*3,this.getWidth()*2,this.getHeight()*3, "Willst du wirklich?");
-        this.button_yes = new ButtonZone( "yes", this.getWidth(),0,this.getWidth(),this.getHeight(), "Ja");
-        this.button_no = new ButtonZone( "no",  this.getWidth()*2,0,this.getWidth(),this.getHeight(), "Nein");
+        this.button_new = new ButtonNew(parent, 0,-this.getHeight()*2,this.getWidth(),this.getHeight());
 
+
+       // this.button_new = new ButtonZone( "new", 0,-this.getHeight()*2,this.getWidth(),this.getHeight(), "Neustarten");
+       // this.button_surr = new ButtonZone( "surr", 0,-this.getHeight()*3,this.getWidth(),this.getHeight(), "Aufgeben");
+
+        //this.button_check = new ButtonZone ("check", this.getWidth(),-this.getHeight()*3,this.getWidth()*2,this.getHeight()*3, "Bitte bestaetigen!");
+       // this.button_yes = new ButtonZone( "yes", this.getWidth(),0,this.getWidth(),this.getHeight(), "Ja");
+        //this.button_no = new ButtonZone( "no",  this.getWidth()*2,0,this.getWidth(),this.getHeight(), "Nein");
+
+    }
+
+    void showMenu(){
+        this.add(button_close);
+        this.add(button_new);
+        this.add(button_surr);
     }
 
     @Override
@@ -80,9 +99,11 @@ public class Menu extends Zone {
         textAlign(CENTER);  textSize(15);   fill(0);
         text("Menu", this.getWidth() / 2, this.getHeight() / 3 * 2);
 
+
+
+
+
     }
-
-
     //touch method
     @Override
     public void touch() {}
@@ -90,20 +111,19 @@ public class Menu extends Zone {
     public void touchDown(Touch touch){
 
         this.pop=!this.pop;
+
         if (this.pop) {
-            this.add(button_close);
-            this.add(button_new);
-            this.add(button_surr);
-
+            showMenu();
         }
-
         else {
             clearChildren();
         }
+
     } //nur der Moment des Touches
     @Override
     public void touchUp(Touch touch){} //touch moved method
 
+    /*
     void pressclose(){
         System.out.print("Beenden");
         this.popclose=!this.popclose;
@@ -131,5 +151,6 @@ public class Menu extends Zone {
         this.add(button_no);
         this.add(button_check);
     }
+    */
 }
 

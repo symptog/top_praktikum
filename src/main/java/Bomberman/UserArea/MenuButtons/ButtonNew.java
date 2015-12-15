@@ -41,9 +41,7 @@ public class ButtonNew extends Zone {
             this.add(button_no);
         }
         else{
-            this.remove(button_checknew);
-            this.remove(button_yes);
-            this.remove(button_no);
+            clearChildren();
         }
 
     } //nur der Moment des Touches
