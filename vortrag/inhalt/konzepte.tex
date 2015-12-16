@@ -1,0 +1,85 @@
+\subsection{DemoGNG}
+\begin{frame}
+	\frametitle{DemoGNG}
+	\begin{itemize}
+		\item Von Bernd Fritzke entwickelt
+		\item Visualisierung und Steuerung mehrerer verschiedener Algorithmen
+		\item Implementierung als Java-Applet unter Zuhilfenahme der 
+		Grafikbibliotheken Abstract Window Toolkit und Swing
+		\item Vordefinierte Eingabedaten
+		\item Einstellung des Algorithmus über Eingabefelder möglich
+		\item Demo: \url{http://www.demogng.de/}
+	\end{itemize}
+	
+\end{frame}
+
+\subsection{Matlab Implementation}
+\begin{frame}
+	\frametitle{Matlab Implementation}
+	\begin{itemize}
+		\item Keine eigenständige Anwendung
+		\item Setzt zwingend Matlab voraus
+		\item Eingabedaten müssen separat erstellt werden
+		\item Einstellung des Algorithmus im Quelltext
+		\item Keine Interaktivität
+		\item Algorithmus stürzt regelmäßig ab
+	\end{itemize}
+\end{frame}
+\begin{frame}
+	\frametitle{Matlab Implementation}
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[width=0.9\textwidth]{bilder/matlab.png}
+		\caption{Visualisierung mit Matlab}
+		\label{fig:matlab}
+	\end{figure}
+\end{frame}
+
+\subsection{Modular toolkit for Data Processing}
+\begin{frame}
+	\frametitle{Modular toolkit for Data Processing}
+	\begin{itemize}
+		\item Python Bibliothek
+		\item Beinhaltet ca. 150 Algorithmen
+		\item Nachteil: \textbf{visualisiert keine Daten}
+		\item Einstellung des Algorithmus durch Parameter der Klasse
+		\item Einfaches, schrittweises Iterieren über den Algorithmus
+		\item Zusätzliche Visualisierung mit Matplotlib
+		\item Keine Interaktivität
+	\end{itemize}
+\end{frame}
+\begin{frame}
+	\frametitle{Modular toolkit for Data Processing}
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[width=0.5\textwidth]{bilder/mdptoolkit.png}
+		\caption{Visualisierung des GNG des MDP-Toolkits}
+		\label{fig:mdptoolkit}
+	\end{figure}
+\end{frame}
+
+\subsection{GoGNG}
+\begin{frame}
+	\frametitle{GoGNG}
+	\begin{itemize}
+		\item Algorithmus in Go geschrieben
+		\item Einstellung des Algorithmus im Quelltext
+		\item Eingabedaten müssen separat erzeugt werden
+		\begin{itemize}
+			\item CSV Datei mit x,y-Koordinaten
+		\end{itemize}
+		\item Ausgabedaten im JSON Format
+		\item Visualisierung in Python mit Matplotlib und NetworkX
+		\item Keine Interaktivität
+	\end{itemize}
+\end{frame}
+\begin{frame}
+	\frametitle{GoGNG}
+	\begin{figure}[h!]
+		\centering
+		\subfigure[Eingabedaten]{\includegraphics[width=0.46\textwidth]{bilder/go_1.png}}
+		\subfigure[Ausgabegraph]{\includegraphics[width=0.5\textwidth]{bilder/go_2.png}}
+		\caption{Growing Neural Gas mit Go}
+		\label{fig:go}
+	\end{figure}
+\end{frame}

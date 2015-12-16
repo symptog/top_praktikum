@@ -1,0 +1,24 @@
+\BOOKMARK [0][-]{chapter.1}{Einleitung}{}% 1
+\BOOKMARK [1][-]{section.1.1}{Motivation}{chapter.1}% 2
+\BOOKMARK [1][-]{section.1.2}{Gliederung der Arbeit}{chapter.1}% 3
+\BOOKMARK [0][-]{chapter.2}{Anforderungen und existierende L\366sungen}{}% 4
+\BOOKMARK [1][-]{section.2.1}{Anforderungen}{chapter.2}% 5
+\BOOKMARK [2][-]{subsection.2.1.1}{REST API}{section.2.1}% 6
+\BOOKMARK [2][-]{subsection.2.1.2}{Webfrontend}{section.2.1}% 7
+\BOOKMARK [1][-]{section.2.2}{Existierende L\366sungen}{chapter.2}% 8
+\BOOKMARK [0][-]{chapter.3}{Grundlagen}{}% 9
+\BOOKMARK [1][-]{section.3.1}{Growing Neural Gas}{chapter.3}% 10
+\BOOKMARK [1][-]{section.3.2}{Hadoop}{chapter.3}% 11
+\BOOKMARK [1][-]{section.3.3}{REST und JSON}{chapter.3}% 12
+\BOOKMARK [1][-]{section.3.4}{JGNG}{chapter.3}% 13
+\BOOKMARK [0][-]{chapter.4}{REST API des JGNG}{}% 14
+\BOOKMARK [1][-]{section.4.1}{Vorbetrachtung}{chapter.4}% 15
+\BOOKMARK [1][-]{section.4.2}{Umsetzung}{chapter.4}% 16
+\BOOKMARK [1][-]{section.4.3}{Zusammenfassung}{chapter.4}% 17
+\BOOKMARK [0][-]{chapter.5}{Webfrontend}{}% 18
+\BOOKMARK [1][-]{section.5.1}{Vorbetrachtung}{chapter.5}% 19
+\BOOKMARK [1][-]{section.5.2}{Umsetzung}{chapter.5}% 20
+\BOOKMARK [1][-]{section.5.3}{Zusammenfassung}{chapter.5}% 21
+\BOOKMARK [0][-]{chapter.6}{Bewertung und Ausblick}{}% 22
+\BOOKMARK [1][-]{section.6.1}{Bewertung}{chapter.6}% 23
+\BOOKMARK [1][-]{section.6.2}{Ausblick}{chapter.6}% 24

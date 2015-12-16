@@ -1,0 +1,6 @@
+\beamer@endinputifotherversion {3.24pt}
+\select@language {ngerman}
+\beamer@sectionintoc {1}{Zielsetzung}{3}{0}{1}
+\beamer@sectionintoc {2}{Growing Neural Gas}{4}{0}{2}
+\beamer@sectionintoc {3}{Anforderungen}{5}{0}{3}
+\beamer@sectionintoc {4}{Implementierung}{9}{0}{4}

@@ -1,0 +1,115 @@
+\documentclass[
+    12pt,       % font size
+    a4paper,    % DIN A4
+    twoside,    % two sided
+    german,     %
+    openright,  % chapter on right side (odd page number)
+    BCOR8mm,    % fix binding (here 8 mm)
+]{scrreprt}
+
+
+\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
+
+\usepackage{
+    ngerman,    % new german orthography
+    bibgerm,    % german bibliography
+    graphicx,
+    ae,         % handling german umlauts for search and copy in PDF
+    aecompl,    % handling german umlauts for search and copy in PDF
+    url,        % handling URLs
+$if(tables)$
+    longtable,  % handling tables with pandoc
+    booktabs,   % handling tables with pandoc
+$endif$
+    listingsutf8,   % handling listings with pandoc
+    placeins,   % for FloatBarrier
+    amsmath,
+    amssymb,
+}
+
+% set line spread
+\linespread{1.5}
+
+\setcounter{tocdepth}{2}
+
+% avoids alone lines on end or start of new page
+\clubpenalty10000
+\widowpenalty10000
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+\begin{document}
+
+% title page
+\titlehead{
+    \begin{picture}(167, 26)(0, -26)
+        \makebox(0, 20)[lt]{
+            \includegraphics[width=55mm]{$headergraphic$}
+            \hspace*{10mm}
+        }
+        \put(160, -70){\makebox(0, 26)[b]{\vrule width 0.75pt height 26mm}}
+        \put(180, -10){\fontsize{14}{19}\textsf {$faculty$}}
+        \put(180, -30){\fontsize{12}{18}\textsf {$professorship$}}
+    \end{picture}
+
+}
+\subject{\huge{$heading$}}
+\title{\textnormal{$title$}}
+\author{$author$}
+\date{\small $date$}
+\publishers{
+    {\parbox{\textwidth}{
+        \normalsize
+        \begin{tabbing}
+            {\bf TEMPLATE}\quad\=\kill % line to specify tabs
+            $for(attributes)$
+                {\bf $attributes.name$} \>$attributes.value$\\
+            $endfor$
+        \end{tabbing}
+    }}
+}
+
+
+\maketitle
+
+$if(abstract)$
+\begin{abstract}
+    \begin{quote}
+        $abstract$
+    \end{quote}
+\end{abstract}
+$endif$
+
+% set numbering to roman
+\pagenumbering{roman}
+
+\tableofcontents
+\listoftables
+\listoffigures
+\lstlistoflistings
+\cleardoublepage
+
+% reset to arabic numbering
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+$body$
+
+\chapter*{Selbstständigkeitserklärung}
+
+Hiermit erkläre ich, dass ich die vorliegende Arbeit
+selbstständig angefertigt, nicht anderweitig zu Prüfungszwecken vorgelegt und
+keine anderen als die angegebenen Hilfsmittel verwendet habe. Sämtliche
+wissentlich verwendete Textausschnitte, Zitate oder Inhalte anderer Verfasser
+wurden ausdrücklich als solche gekennzeichnet.\\[2ex]
+Chemnitz, den 09. März 2015\\[6ex]
+\flushleft
+\newlength\us
+\settowidth{\us}{-Morris~Jobke-}
+\begin{tabular}{p{\us}}\hline
+\centering\footnotesize Morris~Jobke
+\end{tabular}
+
+\end{document}

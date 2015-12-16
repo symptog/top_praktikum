@@ -1,0 +1,45 @@
+\begingroup
+%\sffamily
+\begin{center}
+
+  \vspace*{-2.0cm}
+  \includegraphics[scale=1.4]{$headergraphic$} \\
+  \hrulefill \\[1em]
+  \medskip
+  \par{\huge\sffamily $faculty$}
+  \medskip
+  \par{\Large\sffamily $professorship$}
+
+  \vspace*{1.5cm}
+
+  \vfill
+
+  \vspace*{.75cm}
+  \par{\scalebox{1.5}{\Huge\bfseries $heading$}}
+  \vspace*{1.5cm}
+  \par{\LARGE\sffamily
+    $title$\par\null}
+  \vspace*{0.75cm}
+
+  \vfill
+  \vfill
+
+
+  \par{\large\sffamily $author$}
+  \bigskip
+  \par{\large\sffamily $date$}
+
+  \vfill
+
+  \vspace*{1.5cm}
+  \begin{minipage}{0.9\textwidth}
+  \large\sffamily
+  \begin{tabbing}
+  {\bfseries TEMPLATE}	\quad\=\kill
+    $for(attributes)$
+        {\bf $attributes.name$} \>$attributes.value$\\
+    $endfor$
+  \end{tabbing}
+  \end{minipage}
+\end{center}
+\endgroup

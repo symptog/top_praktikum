@@ -1,0 +1,38 @@
+\begin{frame}
+	\frametitle{Growing Neural Gas}
+	\begin{itemize}
+		\item künstliches neuronales Netz
+		\item 1995 von Bernd Fritzke entwickelt
+		\item lernt selbstständig seine Struktur
+	\end{itemize}
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[width=0.7\textwidth]{bilder/animated_training-26.png}
+		\caption{Simulation Growing Neural Gas}
+		\label{fig:simulation}
+	\end{figure}
+\end{frame}
+\note{\begin{enumerate}
+	\item Initialize the set with two units
+	\item Generate at random an input signal $\xi$ according to $p(\xi)$
+	\item Determine the winner $s_{1}$ and the second-nearest unit $s_{2}$
+	\item If a connection between does not exist already, create it. Set the age of the connection to zero
+	\item Add the squared distance between the input signal and the winner to a local error variable
+	\item Adapt the reference vectors of the winner and its direct topological neighbors by fractions $epsilon_{winner}$ and $epsilon_{neighbor}$, respectively, of the total distance to the input signal
+	\item Increment the age of all edges emanating from winner $s_{1}$
+	\item Remove edges with an age larger than $age_{max}$. If this results in units having no more emanating edges, remove those units as well
+\end{enumerate}}
+\note{\begin{enumerate}
+	\setcounter{enumi}{8}
+	\item If the number of input signals generated so far is an integer multiple of a parameter $\lambda$, insert a new unit as follows
+	\begin{enumerate}
+		\item Determine the unit $q$ with the maximum accumulated error
+		\item Determine among the neighbors of $q$ the unit $f$ with the maximum accumulated error
+		\item Add a new unit r to the network and interpolate its reference vector from $q$ and $f$
+		\item Insert edges connecting the new unit $r$ with units $q$ and $f$, and remove the original edge between $q$ and $f$
+		\item Decrease the error variables of $q$ and $f$ by a fraction $\alpha$
+		\item Interpolate the error variable of $r$ from $q$ and $f$
+	\end{enumerate}
+	\item Decrease the error variables of all units by a fraction $\beta$
+	\item If a stopping criterion (e.g., net size or some performance measure) is not yet fulfilled continue with step 2
+\end{enumerate}}
