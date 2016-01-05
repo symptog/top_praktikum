@@ -4,7 +4,6 @@ import Bomberman.UserArea.UserArea;
 import vialab.SMT.Touch;
 import vialab.SMT.Zone;
 
-
 public class ButtonNo extends Zone {
 
     public ButtonNo(UserArea parent, int i, int i1, int i2, int i3) {
@@ -27,6 +26,7 @@ public class ButtonNo extends Zone {
     }
     @Override
     public void touchDown(Touch touch){
+        this.getParent().getParent().clearChildren();
 
     } //nur der Moment des Touches
 

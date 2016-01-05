@@ -7,8 +7,11 @@ import vialab.SMT.Zone;
 
 public class ButtonYes extends Zone {
 
-    public ButtonYes(UserArea parent, int i, int i1, int i2, int i3) {
+    private Integer id;
+
+    public ButtonYes(UserArea parent, int i, int i1, int i2, int i3, int button_id) {
         super(i, i1, i2, i3);
+        id = button_id;
     }
 
     @Override
@@ -22,5 +25,19 @@ public class ButtonYes extends Zone {
 
     }
     @Override
-    public void touchDown(Touch touch){} //nur der Moment des Touches
+    public void touchDown(Touch touch){
+        switch (id) {
+            case 1:
+                    // close game
+                    break;
+            case 2:
+                    // start new game
+                    break;
+            case 3:
+                    // surrender
+                    break;
+            default:
+                    break;
+        }
+    } //nur der Moment des Touches
 }

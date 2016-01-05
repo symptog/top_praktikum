@@ -7,8 +7,8 @@ import vialab.SMT.Zone;
 public class ButtonNew extends Zone {
     private boolean pop = false;
     private ButtonCheckNew button_checknew;
-    private ButtonYes button_yes;
-    private ButtonNo button_no;
+    //private ButtonYes button_yes;
+    //private ButtonNo button_no;
 
 
 
@@ -16,8 +16,8 @@ public class ButtonNew extends Zone {
         super(i, i1, i2, i3);
 
         button_checknew = new ButtonCheckNew(parent, this.getWidth(),- this.getHeight(),this.getWidth()*2,this.getHeight()*4);
-        button_yes = new ButtonYes(parent, this.getWidth(),this.getHeight()*2,this.getWidth(),this.getHeight());
-        button_no = new ButtonNo(parent, this.getWidth()*2,this.getHeight()*2,this.getWidth(),this.getHeight());
+       // button_yes = new ButtonYes(parent, this.getWidth(),this.getHeight()*2,this.getWidth(),this.getHeight());
+       // button_no = new ButtonNo(parent, this.getWidth()*2,this.getHeight()*2,this.getWidth(),this.getHeight());
 
 
     }
@@ -37,8 +37,8 @@ public class ButtonNew extends Zone {
         this.pop=!this.pop;
         if (this.pop) {
             this.add(button_checknew);
-            this.add(button_yes);
-            this.add(button_no);
+            //this.add(button_yes);
+            //this.add(button_no);
         }
         else{
             clearChildren();
