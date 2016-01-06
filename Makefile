@@ -7,10 +7,16 @@ praktikum.pdf: content/praktikum.md
 			--listings \
 			--chapter \
 			content/praktikum.md \
-			content/teil_1.md \
-			content/teil_2.md \
-			content/teil_3.md \
-			content/teil_4.md \
+			content/Einleitung.md \
+			content/Papierprototyp.md \
+			content/implementierung/Grundgeruest.md \
+			content/implementierung/Menue.md \
+			content/implementierung/Steuerung.md \
+			content/implementierung/Upgrades.md \
+			content/implementierung/Bomben.md \
+			content/implementierung/Siegbedingungen.md \
+			content/User_Tests.md \
+			content/Zusammenfassung.md \
 			bibliography.md \
 			-o "build/praktikum.pdf"
 	xdg-open build/praktikum.pdf
