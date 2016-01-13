@@ -1,5 +1,6 @@
 package Bomberman.UserArea.MenuButtons;
 
+import Bomberman.Bomberman;
 import Bomberman.UserArea.Menu;
 import Bomberman.UserArea.UserArea;
 import vialab.SMT.Touch;
@@ -7,11 +8,13 @@ import vialab.SMT.Zone;
 
 public class ButtonYes extends Zone {
 
+    protected Bomberman bomberman;
     private Integer id;
 
-    public ButtonYes(UserArea parent, int i, int i1, int i2, int i3, int button_id) {
+    public ButtonYes(UserArea parent, int i, int i1, int i2, int i3, int button_id, Bomberman b) {
         super(i, i1, i2, i3);
-        id = button_id;
+        id = button_id; // // button id: 1= close 2=new 3= surrender
+        this.bomberman = b;
     }
 
     @Override
@@ -35,6 +38,10 @@ public class ButtonYes extends Zone {
                     break;
             case 3:
                     // surrender
+                if (bomberman.isAlive()){
+                    bomberman.lostgame();
+                    getParent().getParent().getParent().clearChildren();
+                }
                     break;
             default:
                     break;
