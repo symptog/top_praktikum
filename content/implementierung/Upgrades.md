@@ -1,8 +1,10 @@
 ## Upgrades
 
-\todo[inline]{Upgrades}
+Wie der Abschnitt "Spielfeld" schon angeschnitten hat, existieren im Spiel Gegenstände, die von der Spielfigur eingesammelt werden können. Die sogenannten Upgrades. Upgrades sind Blöcke mit einer bestimmten Textur. Je nach Upgrade werden verschiedene Texturen gerendert und angezeigt. Beim Spielstart sind die Upgrades allerdings nicht zu sehen. Sie werden zufällig unter den verdeckten Blöcken versteckt. Dazu wird in der Instanz der Klasse `Block` das Attribut `type`, welcher den Gegenstand identifiert, und das Attribut `covered` gesetzt. Das Attribut `covered` bewirkt, dass der Block mit der Textur des verdeckten Blocks angezeigt wird. Es gibt verschiedene Gegenstände: ein zusätzliches Leben, eine zusätzliche Bombe, erhöhung der Sprengreichweite der Bombe und Erhöhung der Geschwindigkeit der Spielfigur.
 
-* Was gibts für Upgrades
-* Auswirkungen
-* Einsammeln
-* Annimation
+Die Gegenstände haben verschiedene Auswirkungen auf die Spielfigur. Das einsammeln eine zusätzlichen Lebens bewirkt, dass die Spielfigur einmal mehr sterben kann, bevor sie aus dem Spiel ausscheidet. Die zusätzliche Bombe bewirkt, dass die Spielfigur eine Bombe mehr zur Verfügung hat, die sie legen kann. Die Sprengreichweite der Bombe kann ebenfalls durch einen Gegenstand erhöht werden. Je nach Anzahl der eingesammleten Gegenstände zur Erhöhung der Reichweite, erhöht sich der Umkreis der betroffenen Felder bei der Detonation einer Bombe um eins. Der letzte Gegenstand der eingesammelt werden kann, dient zur Erhöung der Geschwindigkeit der Spielfigur. Diese kann sich so schneller durch das Spielfeld bewegen.
+
+Um die Gegenstände zu erreichen, muss der Spieler die verdeckten Blöcke mit einer Bombe wegsprengen. Blöcke, die im Umkreis der Sprengreichweite des Bombe liegen werden beim zünden der Bombe neu gerendert. Wenn ein Block mit einem Gegenstand versehen ist, wird dieser angezeigt. Ansonsten wird ein leerer Block angezeigt.
+Die Spielfigur ist dann in der lage den Gegenstand durch einfaches herüberlaufen über den Gegenstand auszusammeln. Wurde der Gegenstand aufgesammelt, wird auch dieser Block als leerer Block dargestellt.
+
+Damit ein Spieler erkennt, dass seine Spielfigur einen Gegenstand eingesammelt hat, wurde eine Animation implementiert. Die Animation läst den Gegenstand über das Spielfeld zur `UserArea` des Nutzers fliegen und verändert an dieser Stelle die Anzeige über vorhandene Gegenstände. Sie ist so umgesetzt, dass der Gegenstand sich anhand eines berechneten Vektors, von der aktuellen Blockposition zur `UserArea`, bewegt. Dabei wird er mit einer definierten Anzahl Pixel in die Richtung des Vektors verschoben. Die Animation bricht ab und entfernt das Bild des Gegenstandes, wenn die Position in der `UserArea` erreicht ist.
