@@ -1,7 +1,6 @@
 # Einleitung
 
-\todo[inline]{Einleitung schreiben; Aufgabenbeschreibung}
+Im Rahmen unserers Team Praktikums wurde uns die Aufgabe gestellt eine kurzweilige Anwendung für einen Multitouch Tisch zu entwickeln, die unterschiedliche Menschen zu einer gemeinsamen Interaktion bewegt. Zusätzlich sollte die Möglichkeit Fähigkeit des Tisches, mehrfache Toucheingaben verarbeiten zu können, integriert werden. Nach reiflicher Überlegung entschieden wir uns für ein Spiel, da Spiele quasi für genau diese Aufgabe erfüllen. Spielideen gab es einige, doch am Ende entschieden wir uns für einen Klassiker - Bomberman. Bis zu 4 Spieler können teilnehmen und gegeneinander antreten, wer als letztes noch steht gewinnt.
 
-* Aufgabenbeschreibung
-* Ideenfindung
-* Allgemeine Beschreibung von Bomberman
+
+Für unsere Version des Bomberman Spiels haben wir die klassische Variante gewählt. Das Spielfeld besteht aus einer Mischung von sprengbaren und nicht sprengbaren Blöcken. Diese sprengabren Blöcke können durch Bomben zerstört werden, um weitere Teile des Spielfeldes zu erschließen. Unter gesprengten Blöcken können sich zufällig verteilte Upgrades befinden, welche nach dem einsammeln für den Spieler wirksam werden. Die Upgrade Boni gelten für die Sprengreichweite (Flamme), die Anzahl der gleichzeitig legbaren Bomben (maximal 3), zusätzliche Bewegungsgeschwindigkeit der Spielfigur oder einem Leben. Bei der Explosion einer Bombe breitet sich der Feuerstrahl in alle 4 Richtungen aus, anfangs nur ein Feld neben der Bombe, später nach dem einsammeln von Flammen Upgrades auch noch weiter. Befindet sich eine Spielfigur innerhalb des Bombenradius stirbt sie, verliert ein Leben und erscheint wieder an ihrem Ausgangspunkt. Das Bomberman Spiel wurde als Multiplayer konzipiert und das Ziel besteht darin, die Gegenspieler solange dem Feuerstrahl von Bomben auszusetzen, bis nur noch eine Spielfigur übrig bleibt.

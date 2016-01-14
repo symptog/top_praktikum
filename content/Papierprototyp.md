@@ -21,4 +21,9 @@ Nach dem Ende der Bastelei am Paper Prototype sahen wir erstmals das vorläufige
 ## erste Spielversuche
 Der erste Test des Spiels in der Papierversion fand mit nicht involvierten Spielern statt und verlief trotz des großen Aufwands recht erfolgreich. ... So konnte im Anschluss die Umsetzung des Bomberman-Spiels in die digitale Form beginnen.
 
+* leicht verständliches Grundprinzip
+* umständliche echtzeit Umsetzung
+* positives feedback
+* 2x Testergruppen
+
 \todo[inline]{Auswertung der PP-Tests}

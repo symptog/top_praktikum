@@ -1,4 +1,12 @@
 ## Sterben und Siegen
+
+### Sterbeanimation und Auswirkungen des Sterbens
+
+Was passiert, wenn ein Spieler von einer Bombenexplosion erwischt wird?  Einfach die Position des Bomberman wieder auf Ausgangsposition zu setzen, reicht nicht aus. Es muss erkennbar sein, dass die Spielfigur gerade gestorben ist. Dazu wurde eine Verzögerung von 300 Frames eingebaut, bevor die Position zurückgesetzt wird. Während diesen 300 Frames wird die Steuerung deaktiviert, und eine Animation abgespielt. Diese Sterbeanimation sollte wieder so simpel wie möglich sein. Der erste Entwurf enthielt 2 Bilder, die wieder abwechselnd angezeigt werden sollten: Die Frontalansicht des Bomberman (statt den normalen Augen wurden Kreuze angezeigt), und das gleiche Bild mit einer weißen Umrandung. Dies sollte sowohl das Sterben verdeutlichen, als auch anzeigen, dass die Figur aktuell unverwundbar ist. Bei einem ersten Test wurde dann allerdings festgestellt, dass eine weiße Umrandung auf weißem Hintergrund nur schwer erkennbar ist. Die Umrandung wurde daraufhin in schwarz umgeändert.
+Sollte ein Bomberman sterben und keine weiteren Leben mehr besitzen, wird nach den 300 Frames die Spielfigur nicht mehr angezeigt, die Steuerung deaktiviert und die Steuerfläche mit dem Hinweis versehen, dass der Spieler leider verloren hat.
+
+### Siegbedingungen
+
 Die erste Version der Siegbedingungen entstand recht kurzfristig vor dem ersten Usertest.
 Die Variante war daher noch nicht wirklich gut durchdacht, funktionierte allerdings erst
 einmal. In der Field Klasse wurde eine neue Funktion angelegt, die abprüft, ob nur noch ein
