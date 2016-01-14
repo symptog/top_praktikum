@@ -4,7 +4,7 @@ As I'm currently writing my thesis this template will evolve and get new feature
 
 To generate the document run
 
-	make test.pdf
+	make
 
 There is also a mode to watch for file changes and then run `pandoc` on each file save
 

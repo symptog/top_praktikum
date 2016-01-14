@@ -17,7 +17,6 @@ praktikum.pdf: content/praktikum.md
 			content/implementierung/Siegbedingungen.md \
 			content/User_Tests.md \
 			content/Zusammenfassung.md \
-			bibliography.md \
 			-o "build/praktikum.pdf"
 	xdg-open build/praktikum.pdf
 
