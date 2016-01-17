@@ -124,7 +124,6 @@ public class UserArea extends Zone {
             }
             if(!bomberman.isAlive())
             {            //}
-
                 background(128,128,128);
                 stroke(0,0,0);
                 fill(128,128,128);

@@ -10,9 +10,11 @@ public class ButtonYes extends Zone {
 
     protected Bomberman bomberman;
     private Integer id;
+    public Integer counter = 0;
 
-    public ButtonYes(UserArea parent, int i, int i1, int i2, int i3, int button_id, Bomberman b) {
+    public ButtonYes(UserArea parent, int i, int i1, int i2, int i3, Bomberman b, int button_id) {
         super(i, i1, i2, i3);
+        this.parent = parent;
         id = button_id; // // button id: 1= close 2=new 3= surrender
         this.bomberman = b;
     }
@@ -32,7 +34,7 @@ public class ButtonYes extends Zone {
         switch (id) {
             case 1:
                     // close game
-                    break;
+                     break;
             case 2:
                     // start new game
                     break;
