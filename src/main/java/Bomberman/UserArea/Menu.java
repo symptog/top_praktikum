@@ -12,7 +12,7 @@ public class Menu extends Zone {
     private boolean pop = false;
     protected Bomberman bomberman;
 
-    private Submenu button_close;
+    private Submenu button_close = null;
     private Submenu button_new;
     private Submenu button_surr;
 
@@ -22,9 +22,9 @@ public class Menu extends Zone {
         this.side = position;
         this.bomberman = b;
 
-        this.button_close = new Submenu(parent, 0,-this.getHeight(),this.getWidth(),this.getHeight(),"Beenden" , this.side, bomberman);
-        this.button_surr = new Submenu(parent, 0,-this.getHeight()*3,this.getWidth(),this.getHeight(),"Aufgeben" , this.side, bomberman);
-        this.button_new = new Submenu(parent, 0,-this.getHeight()*2,this.getWidth(),this.getHeight(),"Neues Spiel" , this.side, bomberman);
+        this.button_close = new Submenu(0,-this.getHeight(),this.getWidth(),this.getHeight(),"Beenden" , this.side, bomberman);
+        this.button_surr = new Submenu(0,-this.getHeight()*3,this.getWidth(),this.getHeight(),"Aufgeben" , this.side, bomberman);
+        this.button_new = new Submenu(0,-this.getHeight()*2,this.getWidth(),this.getHeight(),"Neues Spiel" , this.side, bomberman);
 
     }
 
