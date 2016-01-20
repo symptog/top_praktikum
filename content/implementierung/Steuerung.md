@@ -32,19 +32,7 @@ Die Eingabe über die `UserArea` ruft die Bewegungsmethoden in der Klasse `Bombe
 Durch die Bewegung auf der virtuelen Linie, müsste sich die Spielfigur direkt im Mittelpunkt eines Blockes befinden, um von einer vertikalen in eine horizontale Bewegung, oder umgekehrt, überzugehen. Mit Hilfe eines Tolleranzberieches um den Mittelpunkt des Blockes herum, kann die Spielfigur zwischen einer vertikalen und horizontalen Linie übergehen. Ein zu kleiner Tolleranzbereich hemmt dabei aber den Spielfluss, da es für den Spieler zu schwierig ist seine Figur in diesen Bereich zu steuern.
 
 ## Bewegungsanimation
-### Was war bereits vorhanden?
-Als die Arbeit an der Bewegungsanimation begann, war bereits das Grundgerüst vorhanden.
-Es gab also schon verschiedene Blöcke auf dem Spielfeld, ebenso waren bereits Abfragen
-eingebunden, um zu ermitteln, welche Blöcke von einem Bomberman besucht werden
-können. Diese Abfragen waren in Funktionen eingegliedert, namentlich moveright(),
-moveleft(), moveup() und movedown(). Sie sollten ausgeführt werden, wenn man den
-jeweiligen Richtungsbefehl erhält. Da zu diesem Zeitpunkt allerdings noch keine
-Bewegungssignale von den Touchzones übermittelt wurden, wurde zu Testzwecken ein
-Bomberman jeden Frame in die gleiche Richtung laufen gelassen. Zudem gab es bereits
-einen Bomberman als Platzhalter, der sich ohne jede Animation mittels der oben genannten
-move Funktionen über das Spielfeld bewegen lässt.
 
-### Grundidee
 Die Animation sollte insgesamt eher minimalistisch werden, jedoch trotzdem ansprechend wirken. Damit überhaupt eine Animation erkennbar ist, braucht man mindestens zwei verschiedene Bilder, die abwechselnd angezeigt werden. Es wurden also für
 jede Bewegungsrichtung zwei verschiedene Bilder (mehr dazu im nächsten Absatz „Bilder
 Entstehung“) entworfen, die in einem bestimmten Takt abwechselnd angezeigt werden
