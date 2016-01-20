@@ -45,9 +45,7 @@ einen Bomberman als Platzhalter, der sich ohne jede Animation mittels der oben g
 move Funktionen über das Spielfeld bewegen lässt.
 
 ### Grundidee
-Die Animation sollte insgesamt eher minimalistisch werden, jedoch trotzdem einen gewissen
-Charme versprühen. Damit man überhaupt eine Animation erkennen kann, braucht man
-mindestens zwei verschiedene Bilder, die abwechselnd angezeigt werden. Es wurden also für
+Die Animation sollte insgesamt eher minimalistisch werden, jedoch trotzdem ansprechend wirken. Damit überhaupt eine Animation erkennbar ist, braucht man mindestens zwei verschiedene Bilder, die abwechselnd angezeigt werden. Es wurden also für
 jede Bewegungsrichtung zwei verschiedene Bilder (mehr dazu im nächsten Absatz „Bilder
 Entstehung“) entworfen, die in einem bestimmten Takt abwechselnd angezeigt werden
 sollten, und zusätzlich ein Bild für den Ruhezustand, wenn die Figur gerade nicht bewegt
@@ -59,26 +57,26 @@ Geschwindigkeit der Figur abhängig gemacht werden.
 ### Bilder Entstehung
 Als Grundlage für den Entwurf der Animationsbilder wurde der Platzhalter genommen: ein
 einzelner Bomberman in der Frontalansicht, ohne erkennbare Beine. Eine
-Bewegungsanimation kann man jedoch am ehesten an einer Bewegung der Beine erkennen.
-Der erste Schritt war also, dem Bomberman Beine zu verpassen. Dazu wurde einfach der
+Bewegungsanimation ist jedoch am ehesten an einer Bewegung der Beine zu erkennen.
+Der erste Schritt war also, den Bomberman so zu verändern, dass eine Bewegung der Beine erkennbar war. Dazu wurde einfach der
 „Rock“, den unser Platzhalter Bomberman an hat, etwas angepasst, und das Resultat war mit
 etwas Toleranz durchaus als Beine erkennbar. Dieses Bild (Blickrichtung unten, beide Beine
 am Boden) wurde dann das Bild für den Ruhezustand.
 Da der Bomberman quasi „nach unten“ schaut, wurden zuerst die Animationsbilder für die
-movedown() Funktion entworfen. Hierzu wurde wieder unser Ruhezustand Bild genommen,
+`movedown()`Funktion entworfen. Hierzu wurde wieder unser Ruhezustand Bild genommen,
 und daraus zwei neue Bilder entwickelt: auf einem Bild ist der linke Fuß angehoben, und auf
 dem anderen Bild der rechte Fuß. Wenn die Bilder abwechselnd angezeigt werden, war
 bereits einen simpler Bewegungsablauf erkennbar.
-Als nächstes wurden die Bilder für die moveup() Funktion entworfen, also die Bewegung
+Als nächstes wurden die Bilder für die `moveup()` Funktion erstellt, also die Bewegung
 nach oben. Hierzu wurde das Ruhezustand Bild einfach horizontal gespiegelt, und die Augen
 und der Mund des Bomberman entfernt. Anschließend sind wieder zwei Versionen
-entstanden, mit jeweils einem Bein angehoben.Für die seitlichen Bewegungen (also moveleft() und moveright()) mussten einige
+entstanden, mit jeweils einem Bein angehoben.Für die seitlichen Bewegungen (also `moveleft()` und `moveright()`) mussten einige
 Anpassungen vorgenommen werden: Der Docht, der aus dem Kopf des Bomberman ragt,
 musste entsprechend positioniert werden, ebenso wurde jeweils nur ein Auge verwendet,
 welches in Laufrichtung blickt. Der ursprüngliche Platzhalter, der als Vorlage benutzt wurde,
 hatte jedoch nur einen linken Arm, mit dem er eine Bombe hält. Wenn sich der Bomberman
 nach rechts bewegt, konnte man also keine Arme sehen, da der linke Arm vom Kopf verdeckt
-wurde. Bei den Bildern für moveright() wurde dann kurzerhand ein kleiner verstümmelter
+wurde. Bei den Bildern für `moveright()` wurde dann kurzerhand ein kleiner verstümmelter
 Arm eingefügt, als kleiner makabrer Hinweis, dass Bomben kein Spielzeug sind.
 Auflösungsbedingt war der verstümmelte Arm aber kaum erkennbar auf dem Spielfeld. Die
 Beine der Bomberman wurden für die seitwärts Bewegungen kurzerhand aus zwei Dreiecken
@@ -100,19 +98,19 @@ Grundsätzlich sollte die Berechnung der Position getrennt von der Animation sta
 Daher wurden die move Funktionen nur geringfügig angepasst. Eines der Attribute der
 Bomberman beinhaltet die aktuelle Geschwindigkeit (Attribut „speed“) des jeweiligen
 Bomberman, und entspricht der Anzahl Pixel, die sich der Bomberman bei einem move
-Befehl pro Frame in die gewünschte Richtung bewegen soll. Die Veränderung der Position in
+Befehl pro Frame in die gewünschte Richtung bewegt. Die Veränderung der Position in
 den move Funktionen wurde also statt von einem festen Wert einfach von dem
 Geschwindigkeits Attribut abhängig gemacht.
 Die Bomberman haben ihre eigene draw Funktion, in der bestimmt wird, was auf dem
-Bildschirm ausgegeben werden soll.
-Vom Touchpanel sollte immer eines von 5 verschiedenen Signalen kommen: direction=0 für
+Bildschirm ausgegeben wird.
+Vom Touchpanel kommt immer eines von 5 verschiedenen Signalen: direction=0 für
 stehend, direction=10 für Bewegung nach oben, direction=20 für Bewegung nach unten,
 direction=30 für Bewegung nach links und direction=40 für Bewegung nach rechts.
 In der draw-Funktion unserer Bomberman wurden also abhängig von der direction
 unterschiedliche Bilder ausgegeben. Bevor die Bilder gezeichnet wurden, wurden sie
 einmalig gerendert und in einer Hashmap gespeichert.
 Wenn die direction 0 war, der Bomberman also einfach nur da stand, wurde einfach nur das
-Bild für den stehenden Bomberman gezeichnet.Wenn der Bomberman sich allerdings in eine bestimmte Richtung bewegen sollte, mussten
+Bild für den stehenden Bomberman gezeichnet.Wenn allerdings eine Bewegung dargestellt wird, mussten
 in einem bestimmten Takt zwei verschiedene Bilder auf dem Bildschirm gezeichnet werden.
 Um dies zu realisieren, wurde in der Bomberman Klasse ein weiteres Attribut namens
 „count“ angelegt. Count ist ein float Wert, und soll Werte zwischen 0 und 50 annehmen.
@@ -126,10 +124,6 @@ Bewegungsgeschwindigkeit auch optisch erhöht, wurde count ab der zweiten Versio
 um den aktuellen speed Wert erhöht. Auf diese Weise verkürzt sich das Intervall, in dem sich
 die Bilder abwechseln.
 
-
-### Erste Tests
-Beim ersten Nutzertest wurde die Bewegungsanimation als angenehm bewertet, es gab
-insgesamt keine weiteren Auffälligkeiten in diesem Bereich.
 
 ### Nachteile/Probleme
 Da die Animation komplett abhängig von den Frames ist, (also der fps (frames per second))
