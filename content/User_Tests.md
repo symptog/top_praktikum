@@ -1,3 +1,11 @@
+
+\begin{figure}[h]
+    \centering
+    \caption{Screenshot des Bomberman-Spiels}
+    \includegraphics[width=\textwidth]{figures/screenshot01.png}
+    \label{fig:screenshot01}
+\end{figure}
+
 # User Tests
 ## Erster Test
 ### User Feedback
@@ -21,5 +29,3 @@ Im zweiten User Test wurde wieder mit einer 4er Gruppe getestet. Auch hier wurde
 
 ###User Feedback
 Die empfindlichkeit der Steuerung beim abbiegen an einer Ecke war zwar immernoch etwas unzuverlässig, aber nach kurzer Eingewöhnungszeit durchaus annehmbar. Die Umsetzung des Spielkonzeptes funktioniert und macht Spaß. Da der Test die praxistauglichkeit des Bombermann Spiels zeigte, wurden anschließend keine Veränderungen mehr am Spiel selbst vorgenommen.
-
-

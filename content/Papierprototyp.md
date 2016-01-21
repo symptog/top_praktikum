@@ -4,7 +4,7 @@ Der erste Schritt in der Entwicklung des Bomberman-Spiels sollte, nach der Entsc
 
 \begin{figure}[h]
     \centering
-    \caption{Papierprototyp}
+    \caption{Paper Prototype}
     \includegraphics[width=\textwidth]{figures/IMAG0149.jpg}
     \label{fig:papierprototyp}
 \end{figure}

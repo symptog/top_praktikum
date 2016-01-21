@@ -1,5 +1,5 @@
 ---
-title: Entwicklung eines Bomberman-Spieles für einen Tabletop
+title: Entwicklung eines Bomberman-Spiels für einen Tabletop
 author: Tobias Gall \and Björn Naumann \and Sebastian Arndt \and Michael Swora
 date: Chemnitz, den \today
 heading: Teamorientiertes Praktikum
