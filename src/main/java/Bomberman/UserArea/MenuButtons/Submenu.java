@@ -34,6 +34,8 @@ public class Submenu extends Zone {
 
 
     }
+    @Override
+    public void drag(){}
 
     @Override
     public void draw() {

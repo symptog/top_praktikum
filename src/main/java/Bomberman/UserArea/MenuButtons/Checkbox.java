@@ -30,6 +30,9 @@ public class Checkbox extends Zone {
     }
 
     @Override
+    public void drag(){}
+
+    @Override
     public void draw() {
         stroke(0, 0, 0);
         fill(192, 30, 0);

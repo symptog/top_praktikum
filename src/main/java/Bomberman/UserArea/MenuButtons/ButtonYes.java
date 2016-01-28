@@ -26,6 +26,10 @@ public class ButtonYes extends Zone {
         text("Ja", this.getWidth() / 2, this.getHeight() / 3 * 2);
 
     }
+
+    @Override
+    public void drag(){}
+
     @Override
     public void touchDown(Touch touch){
         switch (id) {
