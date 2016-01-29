@@ -4,15 +4,14 @@ Das Menü kann über eine kleine Touchzone neben der User Area erreicht werden. 
 
 Deklariert wird das Menü innerhalb der Userarea in der Funktion  `touch()`. Bei der Initialisierung des Menüs wird vorher geprüft, auf welcher Seite sich der Button befindet, denn die Spielerfarben rot und violett erfordern eine Spiegelung. Die Übergabewerte für das Menü umfassen die x- und y-Koordinate für den Start, die Größe des Buttons, die Eigenschaft, ob sich das Menü auf der Seite von rot/violett (1) oder orange/blau befindet (2), und die Bomberman-Spielfigur.
 
+In der Klasse `Menu` werden die drei Buttons (`button_close`, `button_new`,\linebreak `button_surr`) des Submenüs durch die Klasse `Submenu` deklariert. An die Submenü-Buttons werden die Koordinaten des Startpunktes, die Größe, der Text des Buttons, die Seite (rot/violett oder orange/blau) und die Spielfigur übergeben. Um das Menü öffnen und schließen zu können, wird die private boolean-Variable `pop` angelegt und mit false deklariert (das Menü ist anfangs geschlossen), welche beim Touch auf `!pop` gesetzt wird. Danach wird je nach Entscheidung der if-else-Schleife das Submenu angezeigt (`pop` = true) oder geschlossen (`pop` = false). Das Schließen im else-Zweig übernimmt die SMT Funktion `clearChildren()`.
+
 \begin{figure}[h]
     \centering
     \caption{Screenshot des Menüs}
     \includegraphics[width=\textwidth]{figures/Bombermann_menu.png}
     \label{fig:screenshot_menu}
 \end{figure}
-
-
-In der Klasse `Menu` werden die drei Buttons (`button_close`, `button_new`,\linebreak `button_surr`) des Submenüs durch die Klasse `Submenu` deklariert. An die Submenü-Buttons werden die Koordinaten des Startpunktes, die Größe, der Text des Buttons, die Seite (rot/violett oder orange/blau) und die Spielfigur übergeben. Um das Menü öffnen und schließen zu können, wird die private boolean-Variable `pop` angelegt und mit false deklariert (das Menü ist anfangs geschlossen), welche beim Touch auf `!pop` gesetzt wird. Danach wird je nach Entscheidung der if-else-Schleife das Submenu angezeigt (`pop` = true) oder geschlossen (`pop` = false). Das Schließen im else-Zweig übernimmt die SMT Funktion `clearChildren()`.
 
 Innerhalb der Klasse `Submenu` gibt es ebenfalls wieder eine private boolean-Variable `pop`, die für das Schließen und Öffnen der Checkbox verantwortlich ist und auf die gleiche Art und Weise funktioniert, wie in der Menüklasse. Eine if-else-Schleife stellt fest, auf welcher Seite die Submenübuttons erstellt werden müssen, wodurch der x-Achsen-Startpunkt geändert wird. Der Text des Buttons wird in der Menüklasse mit übergeben und hier durch `button_name` dargestellt. Da jeder Submenü-Button eine andere Checkbox öffnet, wird innerhalb des Touchevents nach Typ des Buttons (Neues Spiel, Beenden, Aufgeben) unterschieden.
 

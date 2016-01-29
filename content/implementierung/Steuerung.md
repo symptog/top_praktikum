@@ -80,17 +80,17 @@ den `move`-Funktionen wurde also, statt von einem festen Wert, einfach von dem
 Geschwindigkeitsattribut abhängig gemacht.
 Die Bomberman haben ihre eigene `draw`-Funktion, in der bestimmt wird, was auf dem
 Bildschirm ausgegeben wird.
-Vom Touchpanel kommt immer eines von 5 verschiedenen Signalen: "direction = 0" für
-stehend, "direction = 10" für eine Bewegung nach oben, "direction = 20" für die Bewegung nach unten,
-"direction = 30" für die Bewegung nach links und "direction = 40" für Bewegung nach rechts.
+Vom Touchpanel kommt immer eines von 5 verschiedenen Signalen: `direction = 0` für
+stehend,\linebreak `direction = 10` für eine Bewegung nach oben, `direction = 20` für die Bewegung nach unten,
+`direction = 30` für die Bewegung nach links und \linebreak `direction = 40` für Bewegung nach rechts.
 In der `draw`-Funktion unserer Bomberman werden abhängig von der direction
 unterschiedliche Bilder ausgegeben. Bevor die Bilder gezeichnet wurden, wurden sie
 einmalig gerendert und in einer Hashmap gespeichert.
-Wenn die "direction = 0" ist, der Bomberman also einfach nur da steht, wird nur das einzelne
+Wenn die `direction = 0` ist, der Bomberman also einfach nur da steht, wird nur das einzelne
 Bild für den stehenden Bomberman gezeichnet. Sobald allerdings eine Bewegung dargestellt wird, müssen
 in einem bestimmten Takt zwei verschiedene Bilder auf dem Bildschirm gezeichnet werden.
 Um dies zu realisieren, wurde in der `Bomberman`-Klasse ein weiteres Attribut namens
-„count“ angelegt. Count ist ein float Wert, der Werte zwischen 0 und 50 annehmen kann.
+`count` angelegt. Count ist ein float Wert, der Werte zwischen 0 und 50 annehmen kann.
 Ist `count` kleiner als 25, so wird Bild 1 der entsprechenden Richtung gezeichnet. Wenn
 `count` größer gleich 25 ist, wird Bild 2 genommen. In beiden Fällen wird zudem der
 entsprechende `move`-Befehl ausgeführt. Wird die Zahl größer gleich 50, wird sie wieder auf 0 resettet.

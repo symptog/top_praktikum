@@ -1,11 +1,3 @@
-
-\begin{figure}[h]
-    \centering
-    \caption{Screenshot des Bomberman-Spiels}
-    \includegraphics[width=\textwidth]{figures/screenshot01.png}
-    \label{fig:screenshot01}
-\end{figure}
-
 # User Tests
 ## Erster Test
 ### User Feedback
